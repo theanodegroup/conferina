@@ -88,3 +88,28 @@ section {
 .small-bottom {
   margin-bottom: $small-bottom;
 }
+
+main table td {
+  img {
+    float: left;
+  }
+
+  a {
+    padding: 0px 10px;
+  }
+}
+
+header nav {
+  .navbar-nav {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header nav {
+  .navbar-nav {
+    float: none;
+  }
+}  
+}
+

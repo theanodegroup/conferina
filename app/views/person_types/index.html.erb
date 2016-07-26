@@ -1,0 +1,25 @@
+<h2>Edit Person Type</h2>
+
+<div class="row small-bottom">
+	<%= link_to '+ Add New', new_person_type_path, class: "btn btn-primary" %>
+</div>
+<div class="row"> 
+	<table class="table table-striped">
+	  <tr>
+	    <th class="text-primary col-md-5">Person Type</th>
+	    <th class="text-primary col-md-5">Description</th>
+	    <th class="text-primary col-md-2">&nbsp;</th>
+	  </tr>
+	 
+	  <% @person_types.each do |person_type| %>
+	    <tr>
+	      <td><%= person_type.category %></td>
+	      <td><%= image_tag(person_type.avatar_url) if person_type.avatar? %></td>
+	      <td>
+	      	<%= link_to 'Edit', edit_person_type_path(person_type) %>
+	      	<%= link_to 'Delete', person_type_path(person_type), method: :delete, data: { confirm: "Are you sure?" } %>		
+      	  </td>
+	    </tr>
+	  <% end %>
+	</table>
+</div>

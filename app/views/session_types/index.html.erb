@@ -1,0 +1,25 @@
+<h2>Edit Session Type</h2>
+
+<div class="row small-bottom">
+	<%= link_to '+ Add New', new_session_type_path, class: "btn btn-primary" %>
+</div>
+<div class="row"> 
+	<table class="table table-striped">
+	  <tr>
+	    <th class="text-primary col-md-5">Session Type</th>
+	    <th class="text-primary col-md-5">Description</th>
+	    <th class="text-primary col-md-2">&nbsp;</th>
+	  </tr>
+	 
+	  <% @session_types.each do |session_type| %>
+	    <tr>
+	      <td><%= session_type.category %></td>
+	      <td><%= image_tag(session_type.avatar_url) if session_type.avatar? %></td>
+	      <td>
+	      	<%= link_to 'Edit', edit_session_type_path(session_type) %>
+	      	<%= link_to 'Delete', session_type_path(session_type), method: :delete, data: { confirm: "Are you sure?" } %>		
+      	  </td>
+	    </tr>
+	  <% end %>
+	</table>
+</div>

@@ -18,6 +18,7 @@ class PersonTypesController < Admin::ApplicationController
 
 	def update
 		@person_type = PersonType.find(params[:id])
+		@person_type.avatar = params[:avatar]
  
 	  	if @person_type.update(person_type_params)
 	  		redirect_to person_types_path
@@ -28,6 +29,7 @@ class PersonTypesController < Admin::ApplicationController
 
 	def create
 		@person_type = PersonType.new(person_type_params)
+		@person_type.avatar = params[:avatar]
 	 	
 	    if @person_type.save
 			redirect_to person_types_path

@@ -18,6 +18,7 @@ class CategoryTypesController < Admin::ApplicationController
 
 	def update
 		@category_type = CategoryType.find(params[:id])
+		@category_type.avatar = params[:avatar]
  
 	  	if @category_type.update(category_type_params)
 	  		redirect_to category_types_path
@@ -28,6 +29,7 @@ class CategoryTypesController < Admin::ApplicationController
 
 	def create
 		@category_type = CategoryType.new(category_type_params)
+		@category_type.avatar = params[:avatar]
 	 	
 	    if @category_type.save
 			redirect_to category_types_path

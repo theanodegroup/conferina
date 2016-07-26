@@ -14,7 +14,7 @@
 	  <% @session_types.each do |session_type| %>
 	    <tr>
 	      <td><%= session_type.category %></td>
-	      <td><%= image_tag(session_type.avatar_url) if session_type.avatar? %></td>
+	      <td><%= image_tag(session_type.avatar.url(:thumb)) if session_type.avatar? %></td>
 	      <td>
 	      	<%= link_to 'Edit', edit_session_type_path(session_type) %>
 	      	<%= link_to 'Delete', session_type_path(session_type), method: :delete, data: { confirm: "Are you sure?" } %>		

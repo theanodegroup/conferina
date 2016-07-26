@@ -14,7 +14,7 @@
 	  <% @category_types.each do |category_type| %>
 	    <tr>
 	      <td><%= category_type.category %></td>
-	      <td><%= image_tag(category_type.avatar_url) if category_type.avatar? %></td>
+	      <td><%= image_tag(category_type.avatar.url(:thumb)) if category_type.avatar? %></td>
 	      <td>
 	      	<%= link_to 'Edit', edit_category_type_path(category_type) %>
 	      	<%= link_to 'Delete', category_type_path(category_type), method: :delete, data: { confirm: "Are you sure?" } %>		

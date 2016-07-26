@@ -18,6 +18,7 @@ class SessionTypesController < Admin::ApplicationController
 
 	def update
 		@session_type = SessionType.find(params[:id])
+		@session_type.avatar = params[:avatar]
  
 	  	if @session_type.update(session_type_params)
 	  		redirect_to session_types_path
@@ -28,6 +29,7 @@ class SessionTypesController < Admin::ApplicationController
 
 	def create
 		@session_type = SessionType.new(session_type_params)
+		@session_type.avatar = params[:avatar]
 
 	    if @session_type.save
 			redirect_to session_types_path	

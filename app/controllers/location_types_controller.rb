@@ -18,6 +18,7 @@ class LocationTypesController < Admin::ApplicationController
 
 	def update
 		@location_type = LocationType.find(params[:id])
+		@location_type.avatar = params[:avatar]
  
 	  	if @location_type.update(location_type_params)
 	  		redirect_to location_types_path
@@ -28,7 +29,8 @@ class LocationTypesController < Admin::ApplicationController
 
 	def create
 		@location_type = LocationType.new(location_type_params)
-	 	
+	 	@location_type.avatar = params[:avatar]
+
 	    if @location_type.save
 			redirect_to location_types_path	
 		else

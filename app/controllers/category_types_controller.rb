@@ -28,13 +28,13 @@ class CategoryTypesController < ApplicationController
 	end
 
 	def create
-		@category_type = CategoryType.new(category_type_params)
+		category_type = CategoryType.new(category_type_params)
 		if current_user.admin?
-			@category_type.by_admin = true
+			category_type.by_admin = true
 	 	end
 	 	
-	    if @category_type.save
-	 		current_user.category_types << @category_type
+	    if category_type.save
+	 		current_user.category_types << category_type
 			redirect_to category_types_path
 		else
 			render :new

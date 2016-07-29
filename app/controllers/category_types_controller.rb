@@ -1,7 +1,8 @@
-class CategoryTypesController < Admin::ApplicationController
+class CategoryTypesController < ApplicationController
+	before_action :authenticate_user!
 
 	def index
-		@category_types = CategoryType.all	
+		@category_types = current_user.category_types	
 	end
 
 	def show
@@ -28,9 +29,12 @@ class CategoryTypesController < Admin::ApplicationController
 
 	def create
 		@category_type = CategoryType.new(category_type_params)
-		@category_type.by_admin = true
+		if current_user.admin?
+			@category_type.by_admin = true
+	 	end
 	 	
 	    if @category_type.save
+	 		current_user.category_types << @category_type
 			redirect_to category_types_path
 		else
 			render :new
@@ -39,7 +43,13 @@ class CategoryTypesController < Admin::ApplicationController
 	end
 
 	def destroy
-		@category_type = CategoryType.find(params[:id])
+		# if current_user.admin?
+		# 	category_type = CategoryType.find(params[:id])
+		# 	category_type.by_admin = false
+		# 	category_type.save
+		# end
+		# current_user.category_types.delete(params[:id])
+		@category_type = LocationType.find(params[:id])
 		@category_type.destroy
 		 
 		redirect_to category_types_path	

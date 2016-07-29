@@ -1,15 +1,13 @@
 
 <% if user_signed_in? %>
-  <li><%= link_to 'Event dashboard', events_path %></li>
+  <li><%= link_to 'Events', events_path %></li>
+  <li><a href="#">Event Data</a></li>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit event data <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Basic types <span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Sessions</a></li>
-      <li><a href="#">Session Type</a></li>
-      <li><a href="#">Persons</a></li>
-      <li><a href="#">Person Type</a></li>
-      <li><a href="#">Locations</a></li>
-      <li><a href="#">Location Type</a></li>
+      <li><%= link_to 'Session Type', session_types_path %></li>
+      <li><%= link_to 'Person Type', person_types_path %></li>
+      <li><%= link_to 'Location Type', location_types_path %></li>
       <li><a href="#">Venue Maps</a></li>
       <li><a href="#">Social</a></li>
     </ul>

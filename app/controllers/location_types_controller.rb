@@ -1,7 +1,9 @@
-class LocationTypesController < Admin::ApplicationController
+class LocationTypesController < ApplicationController
+	before_action :authenticate_user!
 
 	def index
-		@location_types = LocationType.all	
+		# @location_types = LocationType.all
+		@location_types = current_user.location_types	
 	end
 
 	def show
@@ -28,9 +30,12 @@ class LocationTypesController < Admin::ApplicationController
 
 	def create
 		@location_type = LocationType.new(location_type_params)
-	 	@location_type.by_admin = true
+	 	if current_user.admin?
+	 		@location_type.by_admin = true
+	 	end
 
 	    if @location_type.save
+	 		current_user.location_types << @location_type
 			redirect_to location_types_path	
 		else
 			render :new
@@ -41,6 +46,18 @@ class LocationTypesController < Admin::ApplicationController
 	def destroy
 		@location_type = LocationType.find(params[:id])
 		@location_type.destroy
+		# if current_user.admin? && location_type.by_admin == true
+		# 	location_type.by_admin = false
+		# 	location_type.save
+		# 	current_user.location_types.delete(params[:id])
+		# else
+		# 	if location_type.by_admin == true
+		# 		current_user.location_types.delete(params[:id])
+		# 	else
+		# 		location_type.destroy	
+		# 	end
+		# end
+		# current_user.location_types.delete(params[:id])
 		 
 		redirect_to location_types_path	
 	end

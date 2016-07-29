@@ -26,6 +26,28 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
+
+    session_types = user.session_types
+    location_types = user.location_types
+    person_types = user.person_types
+    category_types = user.category_types
+
+    session_types.each do |item|
+      SessionType.find_by_id(item.id).destroy
+    end
+
+    location_types.each do |item|
+      LocationType.find_by_id(item.id).destroy
+    end
+
+    person_types.each do |item|
+      PersonType.find_by_id(item.id).destroy
+    end
+
+    category_types.each do |item|
+      CategoryType.find_by_id(item.id).destroy
+    end
+
     user.destroy
     redirect_to users_path, :notice => "User deleted."
   end

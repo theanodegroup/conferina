@@ -1,7 +1,8 @@
-class SessionTypesController < Admin::ApplicationController
+class SessionTypesController < ApplicationController
+	before_action :authenticate_user!
 
 	def index
-		@session_types = SessionType.all	
+		@session_types = current_user.session_types	
 	end
 
 	def show
@@ -28,9 +29,12 @@ class SessionTypesController < Admin::ApplicationController
 
 	def create
 		@session_type = SessionType.new(session_type_params)
-		@session_type.by_admin = true
+		if current_user.admin?
+			@session_type.by_admin = true
+	 	end
 
 	    if @session_type.save
+	 		current_user.session_types << @session_type
 			redirect_to session_types_path	
 		else
 			render :new
@@ -39,6 +43,12 @@ class SessionTypesController < Admin::ApplicationController
 	end
 
 	def destroy
+		# if current_user.admin?
+		# 	session_type = SessionType.find(params[:id])
+		# 	session_type.by_admin = false
+		# 	session_type.save
+		# end
+		# current_user.session_types.delete(params[:id])
 		@session_type = SessionType.find(params[:id])
 		@session_type.destroy
 		 

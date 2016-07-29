@@ -1,7 +1,8 @@
-class PersonTypesController < Admin::ApplicationController
+class PersonTypesController < ApplicationController
+	before_action :authenticate_user!
 
 	def index
-		@person_types = PersonType.all	
+		@person_types = current_user.person_types	
 	end
 
 	def show
@@ -28,9 +29,12 @@ class PersonTypesController < Admin::ApplicationController
 
 	def create
 		@person_type = PersonType.new(person_type_params)
-		@person_type.by_admin = true
-	 	
+		if current_user.admin?
+			@person_type.by_admin = true
+	 	end
+
 	    if @person_type.save
+	 		current_user.person_types << @person_type
 			redirect_to person_types_path
 		else
 			render :new
@@ -39,6 +43,12 @@ class PersonTypesController < Admin::ApplicationController
 	end
 
 	def destroy
+		# if current_user.admin?
+		# 	person_type = PersonType.find(params[:id])
+		# 	person_type.by_admin = false
+		# 	person_type.save
+		# end
+		# current_user.person_types.delete(params[:id])
 		@person_type = PersonType.find(params[:id])
 		@person_type.destroy
 		 

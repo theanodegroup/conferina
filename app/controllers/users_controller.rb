@@ -31,6 +31,7 @@ class UsersController < ApplicationController
     location_types = user.location_types
     person_types = user.person_types
     category_types = user.category_types
+    events = user.events
 
     session_types.each do |item|
       SessionType.find_by_id(item.id).destroy
@@ -46,6 +47,10 @@ class UsersController < ApplicationController
 
     category_types.each do |item|
       CategoryType.find_by_id(item.id).destroy
+    end
+
+    events.each do |item|
+      Event.find_by_id(item.id).destroy
     end
 
     user.destroy

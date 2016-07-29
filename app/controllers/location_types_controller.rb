@@ -46,18 +46,6 @@ class LocationTypesController < ApplicationController
 	def destroy
 		@location_type = LocationType.find(params[:id])
 		@location_type.destroy
-		# if current_user.admin? && location_type.by_admin == true
-		# 	location_type.by_admin = false
-		# 	location_type.save
-		# 	current_user.location_types.delete(params[:id])
-		# else
-		# 	if location_type.by_admin == true
-		# 		current_user.location_types.delete(params[:id])
-		# 	else
-		# 		location_type.destroy	
-		# 	end
-		# end
-		# current_user.location_types.delete(params[:id])
 		 
 		redirect_to location_types_path	
 	end

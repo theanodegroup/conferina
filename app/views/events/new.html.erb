@@ -22,7 +22,11 @@
   <div class="form-group row">
 	<label for="category_id" class="col-xs-3 col-form-label">Category</label>
 	<div class="col-xs-4">
+	  <% if @category_types %>
 	  <%= f.select :category_id, options_for_select(@category_types.map{ |c| [c.category, c.id] }), {}, {:class => 'form-control'} %>
+	  <% else %>
+	  <span>Category does not exist.</span>>
+	  <% end %>
 	</div>
   </div>
 

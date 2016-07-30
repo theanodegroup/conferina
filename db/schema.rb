@@ -33,20 +33,17 @@ ActiveRecord::Schema.define(version: 20160729102922) do
     t.date     "start_date"
     t.date     "end_date"
     t.boolean  "coming_soon"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
+    t.string   "address"
     t.string   "extra_name"
     t.text     "extra_desc"
     t.string   "extra_date_first_name"
     t.string   "extra_date_second_name"
     t.date     "extra_date_first"
     t.date     "extra_date_second"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.decimal  "lat",                    precision: 10, scale: 7
-    t.decimal  "lng",                    precision: 10, scale: 7
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.decimal  "lat",                    precision: 17, scale: 14
+    t.decimal  "lng",                    precision: 17, scale: 14
   end
 
   create_table "location_types", force: :cascade do |t|

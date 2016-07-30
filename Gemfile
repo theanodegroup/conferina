@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'jquery-ui-rails'
 
+# gem 'gmaps4rails'
 
 gem 'carrierwave'
 gem "mini_magick"

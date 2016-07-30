@@ -15,5 +15,5 @@
 //= require jquery-ui
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require ./timezones/timezones.full.js
+//= require_tree ./jquery-plugins
 //= require_tree .

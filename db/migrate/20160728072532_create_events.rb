@@ -9,10 +9,7 @@ class CreateEvents < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
       t.boolean :coming_soon
-      t.string :street
-      t.string :city
-      t.string :state
-      t.string :country
+      t.string :address
       t.string :extra_name
       t.text :extra_desc
       t.string :extra_date_first_name

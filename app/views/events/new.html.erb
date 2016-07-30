@@ -37,7 +37,36 @@
       <%= f.hidden_field :avatar_cache %>
 	</div>
   </div>
+
+  <div class="form-group row">
+	<label for="timezone" class="col-xs-3 col-form-label">Timezone</label>
+	<div class="col-xs-4">
+	  <select name="event[timezone]" id="event_timezone" class="form-control"></select>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="start_date" class="col-xs-3 col-form-label">Start Date <span class="asteroid">*</span></label>
+	<div class="col-xs-4">
+	  <%= f.text_field :start_date, :required => true, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="end_date" class="col-xs-3 col-form-label">End Date <span class="asteroid">*</span></label>
+	<div class="col-xs-4">
+	  <%= f.text_field :end_date, :required => true, :class => 'form-control' %>
+	</div>
+  </div>
   
 <% end %>
 
 <div class="row"><%= link_to 'Back', events_path %></div>
+
+<script>
+	$('#event_timezone').timezones();
+	$('#event_start_date').datepicker();
+	$('#event_end_date').datepicker();
+</script>
+
+

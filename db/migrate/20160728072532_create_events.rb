@@ -16,6 +16,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :extra_date_second_name
       t.date :extra_date_first
       t.date :extra_date_second
+      t.boolean :is_published, :default => false
 
       t.timestamps null: false
     end

@@ -12,6 +12,28 @@
 	    <th class="text-primary col-md-1">End Date</th>
 	    <th class="text-primary col-md-3">Actions</th>
 	  </tr>
+
+	  <% @events.each do |event| %>
+	    <tr>
+	      <td><%= event.name %></td>
+	      <td><%= event.description %></td>
+	      <td><%= event.start_date %></td>
+	      <td><%= event.end_date %></td>
+	      <td>
+	      	<% if event.is_published
+	      		publish_btn = "Unpublish"
+	      		classes = "btn btn-default"
+		       else
+		        publish_btn = "Publish"
+	      		classes = "btn btn-primary"
+		       end
+	      	%> 
+	      	<%= link_to 'Edit', edit_event_path(event) %>
+	      	<%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: "Are you sure?" } %>	
+			<%= link_to publish_btn, publishable_path(event) %>	
+      	  </td>
+	    </tr>
+	  <% end %>
 	 
 	</table>
 </div>

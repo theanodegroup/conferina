@@ -41,6 +41,14 @@ class EventsController < ApplicationController
       
   end
 
+  def publishable
+    binding.pry
+    @event = Event.find(params[:id])
+    if @event.update(is_published: !@event.is_published) 
+      redirect_to events_path
+    end
+  end
+
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
@@ -51,7 +59,7 @@ class EventsController < ApplicationController
   private
   
   def event_params
-    params.require(:event).permit(:category, :avatar)
+    params.require(:event).permit(:name, :description, :category_id, :avatar, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng)
   end
 
   private

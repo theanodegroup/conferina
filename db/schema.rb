@@ -40,8 +40,9 @@ ActiveRecord::Schema.define(version: 20160729102922) do
     t.string   "extra_date_second_name"
     t.date     "extra_date_first"
     t.date     "extra_date_second"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.boolean  "is_published",                                     default: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.decimal  "lat",                    precision: 17, scale: 14
     t.decimal  "lng",                    precision: 17, scale: 14
   end

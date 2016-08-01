@@ -1,0 +1,70 @@
+<div class="form-group row">
+	<div class="col-md-6 col-md-offset-3">
+		<% if @events %>
+		<%= select_tag :event_id, options_for_select(@events.map{ |c| [c.name, c.id] }), {:class => 'form-control'} %>
+		<% else %>
+		<span>There is no event.</span>>
+		<% end %>
+	</div>
+</div>
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs responsive" role="tablist">
+    <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab">People</a></li>
+    <li role="presentation"><a href="#locations" aria-controls="locations" role="tab" data-toggle="tab">Locations</a></li>
+    <li role="presentation"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">Sessions</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content responsive">
+    <div role="tabpanel" class="tab-pane active" id="people">
+    	<h2>Persons</h2>
+
+		<div class="small-bottom">
+			<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
+			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+		</div>
+		<div class="row"> 
+			<table class="table table-striped">
+			  <tr>
+			    <th class="text-primary col-md-3">Name/Title</th>
+			    <th class="text-primary col-md-5">Description</th>
+			    <th class="text-primary col-md-2">Subtitle</th>
+			    <th class="text-primary col-md-2">&nbsp;</th>
+			  </tr>
+
+			  <% @people.each do |person| %>
+			    <tr>
+			      <td><%= person.name %></td>
+			      <td><%= person.description %></td>
+			      <td><%= person.subtitle %></td>
+			      <td>
+			      	<%= link_to 'Edit', edit_person_path(person) %>
+			      	<%= link_to 'Delete', person_path(person), method: :delete, data: { confirm: "Are you sure?" } %>		
+		      	  </td>
+			    </tr>
+			  <% end %>
+			 
+			</table>
+		</div>
+	
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="locations">
+    	
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="sessions">
+    	
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  (function($) {
+      fakewaffle.responsiveTabs(['xs', 'sm']);
+  })(jQuery);
+</script>

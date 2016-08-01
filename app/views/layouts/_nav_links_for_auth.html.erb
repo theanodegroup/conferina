@@ -1,7 +1,7 @@
 
 <% if user_signed_in? %>
   <li><%= link_to 'Events', events_path %></li>
-  <li><a href="#">Event Data</a></li>
+  <li><%= link_to 'Event Data', event_data_path %></li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Basic types <span class="caret"></span></a>
     <ul class="dropdown-menu">

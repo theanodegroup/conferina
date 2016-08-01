@@ -48,6 +48,20 @@ class EventsController < ApplicationController
     end
   end
 
+  def event_data
+    @location_types = current_user.location_types
+    @person_types = current_user.person_types
+    @session_types = current_user.session_types
+    @events = current_user.events
+
+    if params[:event_id].blank?
+      @event = current_user.events.first
+      @people = current_user.events.first.persons 
+    else
+      @people = Event.find(params[:event_id]).persons;  
+    end
+  end
+
   def destroy
     @event = Event.find(params[:id])
     @event.destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729102922) do
+ActiveRecord::Schema.define(version: 20160801164559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,28 @@ ActiveRecord::Schema.define(version: 20160729102922) do
     t.string   "avatar"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string   "name"
+    t.string   "subtitle"
+    t.text     "description"
+    t.string   "avatar"
+    t.string   "detailed_avatar"
+    t.string   "website"
+    t.string   "youtube"
+    t.string   "facebook"
+    t.string   "twitter"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "tags"
+    t.integer  "event_id"
+    t.integer  "person_type_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "people", ["event_id"], name: "index_people_on_event_id", using: :btree
+  add_index "people", ["person_type_id"], name: "index_people_on_person_type_id", using: :btree
+
   create_table "person_types", force: :cascade do |t|
     t.string   "category"
     t.boolean  "by_admin",   default: false
@@ -70,6 +92,22 @@ ActiveRecord::Schema.define(version: 20160729102922) do
     t.datetime "updated_at",                 null: false
     t.string   "avatar"
   end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "icon_avatar"
+    t.string   "detailed_avatar"
+    t.string   "tags"
+    t.string   "other_time"
+    t.integer  "event_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "sessions", ["event_id"], name: "index_sessions_on_event_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

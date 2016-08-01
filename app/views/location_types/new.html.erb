@@ -8,7 +8,7 @@
  
   <p>
     <label>Icon</label>
-    <%= image_tag(@location_type.avatar_url) if @location_type.avatar? %>
+
     <%= f.file_field :avatar %>
     <%= f.hidden_field :avatar_cache %>
   </p>

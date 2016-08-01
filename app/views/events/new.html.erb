@@ -90,7 +90,7 @@
 		<label for="lat" class="col-xs-3 col-form-label">Latitude</label>
 		<div class="col-xs-3">
 		  <input id="lat" name="lat" type="text" value="" class="form-control" disabled="disabled">
-		  <input type="hidden" name="event[lat]">
+		  <input type="hidden" name="event[lat]" id="event_lat">
 		</div>
 	  </div>
 
@@ -98,7 +98,7 @@
 		<label for="lng" class="col-xs-3 col-form-label">Longitude</label>
 		<div class="col-xs-3">
 		  <input id="lng" name="lng" type="text" value="" class="form-control" disabled="disabled">
-		  <input type="hidden" name="event[lng]">
+		  <input type="hidden" name="event[lng]" id="event_lng">
 		</div>
 	  </div>
 
@@ -214,6 +214,8 @@
 
 	    $.validator.setDefaults({
 			submitHandler: function() {
+				$('#event_lat').val($('#lat').val());
+				$('#event_lng').val($('#lng').val());
 				document.getElementById("new_event_form").submit()
 			}
 		});

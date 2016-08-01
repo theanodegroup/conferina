@@ -42,7 +42,6 @@ class EventsController < ApplicationController
   end
 
   def publishable
-    binding.pry
     @event = Event.find(params[:id])
     if @event.update(is_published: !@event.is_published) 
       redirect_to events_path

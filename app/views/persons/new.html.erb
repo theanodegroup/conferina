@@ -8,7 +8,7 @@
   <div class="form-group row">
 	<label for="name" class="col-xs-3 col-form-label">Name/Title <span class="asteroid">*</span></label>
 	<div class="col-xs-4">
-	  <%= f.text_field :name, :class => 'form-control' %>
+	  <%= f.text_field :name, :required => true, :class => 'form-control' %>
 	</div>
   </div>
 
@@ -87,15 +87,16 @@
 	<label for="person_type_id" class="col-xs-3 col-form-label">Person Type</label>
 	<div class="col-xs-4">
 	  <% if @person_types %>
-	  <%= select_tag :person_type_id, options_for_select(@person_types.map{ |c| [c.category, c.id] }), {:class => 'form-control'} %>
+	  <%= f.select :person_type_id, options_for_select(@person_types.map{ |c| [c.category, c.id] }), {}, {:class => 'form-control'} %>
 	  <% else %>
 	  <span>There is no person type.</span>>
 	  <% end %>
 	</div>
   </div>
 
-    
+  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+  <%= f.submit "Save New Person", :class => 'btn btn-primary' %>
+  <%= link_to 'Back', event_data_path(event_id: @event.id, category: 'people'), :class => 'btn btn-warning' %>
 
 <% end %>
-
-<%= link_to 'Back', location_types_path %>

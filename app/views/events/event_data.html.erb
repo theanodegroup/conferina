@@ -1,7 +1,7 @@
 <div class="form-group row">
 	<div class="col-md-6 col-md-offset-3">
 		<% if @events %>
-		<%= select_tag :event_id, options_for_select(@events.map{ |c| [c.name, c.id] }), {:class => 'form-control'} %>
+		<%= select_tag :event_id, options_for_select(@events.map{ |c| [c.name, c.id] }, :selected => @event.id), {:class => 'form-control'} %>
 		<% else %>
 		<span>There is no event.</span>>
 		<% end %>
@@ -32,10 +32,10 @@
 			    <th class="text-primary col-md-3">Name/Title</th>
 			    <th class="text-primary col-md-5">Description</th>
 			    <th class="text-primary col-md-2">Subtitle</th>
-			    <th class="text-primary col-md-2">&nbsp;</th>
+			    <th class="text-primary col-md-2">Actions</th>
 			  </tr>
 
-			  <% @people.each do |person| %>
+			  <% @event.persons.order(:name).each do |person| %>
 			    <tr>
 			      <td><%= person.name %></td>
 			      <td><%= person.description %></td>
@@ -53,7 +53,38 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="locations">
-    	
+    	<h2>Locations</h2>
+
+		<div class="small-bottom">
+			<%= link_to '+ Add New Location', new_location_path(id: @event.id), class: "btn btn-primary" %>
+			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+		</div>
+		<div class="row"> 
+			<table class="table table-striped">
+			  <tr>
+			    <th class="text-primary col-md-3">Name</th>
+			    <th class="text-primary col-md-4">Address</th>
+			    <th class="text-primary col-md-1">City</th>
+			    <th class="text-primary col-md-2">Province / State</th>
+			    <th class="text-primary col-md-2">Actions</th>
+			  </tr>
+
+			  <% @event.locations.order(:name).each do |location| %>
+			    <tr>
+			      <td><%= location.name %></td>
+			      <td><%= location.address %></td>
+			      <td><%= location.city %></td>
+			      <td><%= location.state %></td>
+			      <td>
+			      	<%= link_to 'Edit', edit_location_path(location) %>
+			      	<%= link_to 'Delete', location_path(location), method: :delete, data: { confirm: "Are you sure?" } %>
+			      		
+			      </td>
+			    </tr>
+			  <% end %>
+			 
+			</table>
+		</div>	
     </div>
 
     <div role="tabpanel" class="tab-pane" id="sessions">
@@ -64,7 +95,19 @@
 </div>
 
 <script type="text/javascript">
-  (function($) {
-      fakewaffle.responsiveTabs(['xs', 'sm']);
-  })(jQuery);
+
+  $(document).ready(function(){
+  	fakewaffle.responsiveTabs(['xs', 'sm']);	
+
+  	$('#event_id').on('change', function() { 
+		window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
+  	});
+
+  	var category = "<%= @category %>";
+
+  	$(".nav-tabs a[href='#" + category + "']").tab('show');
+  });
 </script>
+
+
+

@@ -1,2 +1,99 @@
-<h1>Persons#edit</h1>
-<p>Find me in app/views/persons/edit.html.erb</p>
+<div class="form-group"><h1>Edit Person</h1></div>
+
+<%= form_for :person, url: person_path(@person), method: :patch, :html => { :id => "new_person_form" } do |f| %>
+  <div class="form-group">
+	<p>Fields with <span class="asteroid">*</span> are required.</p>
+  </div>
+
+  <div class="form-group row">
+	<label for="name" class="col-xs-3 col-form-label">Name/Title <span class="asteroid">*</span></label>
+	<div class="col-xs-4">
+	  <%= f.text_field :name, :required => true, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="subtitle" class="col-xs-3 col-form-label">Subtitle</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :subtitle, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="description" class="col-xs-3 col-form-label">Description</label>
+	<div class="col-xs-6">
+	  <%= f.text_area :description, :class => 'form-control', :rows => 7 %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="avatar" class="col-xs-3 col-form-label">Icon</label>
+	<div class="col-xs-4">
+	  <%= image_tag(@person.avatar_url) if @person.avatar? %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="website" class="col-xs-3 col-form-label">Website URL</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :website, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="youtube" class="col-xs-3 col-form-label">Youtube URL</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :youtube, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="facebook" class="col-xs-3 col-form-label">Facebook Link</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :facebook, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="twitter" class="col-xs-3 col-form-label">Twitter Link</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :twitter, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :phone, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="email" class="col-xs-3 col-form-label">Email Address</label>
+	<div class="col-xs-4">
+	  <%= f.email_field :email, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="tags" class="col-xs-3 col-form-label">Tags</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :tags, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="person_type_id" class="col-xs-3 col-form-label">Person Type</label>
+	<div class="col-xs-4">
+	  <%= f.select :person_type_id, options_for_select(@person_types.map{ |c| [c.category, c.id] }, :selected => @person.person_type_id), {}, {:class => 'form-control'} %>
+	</div>
+  </div>
+
+  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+  <%= f.submit "Update Person", :class => 'btn btn-primary' %>
+  <%= link_to 'Back', event_data_path(event_id: @person[:event_id], category: 'people'), :class => 'btn btn-warning' %>
+
+<% end %>

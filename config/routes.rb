@@ -1,17 +1,4 @@
 Rails.application.routes.draw do
-
-  get 'persons/index'
-
-  get 'persons/new'
-
-  get 'persons/edit'
-
-  get 'persons/update'
-
-  get 'persons/create'
-
-  get 'persons/destroy'
-
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }
   
@@ -28,4 +15,5 @@ Rails.application.routes.draw do
   resources :session_types
 
   resources :persons
+  resources :locations
 end

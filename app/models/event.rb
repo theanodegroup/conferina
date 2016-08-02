@@ -5,4 +5,5 @@ class Event < ActiveRecord::Base
 
 	has_many :sessions
 	has_many :persons
+	has_many :locations
 end

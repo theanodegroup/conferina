@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :get_category_types, only: [:new, :edit]
 
   def index
-    @events = current_user.events
+    @events = current_user.events.order(:name)
   end
 
   def show
@@ -56,9 +56,15 @@ class EventsController < ApplicationController
 
     if params[:event_id].blank?
       @event = current_user.events.first
-      @people = current_user.events.first.persons 
+      # @people = current_user.events.first.persons 
     else
-      @people = Event.find(params[:event_id]).persons;  
+      @event = Event.find(params[:event_id]);  
+    end
+
+    if params[:category].blank?
+      @category = 'people'
+    else
+      @category = params[:category]
     end
   end
 
@@ -72,10 +78,9 @@ class EventsController < ApplicationController
   private
   
   def event_params
-    params.require(:event).permit(:name, :description, :category_id, :avatar, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng)
+    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng)
   end
 
-  private
   def get_category_types
     @category_types = CategoryType.where(by_admin: true)
   end

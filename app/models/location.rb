@@ -1,6 +1,5 @@
-class Session < ActiveRecord::Base
+class Location < ActiveRecord::Base
 	mount_uploader :avatar, AvatarUploader
-	
 	belongs_to :event
-	belongs_to :session_type
+	belongs_to :location_type
 end

@@ -5,11 +5,13 @@ class CreateSessions < ActiveRecord::Migration
       t.text :description
       t.datetime :start_time
       t.datetime :end_time
-      t.string :icon_avatar
+      t.string :avatar
       t.string :detailed_avatar
       t.string :tags
       t.string :other_time
       t.belongs_to :event, index: true
+      t.belongs_to :session_type, index: true
+      t.belongs_to :location, index: true
 
       t.timestamps null: false
     end

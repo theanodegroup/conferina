@@ -1,0 +1,119 @@
+<div class="form-group"><h1>Edit Session</h1></div>
+
+<%= form_for :session, url: session_path(@session), method: :patch, :html => { :id => "edit_session_form" } do |f| %>
+  <div class="form-group">
+	<p>Fields with <span class="asteroid">*</span> are required.</p>
+  </div>
+
+  <div class="form-group row">
+	<label for="name" class="col-xs-3 col-form-label">Session Name <span class="asteroid">*</span></label>
+	<div class="col-xs-4">
+	  <%= f.text_field :name, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="description" class="col-xs-3 col-form-label">Description</label>
+	<div class="col-xs-6">
+	  <%= f.text_area :description, :class => 'form-control', :rows => 7 %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="persons" class="col-xs-3 col-form-label">Participants</label>
+	<div class="col-xs-6">
+	  
+	  <%= f.select :persons, options_from_collection_for_select(@event.persons, "id", "name", @session.persons.collect{ |p| p.id }), {}, {:class => 'form-control', :multiple => true } %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="location_id" class="col-xs-3 col-form-label">Location</label>
+	<div class="col-xs-4">
+	  <%= f.select :location_id, options_for_select(@event.locations.map{ |c| [c.name, c.id] }, :selected => @session.location_id), {}, {:class => 'form-control'} %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="start_time" class="col-xs-3 col-form-label">Start Time <span class="asteroid">*</span></label>
+	<div class="col-xs-3">
+	<%= f.text_field :start_time, :readonly => true, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="end_time" class="col-xs-3 col-form-label">End Time <span class="asteroid">*</span></label>
+	<div class="col-xs-3">
+	  <%= f.text_field :end_time, :readonly => true, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="avatar" class="col-xs-3 col-form-label">Icon</label>
+	<div class="col-xs-4">
+	  <%= image_tag(@session.avatar_url) if @session.avatar? %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="tags" class="col-xs-3 col-form-label">Tags</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :tags, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="session_type_id" class="col-xs-3 col-form-label">Session Type</label>
+	<div class="col-xs-4">
+	  <%= f.select :session_type_id, options_for_select(@session_types.map{ |c| [c.category, c.id] }), {}, {:class => 'form-control'} %>
+	</div>
+  </div>
+
+  <div class="form-group row">
+	<label for="other_time" class="col-xs-3 col-form-label">Alternative Time Display</label>
+	<div class="col-xs-4">
+	  <%= f.text_field :other_time, :class => 'form-control' %>
+	</div>
+  </div>
+
+  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+  <%= f.submit "Save New Session", :class => 'btn btn-primary' %>
+  <%= link_to 'Back', event_data_path(event_id: @event.id, category: 'sessions'), :class => 'btn btn-warning' %>
+
+<% end %>
+
+<script type="text/javascript">
+	$(document).ready(function() { 
+		$('#session_start_time').datetimepicker({
+			dateFormat: "yy-mm-dd"
+		});
+		$('#session_end_time').datetimepicker({
+			dateFormat: "yy-mm-dd"
+		});
+
+		$.validator.setDefaults({
+			submitHandler: function() {
+				document.getElementById("edit_session_form").submit()
+			}
+		});
+
+		$("#edit_session_form").validate({
+			rules: {
+				'session[name]': "required",
+				'session[start_time]': "required",
+				'session[end_time]': "required"	
+			},
+			messages: {
+				'session[name]': "Please enter a session name",
+				'session[start_time]': "Please choose the start time",
+				'session[end_time]': "Please choose the end time"	
+			}
+		});
+	});
+</script>
+
+
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802155424) do
+ActiveRecord::Schema.define(version: 20160803094521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(version: 20160802155424) do
     t.string   "avatar"
   end
 
+  create_table "persons_sessions", id: false, force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "session_id"
+  end
+
+  add_index "persons_sessions", ["person_id", "session_id"], name: "index_persons_sessions_on_person_id_and_session_id", using: :btree
+
   create_table "session_types", force: :cascade do |t|
     t.string   "category"
     t.boolean  "by_admin",   default: false
@@ -122,16 +129,20 @@ ActiveRecord::Schema.define(version: 20160802155424) do
     t.text     "description"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string   "icon_avatar"
+    t.string   "avatar"
     t.string   "detailed_avatar"
     t.string   "tags"
     t.string   "other_time"
     t.integer  "event_id"
+    t.integer  "session_type_id"
+    t.integer  "location_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
   add_index "sessions", ["event_id"], name: "index_sessions_on_event_id", using: :btree
+  add_index "sessions", ["location_id"], name: "index_sessions_on_location_id", using: :btree
+  add_index "sessions", ["session_type_id"], name: "index_sessions_on_session_type_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

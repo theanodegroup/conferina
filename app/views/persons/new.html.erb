@@ -86,11 +86,7 @@
   <div class="form-group row">
 	<label for="person_type_id" class="col-xs-3 col-form-label">Person Type</label>
 	<div class="col-xs-4">
-	  <% if @person_types %>
 	  <%= f.select :person_type_id, options_for_select(@person_types.map{ |c| [c.category, c.id] }), {}, {:class => 'form-control'} %>
-	  <% else %>
-	  <span>There is no person type.</span>>
-	  <% end %>
 	</div>
   </div>
 

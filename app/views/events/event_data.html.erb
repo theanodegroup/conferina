@@ -88,7 +88,38 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="sessions">
-    	
+    	<h2>Sessions</h2>
+
+		<div class="small-bottom">
+			<%= link_to '+ Add New Session', new_session_path(id: @event.id), class: "btn btn-primary" %>
+			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+		</div>
+		<div class="row"> 
+			<table class="table table-striped">
+			  <tr>
+			    <th class="text-primary col-md-2">Start Time</th>
+			    <th class="text-primary col-md-2">End Time</th>
+			    <th class="text-primary col-md-3">Session Name</th>
+			    <th class="text-primary col-md-3">Venue/Place</th>
+			    <th class="text-primary col-md-2">Actions</th>
+			  </tr>
+
+			  <% @event.sessions.order(:start_time).each do |session| %>
+			    <tr>
+			      <td><%= session.start_time %></td>
+			      <td><%= session.end_time %></td>
+			      <td><%= session.name %></td>
+			      <td><%= session.location.name %></td>
+			      <td>
+			      	<%= link_to 'Edit', edit_session_path(session) %>
+			      	<%= link_to 'Delete', session_path(session), method: :delete, data: { confirm: "Are you sure?" } %>
+			      		
+			      </td>
+			    </tr>
+			  <% end %>
+			 
+			</table>
+		</div>	
     </div>
   </div>
 

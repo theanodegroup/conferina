@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery-ui-timepicker-addon
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree ./jquery-plugins

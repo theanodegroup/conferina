@@ -10,7 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 
 gem 'jquery-ui-rails'
-
+gem 'jquery-timepicker-addon-rails'
 # gem 'gmaps4rails'
 
 gem 'carrierwave'

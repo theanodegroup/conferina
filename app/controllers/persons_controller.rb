@@ -50,7 +50,7 @@ class PersonsController < ApplicationController
   private
   
   def person_params
-    params.require(:person).permit(:name, :description, :subtitle, :avatar, :avatar_cache, :detailed_avatar, :website, :youtube, :facebook, :twitter, :email, :phone, :tags, :event_id, :person_type_id)
+    params.require(:person).permit(:name, :description, :subtitle, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :website, :youtube, :facebook, :twitter, :email, :phone, :tags, :event_id, :person_type_id)
   end
 
   def get_requisites

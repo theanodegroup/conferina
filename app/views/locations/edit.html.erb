@@ -101,6 +101,15 @@
   </div>
 
   <div class="form-group row">
+	<label for="detailed_avatar" class="col-xs-3 col-form-label">Detailed Icon</label>
+	<div class="col-xs-4">
+	  <%= image_tag(@location.detailed_avatar_url) if @location.detailed_avatar? %>
+      <%= f.file_field :detailed_avatar %>
+      <%= f.hidden_field :detailed_avatar_cache %>
+	</div>
+  </div>
+
+  <div class="form-group row">
 	<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
 	<div class="col-xs-4">
 	  <%= f.text_field :phone, :class => 'form-control' %>

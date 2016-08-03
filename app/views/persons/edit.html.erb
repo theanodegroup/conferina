@@ -36,6 +36,15 @@
   </div>
 
   <div class="form-group row">
+	<label for="detailed_avatar" class="col-xs-3 col-form-label">Detailed Icon</label>
+	<div class="col-xs-4">
+	  <%= image_tag(@person.detailed_avatar_url) if @person.detailed_avatar? %>
+      <%= f.file_field :detailed_avatar %>
+      <%= f.hidden_field :detailed_avatar_cache %>
+	</div>
+  </div>
+
+  <div class="form-group row">
 	<label for="website" class="col-xs-3 col-form-label">Website URL</label>
 	<div class="col-xs-4">
 	  <%= f.text_field :website, :class => 'form-control' %>

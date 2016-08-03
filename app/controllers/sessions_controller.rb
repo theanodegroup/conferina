@@ -64,7 +64,7 @@ class SessionsController < ApplicationController
   private
   
   def session_params
-    params.require(:session).permit(:name, :description, :persons, :location_id, :start_time, :end_time, :avatar, :avatar_cache, :detailed_avatar, :tags, :other_time, :event_id, :session_type_id)
+    params.require(:session).permit(:name, :description, :persons, :location_id, :start_time, :end_time, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :tags, :other_time, :event_id, :session_type_id)
   end
 
   def get_requisites

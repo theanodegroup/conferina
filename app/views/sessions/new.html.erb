@@ -94,10 +94,12 @@
 <script type="text/javascript">
 	$(document).ready(function() { 
 		$('#session_start_time').datetimepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			timeFormat: 'HH:mm'
 		});
 		$('#session_end_time').datetimepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			timeFormat: 'HH:mm'
 		});
 
 		$.validator.setDefaults({

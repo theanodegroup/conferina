@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def update
     @session = Session.find(params[:id])
- 
+
     if @session.update(session_params)
       @session.persons.clear
       params[:session][:persons].each do |person_id|
@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
 
   def create
     @session = Session.new(session_params)
- 
+    
     if @session.save
       params[:session][:persons].each do |person_id|
         if not person_id.eql? ''

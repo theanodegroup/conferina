@@ -2,7 +2,7 @@ class PersonTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@person_types = current_user.person_types	
+		@person_types = current_user.person_types.order(:category)	
 	end
 
 	def show

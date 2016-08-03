@@ -2,7 +2,7 @@ class SessionTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@session_types = current_user.session_types	
+		@session_types = current_user.session_types.order(:category)	
 	end
 
 	def show

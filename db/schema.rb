@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20160803094521) do
   create_table "sessions", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.string   "start_time"
+    t.string   "end_time"
     t.string   "avatar"
     t.string   "detailed_avatar"
     t.string   "tags"

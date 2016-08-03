@@ -3,7 +3,7 @@ class LocationTypesController < ApplicationController
 
 	def index
 		# @location_types = LocationType.all
-		@location_types = current_user.location_types	
+		@location_types = current_user.location_types.order(:category)	
 	end
 
 	def show

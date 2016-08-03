@@ -89,7 +89,7 @@
 
   <%= f.hidden_field :event_id, :value => @event.id %> 
 
-  <%= f.submit "Save New Session", :class => 'btn btn-primary' %>
+  <%= f.submit "Update Session", :class => 'btn btn-primary' %>
   <%= link_to 'Back', event_data_path(event_id: @event.id, category: 'sessions'), :class => 'btn btn-warning' %>
 
 <% end %>
@@ -97,10 +97,12 @@
 <script type="text/javascript">
 	$(document).ready(function() { 
 		$('#session_start_time').datetimepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			timeFormat: 'HH:mm'
 		});
 		$('#session_end_time').datetimepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			timeFormat: 'HH:mm'
 		});
 
 		$.validator.setDefaults({

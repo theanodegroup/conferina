@@ -3,7 +3,7 @@
 		<% if not @event.nil? %>
 		<%= select_tag :event_id, options_for_select(@events.map{ |c| [c.name, c.id] }, :selected => @event.id), {:class => 'form-control'} %>
 		<% else %>
-		<span>There is no event.</span>>
+		<span>There is no event.</span>
 		<% end %>
 	</div>
 </div>

@@ -129,3 +129,14 @@ header nav {
 }
 
 .country-select {width: 100%;}
+
+#social label {
+  span {
+    float: left;
+  }
+
+  img {
+    margin: 0;
+    float: right;
+  }
+}

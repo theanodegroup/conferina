@@ -3,7 +3,9 @@ class Event < ActiveRecord::Base
 	
 	has_and_belongs_to_many :users, :join_table => "users_events"
 
-	has_many :sessions
-	has_many :persons
-	has_many :locations
+	has_many :sessions, dependent: :destroy
+	has_many :persons, dependent: :destroy
+	has_many :locations, dependent: :destroy
+
+	has_one :social, dependent: :destroy
 end

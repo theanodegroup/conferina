@@ -33,7 +33,8 @@ class EventsController < ApplicationController
     
     if @event.save
       current_user.events << @event
-   
+      @event.social = Social.new
+
       redirect_to events_path
     else
       render :new
@@ -60,6 +61,8 @@ class EventsController < ApplicationController
     else
       @event = Event.find(params[:event_id]);  
     end
+
+    @social = @event.social
 
     if params[:category].blank?
       @category = 'people'

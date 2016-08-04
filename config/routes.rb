@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   resources :persons
   resources :locations
   resources :sessions
+  resources :socials
 end

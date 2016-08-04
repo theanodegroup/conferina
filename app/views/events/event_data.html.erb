@@ -93,6 +93,7 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="sessions">
+    	<% if not @event.nil? %>
     	<h2>Sessions</h2>
 
 		<div class="small-bottom">
@@ -125,6 +126,7 @@
 			 
 			</table>
 		</div>	
+		<% end %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="social">

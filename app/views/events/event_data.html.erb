@@ -1,6 +1,6 @@
 <div class="form-group row">
 	<div class="col-md-6 col-md-offset-3">
-		<% if @events %>
+		<% if not @event.nil? %>
 		<%= select_tag :event_id, options_for_select(@events.map{ |c| [c.name, c.id] }, :selected => @event.id), {:class => 'form-control'} %>
 		<% else %>
 		<span>There is no event.</span>>
@@ -21,6 +21,8 @@
   <!-- Tab panes -->
   <div class="tab-content responsive">
     <div role="tabpanel" class="tab-pane active" id="people">
+    	<% if not @event.nil? %>
+
     	<h2>Persons</h2>
 
 		<div class="small-bottom">
@@ -50,10 +52,11 @@
 			 
 			</table>
 		</div>
-	
+		<% end %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="locations">
+    	<% if not @event.nil? %>
     	<h2>Locations</h2>
 
 		<div class="small-bottom">
@@ -86,6 +89,7 @@
 			 
 			</table>
 		</div>	
+		<% end %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="sessions">
@@ -124,7 +128,7 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="social">
-    	<% if @event.nil? %>
+    	<% if not @event.nil? %>
 
 	    	<div class="form-group"><h1>Edit Social Settings</h1></div>
 

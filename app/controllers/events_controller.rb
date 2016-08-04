@@ -56,13 +56,14 @@ class EventsController < ApplicationController
     @events = current_user.events
 
     if params[:event_id].blank?
-      @event = current_user.events.first
-      # @people = current_user.events.first.persons 
+      @event = current_user.events.first 
     else
       @event = Event.find(params[:event_id]);  
     end
 
-    @social = @event.social
+    if not @event.nil? 
+      @social = @event.social
+    end
 
     if params[:category].blank?
       @category = 'people'

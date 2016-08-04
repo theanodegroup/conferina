@@ -124,54 +124,56 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="social">
-    	<div class="form-group"><h1>Edit Social Settings</h1></div>
+    	<% if @event.nil? %>
 
-		<%= form_for :social, url: social_path(@event.social.id), method: :patch, :html => { :id => "edit_social_form" } do |f| %>
+	    	<div class="form-group"><h1>Edit Social Settings</h1></div>
 
-		  <div class="form-group row">
-			<label for="website" class="col-xs-3 col-form-label">
-				<span>Website URL</span> 
-				<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
-			</label>
-			<div class="col-xs-5">
-			  <%= f.text_field :website, :class => 'form-control' %>
-			</div>
-		  </div>
+			<%= form_for :social, url: social_path(@event.social.id), method: :patch, :html => { :id => "edit_social_form" } do |f| %>
 
-		  <div class="form-group row">
-			<label for="facebook" class="col-xs-3 col-form-label">
-				<span>Facebook URL</span> 
-				<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
-			</label>
-			<div class="col-xs-5">
-			  <%= f.text_field :facebook, :class => 'form-control' %>
-			</div>
-		  </div>
+			  <div class="form-group row">
+				<label for="website" class="col-xs-3 col-form-label">
+					<span>Website URL</span> 
+					<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
+				</label>
+				<div class="col-xs-5">
+				  <%= f.text_field :website, :class => 'form-control' %>
+				</div>
+			  </div>
 
-		  <div class="form-group row">
-			<label for="twitter" class="col-xs-3 col-form-label">
-				<span>Twitter URL</span> 
-				<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
-			</label>
-			<div class="col-xs-5">
-			  <%= f.text_field :twitter, :class => 'form-control' %>
-			</div>
-		  </div>
+			  <div class="form-group row">
+				<label for="facebook" class="col-xs-3 col-form-label">
+					<span>Facebook URL</span> 
+					<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
+				</label>
+				<div class="col-xs-5">
+				  <%= f.text_field :facebook, :class => 'form-control' %>
+				</div>
+			  </div>
 
-		  <div class="form-group row">
-			<label for="youtube" class="col-xs-3 col-form-label">
-				<span>YouTube URL</span> 
-				<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
-			</label>
-			<div class="col-xs-5">
-			  <%= f.text_field :youtube, :class => 'form-control' %>
-			</div>
-		  </div>
+			  <div class="form-group row">
+				<label for="twitter" class="col-xs-3 col-form-label">
+					<span>Twitter URL</span> 
+					<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
+				</label>
+				<div class="col-xs-5">
+				  <%= f.text_field :twitter, :class => 'form-control' %>
+				</div>
+			  </div>
 
-		  <%= f.hidden_field :event_id, :value => @event.id %> 
+			  <div class="form-group row">
+				<label for="youtube" class="col-xs-3 col-form-label">
+					<span>YouTube URL</span> 
+					<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
+				</label>
+				<div class="col-xs-5">
+				  <%= f.text_field :youtube, :class => 'form-control' %>
+				</div>
+			  </div>
 
-		  <%= f.submit "Save", :class => 'btn btn-primary' %>
-		  
+			  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+			  <%= f.submit "Save", :class => 'btn btn-primary' %>
+			<% end %>		  
 
 		<% end %>		
     </div>

@@ -63,6 +63,23 @@ class EventsController < ApplicationController
 
     if not @event.nil? 
       @social = @event.social
+      if (not params[:person_search].blank?) && (params[:person_search].eql? 'true')
+        @persons = Person.where(params[:sql]).order(:name)
+      else
+        @persons = @event.persons.order(:name)
+      end
+
+      if (not params[:location_search].blank?) && (params[:location_search].eql? 'true')
+        @locations = Location.where(params[:sql]).order(:name);
+      else
+        @locations = @event.locations.order(:name)
+      end
+
+      if (not params[:session_search].blank?) && (params[:session_search].eql? 'true')
+        @sessions = Session.where(params[:sql]).order(:name);
+      else
+        @sessions = @event.sessions.order(:name)
+      end
     end
 
     if params[:category].blank?

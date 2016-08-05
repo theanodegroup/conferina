@@ -27,7 +27,7 @@
 
 		<div class="small-bottom">
 			<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
-			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+			<a href="#" class="pull-right" data-toggle="modal" data-target="#person_modal">Advanced Search</a>
 		</div>
 		<div class="row"> 
 			<table class="table table-striped">
@@ -38,7 +38,7 @@
 			    <th class="text-primary col-md-2">Actions</th>
 			  </tr>
 
-			  <% @event.persons.order(:name).each do |person| %>
+			  <% @persons.each do |person| %>
 			    <tr>
 			      <td><%= person.name %></td>
 			      <td><%= person.description %></td>
@@ -61,7 +61,7 @@
 
 		<div class="small-bottom">
 			<%= link_to '+ Add New Location', new_location_path(id: @event.id), class: "btn btn-primary" %>
-			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+			<a href="#" class="pull-right" data-toggle="modal" data-target="#location_modal">Advanced Search</a>
 		</div>
 		<div class="row"> 
 			<table class="table table-striped">
@@ -73,7 +73,7 @@
 			    <th class="text-primary col-md-2">Actions</th>
 			  </tr>
 
-			  <% @event.locations.order(:name).each do |location| %>
+			  <% @locations.order(:name).each do |location| %>
 			    <tr>
 			      <td><%= location.name %></td>
 			      <td><%= location.address %></td>
@@ -98,7 +98,7 @@
 
 		<div class="small-bottom">
 			<%= link_to '+ Add New Session', new_session_path(id: @event.id), class: "btn btn-primary" %>
-			<%= link_to 'Advanced Search', '#', class: "pull-right" %>
+			<a href="#" class="pull-right" data-toggle="modal" data-target="#session_modal">Advanced Search</a>		
 		</div>
 		<div class="row"> 
 			<table class="table table-striped">
@@ -110,7 +110,7 @@
 			    <th class="text-primary col-md-2">Actions</th>
 			  </tr>
 
-			  <% @event.sessions.order(:start_time).each do |session| %>
+			  <% @sessions.order(:start_time).each do |session| %>
 			    <tr>
 			      <td><%= session.start_time %></td>
 			      <td><%= session.end_time %></td>
@@ -187,6 +187,260 @@
 
 </div>
 
+<!-- Start: Persons Modal Dialog -->
+<div id="person_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <%= form_for :person, url: search_person_path, :html => { :id => "search_person_form" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+      </div>
+      <div class="modal-body">
+      	
+      	
+
+		  <div class="form-group row">
+			<label for="name" class="col-xs-3 col-form-label">Name/Title</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :name, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="subtitle" class="col-xs-3 col-form-label">Subtitle</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :subtitle, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="description" class="col-xs-3 col-form-label">Description</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :description, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="website" class="col-xs-3 col-form-label">Website URL</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :website, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="youtube" class="col-xs-3 col-form-label">Youtube URL</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :youtube, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="facebook" class="col-xs-3 col-form-label">Facebook Link</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :facebook, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="twitter" class="col-xs-3 col-form-label">Twitter Link</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :twitter, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :phone, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="email" class="col-xs-3 col-form-label">Email Address</label>
+			<div class="col-xs-6">
+			  <%= f.email_field :email, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="tags" class="col-xs-3 col-form-label">Tags</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :tags, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- End: Persons Modal Dialog -->
+
+<!-- Start: Locations Modal Dialog -->
+<div id="location_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <%= form_for :location, url: search_location_path, :html => { :id => "search_location_form" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+      </div>
+      <div class="modal-body">
+      	
+      	
+
+		  <div class="form-group row">
+			<label for="name" class="col-xs-3 col-form-label">Name</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :name, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="address" class="col-xs-3 col-form-label">Address</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :address, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="city" class="col-xs-3 col-form-label">City</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :city, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="state" class="col-xs-3 col-form-label">Province / State</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :state, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="country" class="col-xs-3 col-form-label">Country</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :country, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="zip" class="col-xs-3 col-form-label">Postal Code /Zip</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :zip, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :phone, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="description" class="col-xs-3 col-form-label">Description</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :description, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="subtitle" class="col-xs-3 col-form-label">Subtitle</label>
+			<div class="col-xs-6">
+			  <%= f.email_field :subtitle, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- End: Locations Modal Dialog -->
+
+<!-- Start: Sessions Modal Dialog -->
+<div id="session_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <%= form_for :session, url: search_session_path, :html => { :id => "search_session_form" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="form-group row">
+			<label for="name" class="col-xs-3 col-form-label">Name</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :name, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="start_time" class="col-xs-3 col-form-label">Start Time</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :start_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="end_time" class="col-xs-3 col-form-label">End Time</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :end_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="description" class="col-xs-3 col-form-label">Description</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :description, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="other_time" class="col-xs-3 col-form-label">Alternative Time Display</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :other_time, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="tags" class="col-xs-3 col-form-label">Tags</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :tags, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <%= f.hidden_field :event_id, :value => @event.id %> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- End: Sessions Modal Dialog -->
+
+
 <script type="text/javascript">
 
   $(document).ready(function(){
@@ -199,6 +453,7 @@
   	var category = "<%= @category %>";
 
   	$(".nav-tabs a[href='#" + category + "']").tab('show');
+
   });
 </script>
 

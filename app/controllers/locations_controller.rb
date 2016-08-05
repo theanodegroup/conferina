@@ -36,6 +36,68 @@ class LocationsController < ApplicationController
     end
   end
 
+  def search
+    sql = ''
+    if not params[:location][:name].eql? ''
+      sql = sql + "name ILIKE '%" + params[:location][:name] + "%' OR "
+    end
+
+    if not params[:location][:address].eql? ''
+      sql = sql + "address ILIKE '%" + params[:location][:address] + "%' OR "
+    end
+
+    if not params[:location][:address].eql? ''
+      sql = sql + "map_address ILIKE '%" + params[:location][:address] + "%' OR "
+    end    
+
+    if not params[:location][:city].eql? ''
+      sql = sql + "city ILIKE '%" + params[:location][:city] + "%' OR "
+    end
+
+    if not params[:location][:city].eql? ''
+      sql = sql + "map_address ILIKE '%" + params[:location][:city] + "%' OR "
+    end
+
+    if not params[:location][:state].eql? ''
+      sql = sql + "state ILIKE '%" + params[:location][:state] + "%' OR "
+    end
+
+    if not params[:location][:state].eql? ''
+      sql = sql + "map_address ILIKE '%" + params[:location][:state] + "%' OR "
+    end
+
+    if not params[:location][:country].eql? ''
+      sql = sql + "country ILIKE '%" + params[:location][:country] + "%' OR "
+    end
+
+    if not params[:location][:country].eql? ''
+      sql = sql + "map_address ILIKE '%" + params[:location][:country] + "%' OR "
+    end
+
+    if not params[:location][:zip].eql? ''
+      sql = sql + "zip ILIKE '%" + params[:location][:zip] + "%' OR "
+    end
+
+    if not params[:location][:phone].eql? ''
+      sql = sql + "phone ILIKE '%" + params[:location][:phone] + "%' OR "
+    end
+
+    if not params[:location][:description].eql? ''
+      sql = sql + "description ILIKE '%" + params[:location][:description] + "%' OR "
+    end
+
+    if not params[:location][:subtitle].eql? ''
+      sql = sql + "subtitle ILIKE '%" + params[:location][:subtitle] + "%' OR "
+    end
+
+    if sql.eql? ''
+      sql = 'TRUE'
+    else
+      sql = sql + 'FALSE'
+    end  
+    redirect_to event_data_path(event_id: params[:location][:event_id], category: 'locations', location_search: 'true', sql: sql) 
+  end
+
   def destroy
     @location = Location.find(params[:id])
     @event = @location.event

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'publishable/:id', to: 'events#publishable', as: 'publishable' 
   get 'event_data', to: 'events#event_data'
   get 'event_data/:id', to: 'events#event_data'
+  post 'persons/search', to: 'persons#search', as: 'search_person'
+  post 'locations/search', to: 'locations#search', as: 'search_location'
+  post 'sessions/search', to: 'sessions#search', as: 'search_session'
 
   resources :category_types
   resources :location_types

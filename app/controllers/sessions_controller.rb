@@ -51,6 +51,41 @@ class SessionsController < ApplicationController
     end
   end
 
+  def search
+    sql = ''
+    if not params[:session][:name].eql? ''
+      sql = sql + "name ILIKE '%" + params[:session][:name] + "%' OR "
+    end
+
+    if not params[:session][:start_time].eql? ''
+      sql = sql + "start_time ILIKE '%" + params[:session][:start_time] + "%' OR "
+    end
+
+    if not params[:session][:end_time].eql? ''
+      sql = sql + "end_time ILIKE '%" + params[:session][:end_time] + "%' OR "
+    end
+
+    if not params[:session][:description].eql? ''
+      sql = sql + "description ILIKE '%" + params[:session][:description] + "%' OR "
+    end
+
+    if not params[:session][:other_time].eql? ''
+      sql = sql + "other_time ILIKE '%" + params[:session][:other_time] + "%' OR "
+    end
+
+    if not params[:session][:tags].eql? ''
+      sql = sql + "tags ILIKE '%" + params[:session][:tags] + "%' OR "
+    end
+
+    if sql.eql? ''
+      sql = 'TRUE'
+    else
+      sql = sql + 'FALSE'
+    end  
+
+    redirect_to event_data_path(event_id: params[:session][:event_id], category: 'sessions', session_search: 'true', sql: sql) 
+  end
+
   def destroy
     @session = Session.find(params[:id])
     @event = @session.event

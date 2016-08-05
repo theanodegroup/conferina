@@ -38,6 +38,57 @@ class PersonsController < ApplicationController
     end
   end
 
+  def search
+    sql = ''
+    if not params[:person][:name].eql? ''
+      sql = sql + "name ILIKE '%" + params[:person][:name] + "%' OR "
+    end
+
+    if not params[:person][:subtitle].eql? ''
+      sql = sql + "subtitle ILIKE '%" + params[:person][:subtitle] + "%' OR "
+    end
+
+    if not params[:person][:description].eql? ''
+      sql = sql + "description ILIKE '%" + params[:person][:description] + "%' OR "
+    end
+
+    if not params[:person][:website].eql? ''
+      sql = sql + "website ILIKE '%" + params[:person][:website] + "%' OR "
+    end
+
+    if not params[:person][:youtube].eql? ''
+      sql = sql + "youtube ILIKE '%" + params[:person][:youtube] + "%' OR "
+    end
+
+    if not params[:person][:facebook].eql? ''
+      sql = sql + "facebook ILIKE '%" + params[:person][:facebook] + "%' OR "
+    end
+
+    if not params[:person][:twitter].eql? ''
+      sql = sql + "twitter ILIKE '%" + params[:person][:twitter] + "%' OR "
+    end
+
+    if not params[:person][:phone].eql? ''
+      sql = sql + "phone ILIKE '%" + params[:person][:phone] + "%' OR "
+    end
+
+    if not params[:person][:email].eql? ''
+      sql = sql + "email ILIKE '%" + params[:person][:email] + "%' OR "
+    end
+
+    if not params[:person][:tags].eql? ''
+      sql = sql + "tags ILIKE '%" + params[:person][:tags] + "%' OR "
+    end
+
+    if sql.eql? ''
+      sql = 'TRUE'
+    else
+      sql = sql + 'FALSE'
+    end  
+
+    redirect_to event_data_path(event_id: params[:person][:event_id], category: 'people', person_search: 'true', sql: sql) 
+  end
+
   def destroy
     @person = Person.find(params[:id])
     @event = @person.event

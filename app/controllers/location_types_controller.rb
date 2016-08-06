@@ -2,8 +2,6 @@ class LocationTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		# @location_types = LocationType.all
-			
 
 		if (not params[:location_type_search].blank?) && (params[:location_type_search].eql? 'true')
 	      @location_types = current_user.location_types.where(params[:sql]).order(:category)

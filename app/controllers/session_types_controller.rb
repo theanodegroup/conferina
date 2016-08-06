@@ -2,7 +2,11 @@ class SessionTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@session_types = current_user.session_types.order(:category)	
+		if (not params[:session_type_search].blank?) && (params[:session_type_search].eql? 'true')
+	      @session_types = current_user.session_types.where(params[:sql]).order(:category)
+	    else
+	      @session_types = current_user.session_types.order(:category)
+	    end	
 	end
 
 	def show
@@ -40,6 +44,17 @@ class SessionTypesController < ApplicationController
 			render :new
 		end
 	    
+	end
+
+	def search
+		sql = ''
+		if not params[:session_type][:category].eql? ''
+	      sql = "category ILIKE " + "'%" + params[:session_type][:category] + "%'"
+	    else
+	      sql = 'TRUE'
+	    end
+
+	    redirect_to session_types_path(session_type_search: true, sql: sql)
 	end
 
 	def destroy

@@ -2,7 +2,11 @@ class CategoryTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@category_types = current_user.category_types.order(:category)	
+		if (not params[:category_type_search].blank?) && (params[:category_type_search].eql? 'true')
+	      @category_types = current_user.category_types.where(params[:sql]).order(:category)
+	    else
+	      @category_types = current_user.category_types.order(:category)
+	    end	
 	end
 
 	def show
@@ -40,6 +44,17 @@ class CategoryTypesController < ApplicationController
 			render :new
 		end
 	    
+	end
+
+	def search
+		sql = ''
+		if not params[:category_type][:category].eql? ''
+	      sql = "category ILIKE " + "'%" + params[:category_type][:category] + "%'"
+	    else
+	      sql = 'TRUE'
+	    end
+
+	    redirect_to category_types_path(category_type_search: true, sql: sql)
 	end
 
 	def destroy

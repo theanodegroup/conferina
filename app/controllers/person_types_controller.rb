@@ -2,7 +2,11 @@ class PersonTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@person_types = current_user.person_types.order(:category)	
+		if (not params[:person_type_search].blank?) && (params[:person_type_search].eql? 'true')
+	      @person_types = current_user.person_types.where(params[:sql]).order(:category)
+	    else
+	      @person_types = current_user.person_types.order(:category)
+	    end	
 	end
 
 	def show
@@ -40,6 +44,17 @@ class PersonTypesController < ApplicationController
 			render :new
 		end
 	    
+	end
+
+	def search
+		sql = ''
+		if not params[:person_type][:category].eql? ''
+	      sql = "category ILIKE " + "'%" + params[:person_type][:category] + "%'"
+	    else
+	      sql = 'TRUE'
+	    end
+
+	    redirect_to person_types_path(person_type_search: true, sql: sql)
 	end
 
 	def destroy

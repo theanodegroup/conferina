@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }
   
+  devise_scope :user do
+    post "sessions/user" => "devise/sessions#create"
+  end
+
   resources :users
 
   resources :events

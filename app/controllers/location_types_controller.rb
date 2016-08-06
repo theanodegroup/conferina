@@ -3,7 +3,13 @@ class LocationTypesController < ApplicationController
 
 	def index
 		# @location_types = LocationType.all
-		@location_types = current_user.location_types.order(:category)	
+			
+
+		if (not params[:location_type_search].blank?) && (params[:location_type_search].eql? 'true')
+	      @location_types = current_user.location_types.where(params[:sql]).order(:category)
+	    else
+	      @location_types = current_user.location_types.order(:category)
+	    end
 	end
 
 	def show
@@ -41,6 +47,17 @@ class LocationTypesController < ApplicationController
 			render :new
 		end
 	    
+	end
+
+	def search
+		sql = ''
+		if not params[:location_type][:category].eql? ''
+	      sql = "category ILIKE " + "'%" + params[:location_type][:category] + "%'"
+	    else
+	      sql = 'TRUE'
+	    end
+
+	    redirect_to location_types_path(location_type_search: true, sql: sql)
 	end
 
 	def destroy

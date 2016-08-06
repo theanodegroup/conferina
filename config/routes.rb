@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post 'locations/search', to: 'locations#search', as: 'search_location'
   post 'sessions/search', to: 'sessions#search', as: 'search_session'
 
+  post 'location_types/search', to: 'location_types#search', as: 'search_location_type'
+
   resources :category_types
   resources :location_types
   resources :person_types

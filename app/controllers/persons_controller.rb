@@ -18,24 +18,72 @@ class PersonsController < ApplicationController
   def update
     @person = Person.find(params[:id])
     # @event = Event.find_by_id(@person[:event_id])
- 
-    if @person.update(person_params)
-      redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
-    else
-      render :new
-    end
+    # @same_person = Event.find_by_id(@person[:event_id]).persons.where(email: params[:person][:email])
+
+    # if @same_person.count != 0
+    #   flash[:error] = "You can't update this person since " + params[:person][:email] + " has already been invited in this event!"
+    #   redirect_to new_person_path(id: @person[:event_id])
+    # else
+
+      if @person.update(person_params)
+        invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
+        # if not invitee.nil?
+        #   invitee.people << @person
+        # else
+        #   User.invite!({:email => params[:person][:email], :role => 0}, current_user)
+        #   User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
+        # end
+
+        redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
+      else
+        redirect_to edit_person_path(id: @person[:id])
+      end
+    # end
   end
 
   def create
     @person = Person.new(person_params)
     # @event = Event.find_by_id(@person[:event_id])
- 
-    if @person.save
-      redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
-      # render "events/event_data"
+    @same_person = Event.find_by_id(@person[:event_id]).persons.where(email: @person[:email])
+
+    if @same_person.count != 0
+      flash[:error] = "You can't invite this person again since " + @person[:email] + " has already been invited in this event!"
+      redirect_to new_person_path(id: @person[:event_id])
     else
-      render :new
+      if @person.save
+        account_sid = ENV['TWILIO_LIVE_SID']
+        auth_token = ENV['TWILIO_LIVE_AUTH_TOKEN']
+
+        @client = Twilio::REST::Client.new(account_sid, auth_token) 
+
+
+        invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
+        if not invitee.nil?
+          invitee.people << @person
+
+          @client.account.messages.create({
+            :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
+            :to => '+8615698864471',
+            :body => 'You are invited to another event.'
+            })
+        else
+          User.invite!({:email => params[:person][:email], :role => 0}, current_user)
+          User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
+
+          @client.account.messages.create({
+            :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
+            :to => '+8615698864471',
+            :body => 'You are invited to another event.'
+            })
+        end
+        redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
+        # render "events/event_data"
+      else
+        redirect_to new_person_path(id: @person[:event_id])
+      end
     end
+
+    
   end
 
   def search
@@ -92,8 +140,13 @@ class PersonsController < ApplicationController
   def destroy
     @person = Person.find(params[:id])
     @event = @person.event
+    @user = @person.user
     @person.destroy
     
+    if @user.people.count == 0
+      @user.destroy
+    end
+
     redirect_to event_data_path(event_id: @event[:id], category: 'people')
     # render "events/event_data" 
   end

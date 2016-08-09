@@ -28,6 +28,10 @@ group :development do
 end
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
+
+gem 'twilio-ruby', '~> 4.11.1'
+
 gem 'high_voltage'
 group :development do
   gem 'better_errors'
@@ -39,6 +43,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 group :test do
   gem 'capybara'

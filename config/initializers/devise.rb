@@ -18,6 +18,7 @@ Devise.setup do |config|
   # config.mailer = 'Devise::Mailer'
   config.mailer = 'UserMailer'
 
+  config.invite_for = 2.weeks
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be

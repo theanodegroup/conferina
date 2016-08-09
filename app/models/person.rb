@@ -5,5 +5,7 @@ class Person < ActiveRecord::Base
 	belongs_to :person_type
 	belongs_to :event
 
+	belongs_to :user
+
 	has_and_belongs_to_many :sessions, :join_table => "persons_sessions"
 end

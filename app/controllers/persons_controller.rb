@@ -61,6 +61,7 @@ class PersonsController < ApplicationController
         if not invitee.nil?
           invitee.people << @person
 
+          puts '---- Twilio Start -----'
           @client.account.messages.create({
             :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
             :to => '+8615698864471',
@@ -70,6 +71,7 @@ class PersonsController < ApplicationController
           User.invite!({:email => params[:person][:email], :role => 0}, current_user)
           User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
 
+          puts '---- Twilio Start -----'
           @client.account.messages.create({
             :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
             :to => '+8615698864471',

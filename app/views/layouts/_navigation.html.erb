@@ -8,7 +8,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'LOGO', root_path, class: 'navbar-brand' %>
+      <a href="<%= root_path %>" class="navbar-brand">
+      <%= image_tag asset_path('logo.png'), :size => "97x97" %>
+      </a>
+      
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">

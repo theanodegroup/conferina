@@ -62,20 +62,22 @@ class PersonsController < ApplicationController
           invitee.people << @person
 
           puts '---- Twilio Start -----'
-          @client.account.messages.create({
+          result = @client.account.messages.create(
             :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
             :to => '+8615698864471',
             :body => 'You are invited to another event.'
-            })
+            )
+          puts result
         else
           User.invite!({:email => params[:person][:email], :role => 0}, current_user)
           User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
+          flash[:success] = "Invitation has sent to " + @person[:email]
 
           puts '---- Twilio Start -----'
           @client.account.messages.create({
             :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
             :to => '+8615698864471',
-            :body => 'You are invited to another event.'
+            :body => 'You are invited to an event event.'
             })
         end
         redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
@@ -164,3 +166,5 @@ class PersonsController < ApplicationController
     @events = current_user.events
   end
 end
+
+# http://andrewfomera.com/posts/twilio-two-way-messaging

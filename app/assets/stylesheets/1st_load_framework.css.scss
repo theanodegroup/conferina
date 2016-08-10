@@ -6,6 +6,11 @@
 $small-bottom: 20px;
 
 
+body {
+  background-color: #eee;
+}
+
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -138,5 +143,46 @@ header nav {
   img {
     margin: 0;
     float: right;
+  }
+}
+
+header { 
+  .navbar-inverse {
+    background-color: white;
+    border-color: #ddd;
+    .navbar-nav > li > a {
+      color: black;
+
+      &:hover {
+        color: #777;
+
+        border-bottom: 3px solid #0000cc;
+      }
+
+      &:active {
+        color: #777;
+      }
+
+      &:focus {
+        color: #777;
+      }
+
+      &:active {
+        color: #aa0099; 
+      }
+
+    }
+  }
+
+  .navbar {
+    min-height: 100px;
+
+    ul {
+      padding-top: 23px;
+    }
+  }
+
+  .navbar-header a {
+    padding-top: 10px;
   }
 }

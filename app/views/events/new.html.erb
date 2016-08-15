@@ -61,7 +61,7 @@
   </div>
   
   <div class="form-group">
-  	<%= f.check_box :coming_soon %><span>&nbsp;&nbsp;Would you like your event guide to be listed as "Coming Soon"? Event guides listed as "Coming Soon" appear in the Eventbase app but cannot be downloaded while this option is selected.</span>
+  	<%= f.check_box :coming_soon %><span>&nbsp;&nbsp;Would you like your event guide to be listed as "Coming Soon"? Event guides listed as "Coming Soon" appear in the Conferina app but cannot be downloaded while this option is selected.</span>
   </div>
 
   <hr>
@@ -77,7 +77,7 @@
 		  </div>
 		  
 		  <div class="col-xs-2">
-		  	<input id="find" type="button" value="Find" class="btn btn-primary" />
+		  	<input id="find" type="button" value="Find" class="btn btn-primary" style="display: none" />
 		  </div>     
 		</div>
 	  </div>
@@ -121,20 +121,20 @@
 	  <div class="form-group row">
 		<label for="extra_name" class="col-xs-3 col-form-label">Extra Field Name <span class="asteroid">*</span></label>
 		<div class="col-xs-6">
-		  <%= f.text_field :extra_name, :class => 'form-control' %>
+		  <%= f.text_field :extra_name, :class => 'form-control', :placeholder => 'e.g. Call For Papers Due' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
 		<label for="extra_desc" class="col-xs-3 col-form-label">Description <span class="asteroid">*</span></label>
 		<div class="col-xs-6">
-		  <%= f.text_area :extra_desc, :class => 'form-control', :rows => 7 %>
+		  <%= f.text_area :extra_desc, :class => 'form-control', :rows => 7, :placeholder => 'e.g. Description' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
 	  	<div class="col-xs-3">
-	  		<%= f.text_field :extra_date_first_name, :placeholder => "Type first extra date field name", :class => 'form-control' %>
+	  		<%= f.text_field :extra_date_first_name, :placeholder => "e.g. Submission Deadline", :class => 'form-control' %>
 	  	</div>
 	  	<div class="col-xs-3">
 		  <%= f.text_field :extra_date_first, :class => 'form-control' %>
@@ -143,7 +143,7 @@
 
 	  <div class="form-group row">
 	  	<div class="col-xs-3">
-	  		<%= f.text_field :extra_date_second_name, :placeholder => "Type second extra date field name", :class => 'form-control' %>
+	  		<%= f.text_field :extra_date_second_name, :placeholder => "e.g. Notification Due", :class => 'form-control' %>
 	  	</div>
 	  	<div class="col-xs-3">
 		  <%= f.text_field :extra_date_second, :class => 'form-control' %>
@@ -214,6 +214,13 @@
 			submitHandler: function() {
 				$('#event_lat').val($('#lat').val());
 				$('#event_lng').val($('#lng').val());
+
+				if(!($("#extra").prop('checked'))) {
+					$('.extra input').each(function() {
+						$(this).val("");
+					});
+				}
+
 				document.getElementById("new_event_form").submit()
 			}
 		});

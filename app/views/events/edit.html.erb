@@ -74,7 +74,7 @@
 		  </div>
 		  
 		  <div class="col-xs-2">
-		  	<input id="find" type="button" value="Find" class="btn btn-primary" style="display: none" />
+		  	<input id="find" type="button" value="Find" class="btn btn-primary" />
 		  </div>     
 		</div>
 	  </div>
@@ -110,27 +110,16 @@
 
   <hr>
 
-  <div class="form-group">
-  	<% 
-  		extra = false
-	  	if not (@event.extra_name.blank? && @event.extra_desc.blank? && @event.extra_date_first.blank? && @event.extra_date_second.blank? && @event.extra_date_first_name.blank? && @event.extra_date_second_name.blank?)
-	  		extra = true
-	  	end
-
-  		%>
-  	<input type="checkbox" id="extra" <% if extra %> checked<% end %>><span>&nbsp;&nbsp;Do you need any more fields?</span>
-  </div>
-
-  <div class="extra" <% if !extra %> style="display:none;"<% end %>>
+  <div class="extra">
 	  <div class="form-group row">
-		<label for="extra_name" class="col-xs-3 col-form-label">Extra Field Name <span class="asteroid">*</span></label>
+		<label for="extra_name" class="col-xs-3 col-form-label">Extra Field Name</label>
 		<div class="col-xs-6">
 		  <%= f.text_field :extra_name, :class => 'form-control', :placeholder => 'e.g. Call For Papers Due' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="extra_desc" class="col-xs-3 col-form-label">Description <span class="asteroid">*</span></label>
+		<label for="extra_desc" class="col-xs-3 col-form-label">Description</label>
 		<div class="col-xs-6">
 		  <%= f.text_area :extra_desc, :class => 'form-control', :rows => 7, :placeholder => 'e.g. Description' %>
 		</div>
@@ -141,7 +130,7 @@
 	  		<%= f.text_field :extra_date_first_name, :placeholder => "e.g. Submission Deadline", :class => 'form-control' %>
 	  	</div>
 	  	<div class="col-xs-3">
-		  <%= f.text_field :extra_date_first, :class => 'form-control' %>
+		  <%= f.text_field :extra_date_first, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>
 
@@ -150,7 +139,7 @@
 	  		<%= f.text_field :extra_date_second_name, :placeholder => "e.g. Notification Due", :class => 'form-control' %>
 	  	</div>
 	  	<div class="col-xs-3">
-		  <%= f.text_field :extra_date_second, :class => 'form-control' %>
+		  <%= f.text_field :extra_date_second, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>		
   </div>
@@ -208,15 +197,15 @@
 	      $("#event_address").trigger("geocode");
 	    }).click();	
 
-	    $("#extra").on('click', function(){
-	    	if($(this).prop('checked') == true) 
-	    		$('.extra').css('display', 'initial');
-	    	else
-	    		$('.extra').css('display', 'none');
-	    });
+	    // $("#extra").on('click', function(){
+	    // 	if($(this).prop('checked') == true) 
+	    // 		$('.extra').css('display', 'initial');
+	    // 	else
+	    // 		$('.extra').css('display', 'none');
+	    // });
 
 	    function checking_extra() {
-	    	if($("#extra").prop('checked')) {
+	    	if($('#event_extra_name').val() || $('#event_extra_desc').val()) {
 				$("#event_extra_name").rules( "add", {
 				  required: true,
 				  messages: {
@@ -229,7 +218,8 @@
 				  messages: {
 				    required: "Please enter an extra field description"
 				  }
-				});	
+				});
+
 			} else {
 				$("#event_extra_name").rules( "remove" );
 				$("#event_extra_desc").rules( "remove" );
@@ -283,11 +273,11 @@
 				$('#event_lat').val($('#lat').val());
 				$('#event_lng').val($('#lng').val());
 
-				if(!($("#extra").prop('checked'))) {
-					$('.extra input').each(function() {
-						$(this).val("");
-					});
-				}
+				// if(!($("#extra").prop('checked'))) {
+				// 	$('.extra input').each(function() {
+				// 		$(this).val("");
+				// 	});
+				// }
 				document.getElementById("new_event_form").submit()
 			}
 		});
@@ -324,11 +314,12 @@
 
 
 
-		$("#extra").on('click', function(){
-			checking_extra();
-		});
+		// $("#extra").on('click', function(){
+		// 	checking_extra();
+		// });
 
 	    $(".extra input[type='text']").on('change', function() {
+	    	checking_extra();
 			checking_extra_dates();			
 	    }); 
 

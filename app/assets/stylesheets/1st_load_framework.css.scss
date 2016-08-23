@@ -104,45 +104,23 @@ main table td {
   }
 }
 
-header nav {
-  .navbar-nav {
-    float: right;
+header {
+  nav {
+    .navbar-nav {
+      float: right;
+    }
   }
 }
 
-@media screen and (max-width: 768px) {
-  header nav {
-  .navbar-nav {
-    float: none;
-  }
-}  
-}
+ul.navbar-nav {
+  #custom-search-input {
+    position: absolute; 
+    top: 8px; 
+    right: 50px;
 
-.asteroid {
-  color: red;
-}
-
-.map_canvas { 
-  width: 960px; 
-  height: 400px; 
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.error {
-  color: red;
-}
-
-.country-select {width: 100%;}
-
-#social label {
-  span {
-    float: left;
-  }
-
-  img {
-    margin: 0;
-    float: right;
+    .input-group {
+      width:330px;
+    }
   }
 }
 
@@ -186,3 +164,72 @@ header {
     padding-top: 10px;
   }
 }
+
+
+@media screen and (max-width: 768px) {
+  header {
+    nav {
+      .navbar-nav {
+        float: none;
+      }
+    } 
+  }
+  
+}
+
+@media screen and (max-width: 414px) {
+  header {
+    .navbar {
+      min-height: 50px;
+    } 
+
+    .navbar-header {
+      a {
+        padding-top: 0px;
+      }
+    }
+  }
+  .navbar-brand > img {
+    width: 48px;
+    height: 48px;
+  }
+
+  ul.navbar-nav {
+    #custom-search-input {
+      position: initial;
+
+      .input-group {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.asteroid {
+  color: red;
+}
+
+.map_canvas { 
+  width: 960px; 
+  height: 400px; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+}
+
+.country-select {width: 100%;}
+
+#social label {
+  span {
+    float: left;
+  }
+
+  img {
+    margin: 0;
+    float: right;
+  }
+}
+

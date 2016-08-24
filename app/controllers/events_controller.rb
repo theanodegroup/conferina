@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:search_events]
   before_action :get_category_types, only: [:new, :edit]
 
   def index
@@ -94,6 +94,10 @@ class EventsController < ApplicationController
     @event.destroy
      
     redirect_to events_path 
+  end
+
+  def search_events
+    @events = Event.where()
   end
 
   private

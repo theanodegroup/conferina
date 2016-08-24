@@ -3,11 +3,11 @@
 <%= form_for :tag, url: tags_path do |f| %>
   <p>
     <%= f.label :name %><br>
-    <%= f.text_field :name, :required => true %>
+    <%= f.text_field :name, :required => true, :style => "width: 100%" %>
   </p>
  
   <p>
-    <%= f.submit %>
+    <%= f.submit :class => "btn btn-primary" %>
   </p>
 <% end %>
 

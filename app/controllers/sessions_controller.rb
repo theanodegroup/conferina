@@ -27,6 +27,14 @@ class SessionsController < ApplicationController
         end
       end
 
+      @session.tags.clear
+      params[:session][:tags].each do |tag_id|
+        if not tag_id.eql? ''
+          tag = Tag.find(tag_id)
+          @session.tags << tag
+        end
+      end
+
       redirect_to event_data_path(event_id: @session[:event_id], category: 'sessions')
     else
       render :new
@@ -41,6 +49,13 @@ class SessionsController < ApplicationController
         if not person_id.eql? ''
           person = Person.find(person_id)
           @session.persons << person
+        end
+      end
+
+      params[:session][:tags].each do |tag_id|
+        if not tag_id.eql? ''
+          tag = Tag.find(tag_id)
+          @session.tags << tag
         end
       end
 
@@ -89,7 +104,7 @@ class SessionsController < ApplicationController
   def destroy
     @session = Session.find(params[:id])
     @event = @session.event
-    @session.persons.clear
+    # @session.persons.clear
     @session.destroy
     
     redirect_to event_data_path(event_id: @event[:id], category: 'sessions')
@@ -105,5 +120,6 @@ class SessionsController < ApplicationController
   def get_requisites
     @session_types = current_user.session_types
     @events = current_user.events
+    @tags = Tag.all.order(:name)
   end
 end

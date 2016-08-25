@@ -54,6 +54,15 @@ class TagsController < ApplicationController
 	    redirect_to tags_path(tag_search: true, sql: sql)	
 	end
 
+	def destroy
+		@tag = Tag.find(params[:id])
+		@tag.events.clear
+		@tag.session.clear
+		@tag.destroy
+		 
+		redirect_to tags_path	
+	end
+
 	private
   
 	def tag_params

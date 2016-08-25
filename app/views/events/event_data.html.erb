@@ -115,7 +115,7 @@
 			      <td><%= session.start_time %></td>
 			      <td><%= session.end_time %></td>
 			      <td><%= session.name %></td>
-			      <td><%= session.location.name %></td>
+			      <td><%= session.location.nil? ? '' : session.location.name %></td>
 			      <td>
 			      	<%= link_to 'Edit', edit_session_path(session) %>
 			      	<%= link_to 'Delete', session_path(session), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -264,12 +264,6 @@
 			</div>
 		  </div>
 
-		  <div class="form-group row">
-			<label for="tags" class="col-xs-3 col-form-label">Tags</label>
-			<div class="col-xs-6">
-			  <%= f.text_field :tags, :class => 'form-control' %>
-			</div>
-		  </div>
 
 		  <%= f.hidden_field :event_id, :value => @event.id %> 
 

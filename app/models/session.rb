@@ -7,4 +7,5 @@ class Session < ActiveRecord::Base
 	belongs_to :location
 
 	has_and_belongs_to_many :persons, :join_table => "persons_sessions"
+	has_and_belongs_to_many :tags, :join_table => "tags_sessions"
 end

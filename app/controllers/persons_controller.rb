@@ -26,7 +26,7 @@ class PersonsController < ApplicationController
     # else
 
       if @person.update(person_params)
-        invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
+        # invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
         # if not invitee.nil?
         #   invitee.people << @person
         # else
@@ -43,49 +43,49 @@ class PersonsController < ApplicationController
 
   def create
     @person = Person.new(person_params)
-    # @event = Event.find_by_id(@person[:event_id])
-    @same_person = Event.find_by_id(@person[:event_id]).persons.where(email: @person[:email])
+    
+    # @same_person = Event.find_by_id(@person[:event_id]).persons.where(email: @person[:email])
 
-    if @same_person.count != 0
-      flash[:error] = "You can't invite this person again since " + @person[:email] + " has already been invited in this event!"
-      redirect_to new_person_path(id: @person[:event_id])
-    else
+    # if @same_person.count != 0
+    #   flash[:error] = "You can't invite this person again since " + @person[:email] + " has already been invited in this event!"
+    #   redirect_to new_person_path(id: @person[:event_id])
+    # else
       if @person.save
-        account_sid = ENV['TWILIO_LIVE_SID']
-        auth_token = ENV['TWILIO_LIVE_AUTH_TOKEN']
+        # account_sid = ENV['TWILIO_LIVE_SID']
+        # auth_token = ENV['TWILIO_LIVE_AUTH_TOKEN']
 
-        @client = Twilio::REST::Client.new(account_sid, auth_token) 
+        # @client = Twilio::REST::Client.new(account_sid, auth_token) 
 
 
-        invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
-        if not invitee.nil?
-          invitee.people << @person
+        # invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
+        # if not invitee.nil?
+        #   invitee.people << @person
 
-          puts '---- Twilio Start -----'
-          result = @client.account.messages.create(
-            :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
-            :to => '+8615698864471',
-            :body => 'You are invited to another event.'
-            )
-          puts result
-        else
-          User.invite!({:email => params[:person][:email], :role => 0}, current_user)
-          User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
-          flash[:success] = "Invitation has sent to " + @person[:email]
+        #   puts '---- Twilio Start -----'
+        #   result = @client.account.messages.create(
+        #     :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
+        #     :to => '+8615698864471',
+        #     :body => 'You are invited to another event.'
+        #     )
+        #   puts result
+        # else
+        #   User.invite!({:email => params[:person][:email], :role => 0}, current_user)
+        #   User.find_by(invited_by_id: current_user.id, email: @person[:email]).people << @person
+        #   flash[:success] = "Invitation has sent to " + @person[:email]
 
-          puts '---- Twilio Start -----'
-          @client.account.messages.create({
-            :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
-            :to => '+8615698864471',
-            :body => 'You are invited to an event event.'
-            })
-        end
+        #   puts '---- Twilio Start -----'
+        #   @client.account.messages.create({
+        #     :messaging_service_sid => ENV['MESSAGING_SERVICE_SID'],
+        #     :to => '+8615698864471',
+        #     :body => 'You are invited to an event event.'
+        #     })
+        # end
         redirect_to event_data_path(event_id: @person[:event_id], category: 'people')
-        # render "events/event_data"
+
       else
         redirect_to new_person_path(id: @person[:event_id])
       end
-    end
+    # end
 
     
   end
@@ -128,10 +128,6 @@ class PersonsController < ApplicationController
       sql = sql + "email ILIKE '%" + params[:person][:email] + "%' OR "
     end
 
-    if not params[:person][:tags].eql? ''
-      sql = sql + "tags ILIKE '%" + params[:person][:tags] + "%' OR "
-    end
-
     if sql.eql? ''
       sql = 'TRUE'
     else
@@ -147,7 +143,7 @@ class PersonsController < ApplicationController
     @user = @person.user
     @person.destroy
     
-    if @user.people.count == 0
+    if (not @user.nil?) && (@user.people.count == 0)
       @user.destroy
     end
 
@@ -158,7 +154,7 @@ class PersonsController < ApplicationController
   private
   
   def person_params
-    params.require(:person).permit(:name, :description, :subtitle, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :website, :youtube, :facebook, :twitter, :email, :phone, :tags, :event_id, :person_type_id)
+    params.require(:person).permit(:name, :description, :subtitle, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :website, :youtube, :facebook, :twitter, :email, :phone, :event_id, :person_type_id)
   end
 
   def get_requisites

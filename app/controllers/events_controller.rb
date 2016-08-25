@@ -23,6 +23,14 @@ class EventsController < ApplicationController
  
     if @event.update(event_params)
       redirect_to events_path
+
+      @event.tags.clear
+      params[:event][:tags].each do |tag_id|
+        if not tag_id.eql? ''
+          tag = Tag.find(tag_id)
+          @event.tags << tag
+        end
+      end
     else
       render :edit
     end
@@ -34,6 +42,13 @@ class EventsController < ApplicationController
     if @event.save
       current_user.events << @event
       @event.social = Social.new
+
+      params[:event][:tags].each do |tag_id|
+        if not tag_id.eql? ''
+          tag = Tag.find(tag_id)
+          @event.tags << tag
+        end
+      end
 
       redirect_to events_path
     else
@@ -91,6 +106,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
+    @event.tags.clear
     @event.destroy
      
     redirect_to events_path 
@@ -103,10 +119,11 @@ class EventsController < ApplicationController
   private
   
   def event_params
-    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng)
+    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng, :tags)
   end
 
   def get_category_types
     @category_types = CategoryType.where(by_admin: true)
+    @tags = Tag.all.order(:name)
   end
 end

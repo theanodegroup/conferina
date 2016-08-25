@@ -68,8 +68,9 @@
 
   <div class="form-group row">
 	<label for="tags" class="col-xs-3 col-form-label">Tags</label>
-	<div class="col-xs-4">
-	  <%= f.text_field :tags, :class => 'form-control' %>
+	<div class="col-xs-6">
+	  
+	  <%= f.select :tags, options_from_collection_for_select(@tags, "id", "name", @session.tags.collect{ |p| p.id }), {}, {:class => 'form-control', :multiple => true } %>
 	</div>
   </div>
 
@@ -121,6 +122,8 @@
 				'session[end_time]': "Please choose the end time"	
 			}
 		});
+
+		$("#session_tags").select2();
 	});
 </script>
 

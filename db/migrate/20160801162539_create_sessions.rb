@@ -7,7 +7,6 @@ class CreateSessions < ActiveRecord::Migration
       t.string :end_time
       t.string :avatar
       t.string :detailed_avatar
-      t.string :tags
       t.string :other_time
       t.belongs_to :event, index: true
       t.belongs_to :session_type, index: true

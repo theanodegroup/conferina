@@ -12,7 +12,6 @@ class CreatePeople < ActiveRecord::Migration
       t.string :twitter
       t.string :phone
       t.string :email
-      t.string :tags
       t.belongs_to :event, index: true
       t.belongs_to :person_type, index: true
       t.belongs_to :user, index: true

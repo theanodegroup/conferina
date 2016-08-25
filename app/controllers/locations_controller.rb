@@ -101,6 +101,10 @@ class LocationsController < ApplicationController
   def destroy
     @location = Location.find(params[:id])
     @event = @location.event
+    @location.sessions.each do |session|
+      session.location_id = nil
+      session.save
+    end
     @location.destroy
     
     redirect_to event_data_path(event_id: @event[:id], category: 'locations')

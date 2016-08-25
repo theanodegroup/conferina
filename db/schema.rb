@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824090941) do
+ActiveRecord::Schema.define(version: 20160824214751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 20160824090941) do
     t.string   "twitter"
     t.string   "phone"
     t.string   "email"
-    t.string   "tags"
     t.integer  "event_id"
     t.integer  "person_type_id"
     t.integer  "user_id"
@@ -133,7 +132,6 @@ ActiveRecord::Schema.define(version: 20160824090941) do
     t.string   "end_time"
     t.string   "avatar"
     t.string   "detailed_avatar"
-    t.string   "tags"
     t.string   "other_time"
     t.integer  "event_id"
     t.integer  "session_type_id"
@@ -163,6 +161,20 @@ ActiveRecord::Schema.define(version: 20160824090941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "tags_events", id: false, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "event_id"
+  end
+
+  add_index "tags_events", ["tag_id", "event_id"], name: "index_tags_events_on_tag_id_and_event_id", using: :btree
+
+  create_table "tags_sessions", id: false, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "session_id"
+  end
+
+  add_index "tags_sessions", ["tag_id", "session_id"], name: "index_tags_sessions_on_tag_id_and_session_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

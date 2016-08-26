@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     post "sessions/user" => "devise/sessions#create"
+    get "sessions/new.user" => "devise/sessions#new"
   end
 
   resources :users

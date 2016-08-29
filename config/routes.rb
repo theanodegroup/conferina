@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+
+  root to: 'searchs#search'
   devise_for :users, controllers: { registrations: 'registrations' }
   
   devise_scope :user do
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
   post 'person_types/search', to: 'person_types#search', as: 'search_person_type'
   post 'session_types/search', to: 'session_types#search', as: 'search_session_type'
   post 'tags/search', to: 'tags#search', as: 'search_tag'
+  get 'search', to: 'searchs#search'
+  post 'search', to: 'searchs#search'
 
   resources :category_types
   resources :location_types
@@ -35,4 +38,5 @@ Rails.application.routes.draw do
   resources :locations
   resources :sessions
   resources :socials
+
 end

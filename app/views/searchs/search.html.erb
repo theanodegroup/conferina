@@ -1,0 +1,21 @@
+
+<div class="row"> 
+	<table class="table table-striped">
+	  <tr>
+	    <th class="text-primary col-md-3">Event Name</th>
+	    <th class="text-primary col-md-4">Description</th>
+	    <th class="text-primary col-md-1">Start Date</th>
+	    <th class="text-primary col-md-1">End Date</th>
+	  </tr>
+
+	  <% @events.each do |event| %>
+	    <tr>
+	      <td><%= event.name %></td>
+	      <td><%= event.description %></td>
+	      <td><%= event.start_date %></td>
+	      <td><%= event.end_date %></td>
+	    </tr>
+	  <% end %>
+	 
+	</table>
+</div>

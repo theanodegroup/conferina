@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-
+  before_action :fetch_tags
 
   protected
 
@@ -16,5 +16,9 @@ class ApplicationController < ActionController::Base
 	#   u.permit(:name, :password, :password_confirmation, :invitation_token)
 	# end
 	devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :password, :password_confirmation, :invitation_token])
+  end
+
+  def fetch_tags
+    @tags = Tag.all.order(:name)	
   end
 end

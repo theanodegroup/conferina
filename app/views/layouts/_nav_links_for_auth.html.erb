@@ -1,7 +1,13 @@
 
 <% if user_signed_in? %>
-  <li><%= link_to 'Events', events_path %></li>
-  <li><%= link_to 'Event Data', event_data_path %></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event Groups <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Events', events_path %></li>
+      <li><%= link_to 'Event Data', event_data_path %></li>
+    </ul>
+  </li>
+
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Basic types <span class="caret"></span></a>
     <ul class="dropdown-menu">
@@ -15,7 +21,6 @@
   <li><%= link_to 'Edit account', edit_user_registration_path %></li>
   
   <% if current_user.try(:admin?) %>
-    <li><%= link_to 'Users', users_path %></li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Definitions <span class="caret"></span></a>
   		<ul class="dropdown-menu">
@@ -26,7 +31,15 @@
         <li><%= link_to 'Tags', tags_path %></li>
   		</ul>
     </li>
-    <li><a href="#">Feedbacks</a></li>
+    
+
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Users', users_path %></li>
+        <li><a href="#">Feedbacks</a></li>
+      </ul>
+    </li>
   <% end %>
 <% end %>
 

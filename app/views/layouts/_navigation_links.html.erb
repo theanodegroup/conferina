@@ -1,34 +1,11 @@
 <%# add navigation links to this file %>
-<% if not user_signed_in? || current_user.try(:user?) %>
-<li>
-	<div id="custom-search-input">
-        <%= form_tag("/search", method: "post", id: "event_search_form") do %>
-            <div class="input-group">
-                <select name="tag_id" id="tag_id" class="form-control">
-                    <option value="all" <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
-                    selected
-                    <% end %>>
-                    All
-                    </option>
-                    <% @tags.each do |tag| %>
-                    <option value="<%= tag.id %>" <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
-                    selected
-                    <% end %>>
-                        <%= tag.name %>
-                    </option>
-                    <% end%>
-                </select>            
-            </div>
-        <% end %>
-    </div>
-</li>
-<li><%= link_to 'Events', search_path %></li>
-<% end %>
-<li><%= link_to 'About Us', page_path('about') %></li>
-<li><%= link_to 'Contact', page_path('contact') %></li>
 
-<script type="text/javascript">
-    $("#tag_id").on('change', function() {
-        $("#event_search_form").submit();
-    });
-</script>
+<li><%= link_to 'Public Events', search_path %></li>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li><%= link_to 'About Us', page_path('about') %></li>
+        <li><%= link_to 'Contact', page_path('contact') %></li>
+    </ul>
+</li>

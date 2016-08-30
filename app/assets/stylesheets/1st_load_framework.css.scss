@@ -112,18 +112,6 @@ header {
   }
 }
 
-ul.navbar-nav {
-  #custom-search-input {
-    position: absolute; 
-    top: 8px; 
-    right: 50px;
-
-    .input-group {
-      width:330px;
-    }
-  }
-}
-
 header { 
   .navbar-inverse {
     background-color: white;
@@ -165,6 +153,12 @@ header {
   }
 }
 
+#custom-search-input {
+  .input-group {
+    margin: 0 auto;
+  }
+}
+
 
 @media screen and (max-width: 768px) {
   header {
@@ -194,15 +188,6 @@ header {
     height: 48px;
   }
 
-  ul.navbar-nav {
-    #custom-search-input {
-      position: initial;
-
-      .input-group {
-        width: 100%;
-      }
-    }
-  }
 }
 
 .asteroid {

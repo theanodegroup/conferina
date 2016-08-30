@@ -15,5 +15,6 @@ class ApplicationController < ActionController::Base
 	#   u.permit(:name, :password, :password_confirmation, :invitation_token)
 	# end
 	devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :password, :password_confirmation, :invitation_token])
+	devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role])
   end
 end

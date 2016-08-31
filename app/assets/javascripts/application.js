@@ -14,8 +14,13 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-timepicker-addon
+//= require ./moment/moment
+//= require ./moment/moment-with-locales
+//= require ./moment/moment-timezone-all-years
+
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree ./jquery-plugins
 //= require_tree ./select2
+
 //= require_tree .

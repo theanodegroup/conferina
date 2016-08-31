@@ -339,6 +339,22 @@
 			}
 	    }); 
 
+	    $('#event_start_date').on('change', function() {
+	    	if($('#event_end_date').val() != "" && moment($(this).val()).diff(moment($('#event_end_date').val())) > 0) {
+	    		var message = "End date cannot be earlier than Start date. End Date is now changed to Start Date. Please adjust that field if needed."
+	    		alert(message);
+	    		$('#event_end_date').val($(this).val());	
+	    	}
+	    });
+
+		$('#event_end_date').on('change', function() {
+			if($('#event_start_date').val() != "" && moment($(this).val()).diff(moment($('#event_start_date').val())) < 0){
+	    		var message = "End date cannot be earlier than Start date. End Date is now changed to Start Date. Please adjust that field if needed."
+	    		alert(message);
+	    		$(this).val($('#event_start_date').val());	
+	    	}
+	    });
+
 	});
 	
 </script>

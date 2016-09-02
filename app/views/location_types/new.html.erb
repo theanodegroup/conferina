@@ -1,21 +1,23 @@
-<h2>Create Location Type</h2>
+<div class="container">
+  <h2>Create Location Type</h2>
 
-<%= form_for :location_type, url: location_types_path do |f| %>
-  <p>
-    <%= f.label :category %><br>
-    <%= f.text_field :category, :required => true %>
-  </p>
- 
-  <p>
-    <label>Icon</label>
+  <%= form_for :location_type, url: location_types_path do |f| %>
+    <p>
+      <%= f.label :category %><br>
+      <%= f.text_field :category, :required => true %>
+    </p>
+   
+    <p>
+      <label>Icon</label>
 
-    <%= f.file_field :avatar %>
-    <%= f.hidden_field :avatar_cache %>
-  </p>
- 
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+    </p>
+   
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
 
-<%= link_to 'Back', location_types_path %>
+  <%= link_to 'Back', location_types_path %>
+</div>

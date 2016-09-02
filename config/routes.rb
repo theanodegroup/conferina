@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: 'searchs#search'
+  root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }
   
   devise_scope :user do

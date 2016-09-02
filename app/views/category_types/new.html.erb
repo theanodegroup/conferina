@@ -1,21 +1,23 @@
-<h2>Create Category Type</h2>
+<div class="container">
+  <h2>Create Category Type</h2>
 
-<%= form_for :category_type, url: category_types_path do |f| %>
-  <p>
-    <%= f.label :category %><br>
-    <%= f.text_field :category, :required => true %>
-  </p>
- 
-  <p>
-    <label>Icon</label>
-    <%= image_tag(@category_type.avatar_url) if @category_type.avatar? %>
-    <%= f.file_field :avatar %>
-    <%= f.hidden_field :avatar_cache %>
-  </p>
- 
-  <p>
-    <%= f.submit :class => "btn btn-primary" %>
-  </p>
-<% end %>
+  <%= form_for :category_type, url: category_types_path do |f| %>
+    <p>
+      <%= f.label :category %><br>
+      <%= f.text_field :category, :required => true %>
+    </p>
+   
+    <p>
+      <label>Icon</label>
+      <%= image_tag(@category_type.avatar_url) if @category_type.avatar? %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+    </p>
+   
+    <p>
+      <%= f.submit :class => "btn btn-primary" %>
+    </p>
+  <% end %>
 
-<%= link_to 'Back', category_types_path %>
+  <%= link_to 'Back', category_types_path %>
+</div>

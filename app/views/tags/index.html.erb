@@ -1,55 +1,57 @@
-<h2>Tags</h2>
+<div class="container">
+	<h2>Tags</h2>
 
-<div class="small-bottom">
-	<%= link_to '+ Add New', new_tag_path, class: "btn btn-primary" %>
-	<a href="#" class="pull-right" data-toggle="modal" data-target="#tag_modal">Advanced Search</a>
+	<div class="small-bottom">
+		<%= link_to '+ Add New', new_tag_path, class: "btn btn-primary" %>
+		<a href="#" class="pull-right" data-toggle="modal" data-target="#tag_modal">Advanced Search</a>
+	</div>
+	<div class="row"> 
+		<table class="table table-striped">
+		  <tr>
+		    <th class="text-primary col-md-1">No</th>
+		    <th class="text-primary col-md-9">Tag Name</th>
+		    <th class="text-primary col-md-2">Actions</th>
+		  </tr>
+		 
+		  <% @tags.each_with_index do |tag, no| %>
+		    <tr>
+		      <td><%= no + 1 %></td>
+		      <td><%= tag.name %></td>
+		      <td>
+		      	<%= link_to 'Edit', edit_tag_path(tag) %>
+		      	<%= link_to 'Delete', tag_path(tag), method: :delete, data: { confirm: "Are you sure?" } %>		
+	      	  </td>
+		    </tr>
+		  <% end %>
+		</table>
+	</div>
+
+
+	<!-- Start: Tag Search Modal -->
+	<div id="tag_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    <%= form_for :tag, url: search_tag_path, :html => { :id => "search_tag_form" } do |f| %>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+	      </div>
+	      <div class="modal-body">
+			  <div class="form-group row">
+				<label for="name" class="col-xs-3 col-form-label">Tag Name</label>
+				<div class="col-xs-6">
+				  <%= f.text_field :name, :class => 'form-control' %>
+				</div>
+			  </div>
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <%= f.submit "Search", :class => 'btn btn-primary' %>
+	      </div>
+	    <% end %>
+	    </div>
+	  </div>
+	</div>
+	<!-- End: Tag Search Modal -->
 </div>
-<div class="row"> 
-	<table class="table table-striped">
-	  <tr>
-	    <th class="text-primary col-md-1">No</th>
-	    <th class="text-primary col-md-9">Tag Name</th>
-	    <th class="text-primary col-md-2">Actions</th>
-	  </tr>
-	 
-	  <% @tags.each_with_index do |tag, no| %>
-	    <tr>
-	      <td><%= no + 1 %></td>
-	      <td><%= tag.name %></td>
-	      <td>
-	      	<%= link_to 'Edit', edit_tag_path(tag) %>
-	      	<%= link_to 'Delete', tag_path(tag), method: :delete, data: { confirm: "Are you sure?" } %>		
-      	  </td>
-	    </tr>
-	  <% end %>
-	</table>
-</div>
-
-
-<!-- Start: Tag Search Modal -->
-<div id="tag_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <%= form_for :tag, url: search_tag_path, :html => { :id => "search_tag_form" } do |f| %>
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
-      </div>
-      <div class="modal-body">
-		  <div class="form-group row">
-			<label for="name" class="col-xs-3 col-form-label">Tag Name</label>
-			<div class="col-xs-6">
-			  <%= f.text_field :name, :class => 'form-control' %>
-			</div>
-		  </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <%= f.submit "Search", :class => 'btn btn-primary' %>
-      </div>
-    <% end %>
-    </div>
-  </div>
-</div>
-<!-- End: Tag Search Modal -->

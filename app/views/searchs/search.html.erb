@@ -1,47 +1,51 @@
-<div id="custom-search-input" class="form-group">
-    <%= form_tag("/search", method: "post", id: "event_search_form") do %>
-        <div class="input-group">
-            <select name="tag_id" id="tag_id" class="form-control">
-                <option value="all" <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
-                selected
-                <% end %>>
-                All
-                </option>
-                <% @tags.each do |tag| %>
-                <option value="<%= tag.id %>" <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
-                selected
-                <% end %>>
-                    <%= tag.name %>
-                </option>
-                <% end%>
-            </select>            
-        </div>
-    <% end %>
-</div>
+<div class="container">
+    <div id="custom-search-input" class="form-group" style="margin-top: 20px">
+        <%= form_tag("/search", method: "post", id: "event_search_form") do %>
+            <div class="input-group">
+                <select name="tag_id" id="tag_id" class="form-control">
+                    <option value="all" <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
+                    selected
+                    <% end %>>
+                    All
+                    </option>
+                    <% @tags.each do |tag| %>
+                    <option value="<%= tag.id %>" <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
+                    selected
+                    <% end %>>
+                        <%= tag.name %>
+                    </option>
+                    <% end%>
+                </select>            
+            </div>
+        <% end %>
+    </div>
 
-<div class="row"> 
-	<table class="table table-striped">
-	  <tr>
-	    <th class="text-primary col-md-3">Event Name</th>
-	    <th class="text-primary col-md-4">Description</th>
-	    <th class="text-primary col-md-1">Start Date</th>
-	    <th class="text-primary col-md-1">End Date</th>
-	  </tr>
-
-	  <% @events.each do |event| %>
-	    <tr>
-	      <td><%= event.name %></td>
-	      <td><%= event.description %></td>
-	      <td><%= event.start_date %></td>
-	      <td><%= event.end_date %></td>
-	    </tr>
-	  <% end %>
-	 
-	</table>
+    <ul class="events-panel">
+        <% @events.each do |event| %>
+            <li data-eventid="<%= event.id %>" style="background: cornflowerblue url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;">
+                <a>
+                    <p class="title"><%= event.name %></p>
+                    <p class="event-date">
+                        <span class="start-date"><%= event.start_date %></span>
+                        <span> - </span>
+                        <span class="end-date"><%= event.end_date %></span>
+                    </p>
+                </a>
+            </li>
+        <% end %>
+    </ul>
 </div>
 
 <script type="text/javascript">
     $("#tag_id").on('change', function() {
         $("#event_search_form").submit();
     });
+
+    $('ul li a p.title').each(function() {
+        if($(this).text().length > 90) {
+            $(this).text($(this).text().substring(0, 91) + "...");
+        }        
+    });
 </script>
+
+<!-- Ok sure, results in tiles will be good. I've attached photo for the landing page. Meetup doesn't ask if people are users or organisers when they sign up. We don't need to ask, someone can sign up to be User AND Organiser :smile: Will be easier to give organiser access to all users who sign up, so they can view all published events and they can create their own event if they want. I unpublished one event and it still shows in the list of Public Events even after I logout. If it's not published it mustn't show to the public. Thx -->

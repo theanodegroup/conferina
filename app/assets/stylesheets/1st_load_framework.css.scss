@@ -167,8 +167,9 @@ header {
 }
 
 #custom-search-input {
+  min-height: 40px;
   .input-group {
-    margin: 0 auto;
+    width: 100%;
   }
 }
 
@@ -258,7 +259,8 @@ ul {
   list-style: none;
 }
 
-ul.events-panel {
+ul.events-grid {
+  display: none;
   padding: 0;
   li {
     width: 32%;
@@ -290,4 +292,54 @@ ul.events-panel {
   }
 }
 
+ul.events-grid.active {
+  display: block;
+}
 
+#event_search_form {
+  display: inline-block;
+  width: 80%;
+}
+
+.view-choice {
+  .btn.active {
+    outline: initial;
+  }
+
+  .btn-group {
+    margin-right: 15px;
+  }
+}
+
+table.events-list {
+  display: none;
+}
+
+table.events-list.active {
+  display: block;
+}
+
+.truncate {
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-striped > tbody > tr {
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(30, 240, 10, 0.3);
+  }
+}
+
+td > p {
+  margin-bottom: 0px;
+}
+
+#eventModal .modal-body {
+  span {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

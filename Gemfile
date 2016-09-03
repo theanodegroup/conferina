@@ -17,6 +17,8 @@ gem 'jquery-timepicker-addon-rails'
 gem 'carrierwave'
 gem "mini_magick"
 
+gem 'gon'
+
 gem 'rails_12factor', group: :production
 
 group :development, :test do

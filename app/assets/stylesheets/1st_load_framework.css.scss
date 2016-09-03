@@ -305,10 +305,6 @@ ul.events-grid.active {
   .btn.active {
     outline: initial;
   }
-
-  .btn-group {
-    margin-right: 15px;
-  }
 }
 
 table.events-list {
@@ -316,7 +312,7 @@ table.events-list {
 }
 
 table.events-list.active {
-  display: block;
+  display: inline-table;
 }
 
 .truncate {

@@ -56,24 +56,24 @@
     </ul>
 
     <table class="table table-striped events-list active">
-      <thead>
-          <tr>
-            <th class="text-primary col-sm-3">Start Date</th>
-            <th class="text-primary col-sm-3">End Date</th>
-            <th class="text-primary col-sm-6">Event Title</th>
-          </tr>
-      </thead>
-      <tbody>
-          <% @loop_no = 0 %>
-          <% @events.each do |event| %>
-            <tr class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
-              <td class="col-sm-3"><%= event.start_date %></td>
-              <td class="col-sm-3"><%= event.end_date %></td>
-              <td class="col-sm-6"><p class="truncate"><%= event.name %></p></td>
-            </tr>
-          <% @loop_no += 1 %>
-          <% end %>
-      </tbody>
+      
+      <tr>
+        <th class="text-primary col-md-3">Start Date</th>
+        <th class="text-primary col-md-3">End Date</th>
+        <th class="text-primary col-md-6">Event Title</th>
+      </tr>
+      
+      
+      <% @loop_no = 0 %>
+      <% @events.each do |event| %>
+        <tr class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
+          <td><%= event.start_date %></td>
+          <td><%= event.end_date %></td>
+          <td><p class="truncate"><%= event.name %></p></td>
+        </tr>
+      <% @loop_no += 1 %>
+      <% end %>
+      
     </table>
 </div>
 

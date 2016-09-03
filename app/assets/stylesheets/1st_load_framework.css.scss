@@ -326,7 +326,7 @@ table.events-list.active {
   text-overflow: ellipsis;
 }
 
-.table-striped > tbody > tr {
+.events-list.table-striped tr.list-selectable {
   cursor: pointer;
   &:hover {
     background-color: rgba(30, 240, 10, 0.3);

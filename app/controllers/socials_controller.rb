@@ -8,8 +8,7 @@ class SocialsController < ApplicationController
 	end
 
 	private
-  
-	def social_params
+  	def social_params
 		params.require(:social).permit(:website, :facebook, :twitter, :youtube, :event_id)
 	end
 	

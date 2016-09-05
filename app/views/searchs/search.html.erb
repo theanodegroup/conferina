@@ -1,0 +1,147 @@
+<%= include_gon %>
+
+<div class="container">
+    <div id="custom-search-input" class="form-group row" style="margin-top: 20px">
+        <div class="col-md-6">
+            <%= form_tag("/search", method: "post", id: "event_search_form") do %>
+                <div class="input-group">
+                    <select name="tag_id" id="tag_id" class="form-control">
+                        <option value="all" <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
+                        selected
+                        <% end %>>
+                        All
+                        </option>
+                        <% @tags.each do |tag| %>
+                        <option value="<%= tag.id %>" <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
+                        selected
+                        <% end %>>
+                            <%= tag.name %>
+                        </option>
+                        <% end %>
+                    </select>            
+                </div>
+            <% end %>
+        </div>
+        <div class="col-md-6 view-choice">
+            <div class="btn-group pull-right" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="radio" name="view_choice" id="list_view" autocomplete="off" value="list" checked> 
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                List View
+              </label>
+              <label class="btn btn-primary">
+                <input type="radio" name="view_choice" id="grid_view" autocomplete="off" value="grid">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 
+                Grid View
+              </label>
+            </div>
+        </div>
+    </div>
+
+    <ul class="events-grid">
+        <% @loop_no = 0 %>
+        <% @events.each do |event| %>
+            <li data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" style="background: cornflowerblue url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;" class="list-selectable" data-toggle="modal" data-target="#eventModal">
+                <a>
+                    <p class="title"><%= event.name %></p>
+                    <p class="event-date">
+                        <span class="start-date"><%= event.start_date %></span>
+                        <span> - </span>
+                        <span class="end-date"><%= event.end_date %></span>
+                    </p>
+                </a>
+            </li>
+        <% @loop_no += 1 %>
+        <% end %>
+    </ul>
+
+    <table class="table table-striped events-list active">
+      
+      <tr>
+        <th class="text-primary col-md-3">Start Date</th>
+        <th class="text-primary col-md-3">End Date</th>
+        <th class="text-primary col-md-6">Event Title</th>
+      </tr>
+      
+      
+      <% @loop_no = 0 %>
+      <% @events.each do |event| %>
+        <tr class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
+          <td><%= event.start_date %></td>
+          <td><%= event.end_date %></td>
+          <td><p class="truncate"><%= event.name %></p></td>
+        </tr>
+      <% @loop_no += 1 %>
+      <% end %>
+      
+    </table>
+</div>
+
+<!-- Start: Event Description Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Modal title</h3>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- End: Event Description Modal -->
+
+<script type="text/javascript">
+    $('#tag_id').select2();
+
+    $("#tag_id").on('change', function() {
+        $("#event_search_form").submit();
+    });
+
+    $('ul li a p.title').each(function() {
+        if($(this).text().length > 90) {
+            $(this).text($(this).text().substring(0, 91) + "...");
+        }        
+    });
+
+    $("input[name=view_choice]:radio").on('change', function() {
+        var checked   = $('input[name=view_choice]:checked').val();
+        var unchecked = $('input[name=view_choice]:not(:checked)').val();
+        $('.events-' + unchecked).removeClass('active');
+        $('.events-' + checked).addClass('active');
+    });
+
+    $('.list-selectable').on('click', function() {
+        var id = parseInt($(this).data('id'));
+        $('#myModalLabel').html(gon.events[id].name);
+
+        var tmp_html = '';
+
+        if(gon.events[id].avatar.url != null) {
+            tmp_html = '<img src="' + gon.events[id].avatar.url + '" height="100%" width="100%" ><hr/>';
+        }
+
+        tmp_html = tmp_html + '<span>Organized by:</span>';
+        tmp_html = tmp_html + '<p>' + gon.users[id] + '</p><hr/>';
+
+        tmp_html = tmp_html + '<span>Duration:</span>';
+        tmp_html = tmp_html + '<p>' + moment(gon.events[id].start_date).format('dddd, MMMM D, YYYY') + ' - ' + moment(gon.events[id].end_date).format('dddd, MMMM D, YYYY') + '</p><hr/>';
+
+        tmp_html = tmp_html + '<span>Map Address:</span>';
+        tmp_html = tmp_html + '<p>' + gon.events[id].address + '</p><hr/>';
+
+        tmp_html = tmp_html + '<span>About Event</span>';
+        tmp_html = tmp_html + '<p>' + gon.events[id].description + '</p>';
+
+        $('#eventModal .modal-body').html(tmp_html);
+    });
+</script>
+

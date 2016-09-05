@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Create session Type</h2>
+
+  <%= form_for :session_type, url: session_types_path do |f| %>
+    <p>
+      <%= f.label :category %><br>
+      <%= f.text_field :category, :required => true %>
+    </p>
+   
+    <p>
+      <label>Icon</label>
+      <%= image_tag(@session_type.avatar_url) if @session_type.avatar? %>
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+    </p>
+   
+    <p>
+      <%= f.submit :class => "btn btn-primary" %>
+    </p>
+  <% end %>
+
+  <%= link_to 'Back', session_types_path %>
+</div>

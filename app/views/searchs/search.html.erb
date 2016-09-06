@@ -100,6 +100,7 @@
 <!-- End: Event Description Modal -->
 
 <script type="text/javascript">
+    console.log(gon.socials);
     $('#tag_id').select2();
 
     $("#tag_id").on('change', function() {
@@ -140,6 +141,26 @@
 
         tmp_html = tmp_html + '<span>About Event</span>';
         tmp_html = tmp_html + '<p>' + gon.events[id].description + '</p>';
+
+        if (gon.socials[id].website != null && gon.socials[id].website != "" ) {
+            tmp_html = tmp_html + '<hr/><span>Website</span>';
+            tmp_html = tmp_html + '<p>' + gon.socials[id].website + '</p>';    
+        }
+
+        if (gon.socials[id].facebook != null && gon.socials[id].facebook != "" ) {
+            tmp_html = tmp_html + '<hr/><span>Facebook</span>';
+            tmp_html = tmp_html + '<p>' + gon.socials[id].facebook + '</p>';    
+        }
+
+        if (gon.socials[id].twitter != null && gon.socials[id].twitter != "" ) {
+            tmp_html = tmp_html + '<hr/><span>Twitter</span>';
+            tmp_html = tmp_html + '<p>' + gon.socials[id].twitter + '</p>';    
+        }
+
+        if (gon.socials[id].youtube != null && gon.socials[id].youtube != "" ) {
+            tmp_html = tmp_html + '<hr/><span>Youtube</span>';
+            tmp_html = tmp_html + '<p>' + gon.socials[id].youtube + '</p>';    
+        }
 
         $('#eventModal .modal-body').html(tmp_html);
     });

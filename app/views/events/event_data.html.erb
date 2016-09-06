@@ -135,7 +135,7 @@
 
 		    	<div class="form-group"><h1>Edit Social Settings</h1></div>
 
-				<%= form_for :social, url: social_path(@event.social.id), method: :patch, :html => { :id => "edit_social_form" } do |f| %>
+				<%= form_for :social, url: social_path(@event.social.id), method: :patch, :html => { :id => "edit_social_form", :role => "form" } do |f| %>
 
 				  <div class="form-group row">
 					<label for="website" class="col-xs-3 col-form-label">
@@ -143,7 +143,7 @@
 						<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <%= f.text_field :website, :class => 'form-control' %>
+					  <input class="form-control" type="url" name="social[website]" id="social_website" data-error="The website address is not valid" value="<%= @social.website %>">
 					</div>
 				  </div>
 
@@ -153,7 +153,7 @@
 						<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <%= f.text_field :facebook, :class => 'form-control' %>
+					  <input class="form-control" type="url" name="social[facebook]" id="social_facebook" data-error="The facebook address is not valid" value="<%= @social.facebook %>">
 					</div>
 				  </div>
 
@@ -163,7 +163,7 @@
 						<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <%= f.text_field :twitter, :class => 'form-control' %>
+					  <input class="form-control" type="url" name="social[twitter]" id="social_twitter" data-error="The twitter address is not valid" value="<%= @social.twitter %>">
 					</div>
 				  </div>
 
@@ -173,7 +173,7 @@
 						<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
 					</label>
 					<div class="col-xs-5">
-					  <%= f.text_field :youtube, :class => 'form-control' %>
+					  <input class="form-control" type="url" name="social[youtube]" id="social_youtube" data-error="The youtube address is not valid" value="<%= @social.youtube %>">
 					</div>
 				  </div>
 
@@ -442,6 +442,9 @@
 
   $(document).ready(function(){
   	fakewaffle.responsiveTabs(['xs', 'sm']);	
+
+	$('#edit_social_form').data("toggle", "validator");
+	$('#edit_social_form').validator();
 
   	$('#event_id').on('change', function() { 
 		window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');

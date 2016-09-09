@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Conference Web" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Rails Devise Roles" %>">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Conferina" %>">
     <%= content_for(:head) if content_for? :head %>
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAPH89KG4vK4HGD9hMCL5p8bQeNF6uKBqY&amp;sensor=false&amp;libraries=places"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>

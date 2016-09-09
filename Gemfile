@@ -19,6 +19,8 @@ gem "mini_magick"
 
 gem 'gon'
 
+gem 'aws-sdk', '~> 2'
+
 gem 'rails_12factor', group: :production
 
 group :development, :test do

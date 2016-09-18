@@ -341,8 +341,23 @@ td > p {
     font-weight: 500;
   }
 
-  a {
+  ul {
+    list-style: none;
+    margin-bottom: 20px;
     display: inline-block;
-    margin-right: 20px;
+
+    a { color: green; }
+
+    li {
+      float: left;
+      margin-right: 20px;
+      color: green;
+      cursor: pointer;
+    }
   }
+
+  // a {
+  //   display: inline-block;
+  //   margin-right: 20px;
+  // }
 }

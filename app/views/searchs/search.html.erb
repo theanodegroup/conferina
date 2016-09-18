@@ -164,29 +164,38 @@
         tmp_html = tmp_html + '<span>About Event</span>';
         tmp_html = tmp_html + '<p>' + gon.events[id].description + '</p>';
 
+        var email_body = gon.events[id].description;
+
         if (gon.socials[id].website != null && gon.socials[id].website != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Website</span>';
-            tmp_html = tmp_html + '<p>' + gon.socials[id].website + '</p>';    
+            tmp_html = tmp_html + '<hr/><span>Website</span><br>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].website + '" target="_blank">' + gon.socials[id].website + '</a>';
+            email_body = email_body + '%0D%0A' + gon.socials[id].website;   
         }
 
         if (gon.socials[id].facebook != null && gon.socials[id].facebook != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Facebook</span>';
-            tmp_html = tmp_html + '<p>' + gon.socials[id].facebook + '</p>';    
+            tmp_html = tmp_html + '<hr/><span>Facebook</span><br>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].facebook + '" target="_blank">' + gon.socials[id].facebook + '</a>';
+            email_body = email_body + '%0D%0A' + gon.socials[id].facebook;    
         }
 
         if (gon.socials[id].twitter != null && gon.socials[id].twitter != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Twitter</span>';
-            tmp_html = tmp_html + '<p>' + gon.socials[id].twitter + '</p>';    
+            tmp_html = tmp_html + '<hr/><span>Twitter</span><br>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].twitter + '" target="_blank">' + gon.socials[id].twitter + '</a>';
+            email_body = email_body + '%0D%0A' + gon.socials[id].twitter;    
         }
 
         if (gon.socials[id].youtube != null && gon.socials[id].youtube != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Youtube</span>';
-            tmp_html = tmp_html + '<p>' + gon.socials[id].youtube + '</p>';    
+            tmp_html = tmp_html + '<hr/><span>Youtube</span><br>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].youtube + '" target="_blank">' + gon.socials[id].youtube + '</a>';
+            email_body = email_body + '%0D%0A' + gon.socials[id].youtube;    
         }
 
-        tmp_html = tmp_html + '<hr/><a id="facebook" href="">' + '<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>' + '</a>';
+        tmp_html = tmp_html + '<hr/><ul><li><i id="facebook" class="fa fa-facebook fa-2x" aria-hidden="true"></i></li>';
+        tmp_html = tmp_html + '<li><i class="share s_twitter fa fa-twitter fa-2x" aria-hidden="true"></i></li>';
+        tmp_html = tmp_html + '<li><i class="fa fa-mobile fa-2x" aria-hidden="true"></i></li>';
+        tmp_html = tmp_html + '<li><a href="mailto:?subject=' + gon.events[id].name + '&body=' + email_body + '"><i id="share_email" class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a></li></ul>';
 
-        tmp_html = tmp_html + '<a class="share s_twitter">' + '<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>' + '</a>';        
+        tmp_html = tmp_html + '<hr/><button type="button" class="btn btn-success">EXPORT CSV ABOUT EVENT</button>'
 
         $('#eventModal .modal-body').html(tmp_html);
         $('#facebook').on('click', function(){
@@ -207,7 +216,7 @@
             image: '<%= request.base_url %>' + '<%= asset_path("logo.png") %>',
             url: 'https://conference-webapp.herokuapp.com/search'
         });
-        
+
     });
 </script>
 

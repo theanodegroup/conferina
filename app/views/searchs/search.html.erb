@@ -168,25 +168,25 @@
 
         if (gon.socials[id].website != null && gon.socials[id].website != "" ) {
             tmp_html = tmp_html + '<hr/><span>Website</span><br>';
-            tmp_html = tmp_html + '<a href="' + gon.socials[id].website + '" target="_blank">' + gon.socials[id].website + '</a>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].website.toLowerCase().indexOf("http") >= 0 ? '' : 'https://' + gon.socials[id].website + '" target="_blank">' + gon.socials[id].website + '</a>';
             email_body = email_body + '%0D%0A' + gon.socials[id].website;   
         }
 
         if (gon.socials[id].facebook != null && gon.socials[id].facebook != "" ) {
             tmp_html = tmp_html + '<hr/><span>Facebook</span><br>';
-            tmp_html = tmp_html + '<a href="' + gon.socials[id].facebook + '" target="_blank">' + gon.socials[id].facebook + '</a>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].facebook.toLowerCase().indexOf("http") >= 0 ? '' : 'https://' + gon.socials[id].facebook + '" target="_blank">' + gon.socials[id].facebook + '</a>';
             email_body = email_body + '%0D%0A' + gon.socials[id].facebook;    
         }
 
         if (gon.socials[id].twitter != null && gon.socials[id].twitter != "" ) {
             tmp_html = tmp_html + '<hr/><span>Twitter</span><br>';
-            tmp_html = tmp_html + '<a href="' + gon.socials[id].twitter + '" target="_blank">' + gon.socials[id].twitter + '</a>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].twitter.toLowerCase().indexOf("http") >= 0 ? '' : 'https://' + gon.socials[id].twitter + '" target="_blank">' + gon.socials[id].twitter + '</a>';
             email_body = email_body + '%0D%0A' + gon.socials[id].twitter;    
         }
 
         if (gon.socials[id].youtube != null && gon.socials[id].youtube != "" ) {
             tmp_html = tmp_html + '<hr/><span>Youtube</span><br>';
-            tmp_html = tmp_html + '<a href="' + gon.socials[id].youtube + '" target="_blank">' + gon.socials[id].youtube + '</a>';
+            tmp_html = tmp_html + '<a href="' + gon.socials[id].youtube + '" target="_blank">' + gon.socials[id].youtube.toLowerCase().indexOf("http") >= 0 ? '' : 'https://' + gon.socials[id].youtube + '</a>';
             email_body = email_body + '%0D%0A' + gon.socials[id].youtube;    
         }
 

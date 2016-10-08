@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824214751) do
+ActiveRecord::Schema.define(version: 20161007075225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,17 +34,15 @@ ActiveRecord::Schema.define(version: 20160824214751) do
     t.date     "end_date"
     t.boolean  "coming_soon"
     t.string   "address"
-    t.string   "extra_name"
+    t.date     "call_for"
     t.text     "extra_desc"
-    t.string   "extra_date_first_name"
-    t.string   "extra_date_second_name"
-    t.date     "extra_date_first"
-    t.date     "extra_date_second"
-    t.boolean  "is_published",                                     default: false
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-    t.decimal  "lat",                    precision: 17, scale: 14
-    t.decimal  "lng",                    precision: 17, scale: 14
+    t.date     "submission"
+    t.date     "notification"
+    t.boolean  "is_published",                           default: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.decimal  "lat",          precision: 17, scale: 14
+    t.decimal  "lng",          precision: 17, scale: 14
   end
 
   create_table "location_types", force: :cascade do |t|
@@ -104,10 +102,11 @@ ActiveRecord::Schema.define(version: 20160824214751) do
 
   create_table "person_types", force: :cascade do |t|
     t.string   "category"
-    t.boolean  "by_admin",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "by_admin",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "avatar"
+    t.text     "description"
   end
 
   create_table "persons_sessions", id: false, force: :cascade do |t|

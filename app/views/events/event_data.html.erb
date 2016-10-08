@@ -35,7 +35,7 @@
 				  <tr>
 				    <th class="text-primary col-md-3">Name/Title</th>
 				    <th class="text-primary col-md-5">Description</th>
-				    <th class="text-primary col-md-2">Subtitle</th>
+				    <th class="text-primary col-md-2">Company</th>
 				    <th class="text-primary col-md-2">Actions</th>
 				  </tr>
 
@@ -143,7 +143,7 @@
 						<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <input class="form-control" type="url" name="social[website]" id="social_website" data-error="The website address is not valid" value="<%= @social.website %>">
+					  <input class="form-control" type="text" name="social[website]" id="social_website" data-error="The website address is not valid" value="<%= @social.website %>">
 					</div>
 				  </div>
 
@@ -153,7 +153,7 @@
 						<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <input class="form-control" type="url" name="social[facebook]" id="social_facebook" data-error="The facebook address is not valid" value="<%= @social.facebook %>">
+					  <input class="form-control" type="text" name="social[facebook]" id="social_facebook" data-error="The facebook address is not valid" value="<%= @social.facebook %>">
 					</div>
 				  </div>
 
@@ -163,7 +163,7 @@
 						<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-xs-5">
-					  <input class="form-control" type="url" name="social[twitter]" id="social_twitter" data-error="The twitter address is not valid" value="<%= @social.twitter %>">
+					  <input class="form-control" type="text" name="social[twitter]" id="social_twitter" data-error="The twitter address is not valid" value="<%= @social.twitter %>">
 					</div>
 				  </div>
 
@@ -173,7 +173,7 @@
 						<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
 					</label>
 					<div class="col-xs-5">
-					  <input class="form-control" type="url" name="social[youtube]" id="social_youtube" data-error="The youtube address is not valid" value="<%= @social.youtube %>">
+					  <input class="form-control" type="text" name="social[youtube]" id="social_youtube" data-error="The youtube address is not valid" value="<%= @social.youtube %>">
 					</div>
 				  </div>
 
@@ -210,7 +210,7 @@
 			  </div>
 
 			  <div class="form-group row">
-				<label for="subtitle" class="col-xs-3 col-form-label">Subtitle</label>
+				<label for="subtitle" class="col-xs-3 col-form-label">Company</label>
 				<div class="col-xs-6">
 				  <%= f.text_field :subtitle, :class => 'form-control' %>
 				</div>
@@ -448,6 +448,11 @@
 
   	$('#event_id').on('change', function() { 
 		window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
+  	});
+
+  	$(".nav-tabs a").on('click', function() {
+  		if($(this).closest('li').hasClass('active')) return;
+  		window.location.href = "/event_data?event_id=" + $('#event_id').val() + "&category=" + $(this).attr('aria-controls');
   	});
 
   	var category = "<%= @category %>";

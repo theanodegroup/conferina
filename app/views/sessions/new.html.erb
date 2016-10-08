@@ -21,7 +21,7 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="persons" class="col-xs-3 col-form-label">Participants</label>
+		<label for="persons" class="col-xs-3 col-form-label">Select Participant/s</label>
 		<div class="col-xs-6">
 		  <%= f.select :persons, options_for_select(@event.persons.map{ |c| [c.name, c.id] }), {}, {:class => 'form-control', :multiple => true } %>
 		</div>

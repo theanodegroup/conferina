@@ -79,19 +79,22 @@ class EventsController < ApplicationController
     if not @event.nil? 
       @social = @event.social
       if (not params[:person_search].blank?) && (params[:person_search].eql? 'true')
-        @persons = Person.where(params[:sql]).order(:name)
+        # @persons = Person.where(params[:sql]).order(:name)
+        @persons = @event.persons.where(params[:sql]).order(:name)
       else
         @persons = @event.persons.order(:name)
       end
 
       if (not params[:location_search].blank?) && (params[:location_search].eql? 'true')
-        @locations = Location.where(params[:sql]).order(:name);
+        # @locations = Location.where(params[:sql]).order(:name)
+        @locations = @event.locations.where(params[:sql]).order(:name)
       else
         @locations = @event.locations.order(:name)
       end
 
       if (not params[:session_search].blank?) && (params[:session_search].eql? 'true')
-        @sessions = Session.where(params[:sql]).order(:name);
+        # @sessions = Session.where(params[:sql]).order(:name)
+        @sessions = @event.sessions.where(params[:sql]).order(:name)
       else
         @sessions = @event.sessions.order(:name)
       end
@@ -119,7 +122,7 @@ class EventsController < ApplicationController
   private
   
   def event_params
-    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :extra_name, :extra_desc, :extra_date_first_name, :extra_date_second_name, :extra_date_first, :extra_date_second, :lat, :lng, :tags)
+    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :call_for, :extra_desc, :submission, :notification, :lat, :lng, :tags)
   end
 
   def get_category_types

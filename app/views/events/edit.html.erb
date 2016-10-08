@@ -111,34 +111,30 @@
 
 	  <div class="extra">
 		  <div class="form-group row">
-			<label for="extra_name" class="col-xs-3 col-form-label">Extra Field Name</label>
-			<div class="col-xs-6">
-			  <%= f.text_field :extra_name, :class => 'form-control', :placeholder => 'e.g. Call For Papers Due' %>
+			<label for="call_for" class="col-xs-3 col-form-label">Call For Papers Abstracts Due</label>
+			<div class="col-xs-3">
+			  <%= f.text_field :call_for, :readonly => true, :class => 'form-control' %>
 			</div>
 		  </div>
 
 		  <div class="form-group row">
 			<label for="extra_desc" class="col-xs-3 col-form-label">Description</label>
 			<div class="col-xs-6">
-			  <%= f.text_area :extra_desc, :class => 'form-control', :rows => 7, :placeholder => 'e.g. Description' %>
+			  <%= f.text_area :extra_desc, :class => 'form-control', :rows => 7, :placeholder => 'Description' %>
 			</div>
 		  </div>
 
 		  <div class="form-group row">
+		  	<label for="submission" class="col-xs-3 col-form-label">Paper Submission Deadline</label>
 		  	<div class="col-xs-3">
-		  		<%= f.text_field :extra_date_first_name, :placeholder => "e.g. Submission Deadline", :class => 'form-control' %>
-		  	</div>
-		  	<div class="col-xs-3">
-			  <%= f.text_field :extra_date_first, :readonly => true, :class => 'form-control' %>
+			  <%= f.text_field :submission, :readonly => true, :class => 'form-control' %>
 			</div>
 		  </div>
 
 		  <div class="form-group row">
+		  	<label for="notification" class="col-xs-3 col-form-label">Notification Of Acceptance</label>
 		  	<div class="col-xs-3">
-		  		<%= f.text_field :extra_date_second_name, :placeholder => "e.g. Notification Due", :class => 'form-control' %>
-		  	</div>
-		  	<div class="col-xs-3">
-			  <%= f.text_field :extra_date_second, :readonly => true, :class => 'form-control' %>
+			  <%= f.text_field :notification, :readonly => true, :class => 'form-control' %>
 			</div>
 		  </div>	
 
@@ -168,10 +164,16 @@
 		$('#event_end_date').datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
-		$('#event_extra_date_first').datepicker({
+		
+		$('#event_call_for').datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
-		$('#event_extra_date_second').datepicker({
+		
+		$('#event_submission').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		
+		$('#event_notification').datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
 
@@ -213,69 +215,69 @@
 	    // 		$('.extra').css('display', 'none');
 	    // });
 
-	    function checking_extra() {
-	    	if($('#event_extra_name').val() || $('#event_extra_desc').val()) {
-				$("#event_extra_name").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please enter an extra field name"
-				  }
-				});
+	  //   function checking_extra() {
+	  //   	if($('#event_extra_name').val() || $('#event_extra_desc').val()) {
+			// 	$("#event_extra_name").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please enter an extra field name"
+			// 	  }
+			// 	});
 
-				$("#event_extra_desc").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please enter an extra field description"
-				  }
-				});
+			// 	$("#event_extra_desc").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please enter an extra field description"
+			// 	  }
+			// 	});
 
-			} else {
-				$("#event_extra_name").rules( "remove" );
-				$("#event_extra_desc").rules( "remove" );
-			}	
-	    }
+			// } else {
+			// 	$("#event_extra_name").rules( "remove" );
+			// 	$("#event_extra_desc").rules( "remove" );
+			// }	
+	  //   }
 
-	    function checking_extra_dates () {
-	    	if($('#event_extra_date_first').val() || $('#event_extra_date_first_name').val()) {
-				$("#event_extra_date_first_name").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please enter the first extra date name"
-				  }
-				});	
+	  //   function checking_extra_dates () {
+	  //   	if($('#event_extra_date_first').val() || $('#event_extra_date_first_name').val()) {
+			// 	$("#event_extra_date_first_name").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please enter the first extra date name"
+			// 	  }
+			// 	});	
 
-				$("#event_extra_date_first").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please select the first extra date"
-				  }
-				});
+			// 	$("#event_extra_date_first").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please select the first extra date"
+			// 	  }
+			// 	});
 
-			} else {
-				$("#event_extra_date_first_name").rules("remove");
-				$("#event_extra_date_first").rules("remove");
-			}
+			// } else {
+			// 	$("#event_extra_date_first_name").rules("remove");
+			// 	$("#event_extra_date_first").rules("remove");
+			// }
 
-			if($('#event_extra_date_second').val() || $('#event_extra_date_second_name').val()) {
-				$("#event_extra_date_second_name").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please enter the second extra date name"
-				  }
-				});	
+			// if($('#event_extra_date_second').val() || $('#event_extra_date_second_name').val()) {
+			// 	$("#event_extra_date_second_name").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please enter the second extra date name"
+			// 	  }
+			// 	});	
 
-				$("#event_extra_date_second").rules( "add", {
-				  required: true,
-				  messages: {
-				    required: "Please select the second extra date"
-				  }
-				});
+			// 	$("#event_extra_date_second").rules( "add", {
+			// 	  required: true,
+			// 	  messages: {
+			// 	    required: "Please select the second extra date"
+			// 	  }
+			// 	});
 
-			} else {
-				$("#event_extra_date_second_name").rules("remove");
-				$("#event_extra_date_second").rules("remove");
-			}		
-	    }
+			// } else {
+			// 	$("#event_extra_date_second_name").rules("remove");
+			// 	$("#event_extra_date_second").rules("remove");
+			// }		
+	  //   }
 
 	    $.validator.setDefaults({
 			submitHandler: function() {
@@ -327,13 +329,13 @@
 		// 	checking_extra();
 		// });
 
-	    $(".extra input[type='text']").on('change', function() {
-	    	checking_extra();
-			checking_extra_dates();			
-	    }); 
+	  //   $(".extra input[type='text']").on('change', function() {
+	  //   	checking_extra();
+			// checking_extra_dates();			
+	  //   }); 
 
-	    checking_extra();
-	    checking_extra_dates();
+	  //   checking_extra();
+	  //   checking_extra_dates();
 
 	    $('#event_start_date').on('change', function() {
 	    	if($('#event_end_date').val() != "" && moment($(this).val()).diff(moment($('#event_end_date').val())) > 0) {

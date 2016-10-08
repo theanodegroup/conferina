@@ -73,7 +73,7 @@ class PersonTypesController < ApplicationController
 	private
   
 	def person_type_params
-		params.require(:person_type).permit(:category, :avatar)
+		params.require(:person_type).permit(:category, :description, :avatar)
 	end
 	
 end

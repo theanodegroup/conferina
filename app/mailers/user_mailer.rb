@@ -1,3 +1,4 @@
+
 class UserMailer < Devise::Mailer 
 
 

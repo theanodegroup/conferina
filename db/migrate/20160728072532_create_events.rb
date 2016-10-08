@@ -10,12 +10,10 @@ class CreateEvents < ActiveRecord::Migration
       t.date :end_date
       t.boolean :coming_soon
       t.string :address
-      t.string :extra_name
+      t.date :call_for
       t.text :extra_desc
-      t.string :extra_date_first_name
-      t.string :extra_date_second_name
-      t.date :extra_date_first
-      t.date :extra_date_second
+      t.date :submission
+      t.date :notification
       t.boolean :is_published, :default => false
 
       t.timestamps null: false

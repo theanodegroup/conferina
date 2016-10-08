@@ -21,7 +21,7 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="persons" class="col-xs-3 col-form-label">Participants</label>
+		<label for="persons" class="col-xs-3 col-form-label">Select Participant/s</label>
 		<div class="col-xs-6">
 		  
 		  <%= f.select :persons, options_from_collection_for_select(@event.persons, "id", "name", @session.persons.collect{ |p| p.id }), {}, {:class => 'form-control', :multiple => true } %>

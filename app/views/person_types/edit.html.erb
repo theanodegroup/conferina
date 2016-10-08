@@ -21,7 +21,12 @@
       <%= f.label :category %><br>
       <%= f.text_field :category, :required => true %>
     </p>
-   
+    
+    <p>
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :class => 'form-control', :rows => 3, :placeholder => 'Description' %>
+    </p>
+    
     <p>
       <label>Icon</label>
       <%= image_tag(@person_type.avatar_url) if @person_type.avatar? %>

@@ -107,8 +107,8 @@
 				    <th class="text-primary col-md-2">Start Time</th>
 				    <th class="text-primary col-md-2">End Time</th>
 				    <th class="text-primary col-md-3">Session Name</th>
-				    <th class="text-primary col-md-3">Venue/Place</th>
-				    <th class="text-primary col-md-2">Actions</th>
+				    <th class="text-primary col-md-2">Venue/Place</th>
+				    <th class="text-primary col-md-3">Actions</th>
 				  </tr>
 
 				  <% @sessions.order(:start_time).each do |session| %>
@@ -118,9 +118,17 @@
 				      <td><%= session.name %></td>
 				      <td><%= session.location.nil? ? '' : session.location.name %></td>
 				      <td>
+				      	<% if session.is_published
+				      		publish_btn = "Unpublish"
+				      		classes = "btn btn-default"
+					       else
+					        publish_btn = "Publish"
+				      		classes = "btn btn-primary"
+					       end
+				      	%> 
 				      	<%= link_to 'Edit', edit_session_path(session) %>
 				      	<%= link_to 'Delete', session_path(session), method: :delete, data: { confirm: "Are you sure?" } %>
-				      		
+				      	<%= link_to publish_btn, session_publish_path(session) %>	
 				      </td>
 				    </tr>
 				  <% end %>

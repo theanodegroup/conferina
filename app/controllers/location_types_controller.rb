@@ -15,11 +15,14 @@ class LocationTypesController < ApplicationController
 	end
 
 	def new
-		@location_type = LocationType.new	
+		@location_type = LocationType.new
+		gon.all = current_user.location_types	
 	end
 
 	def edit
 		@location_type = LocationType.find(params[:id])
+		gon.all = current_user.location_types
+		gon.id = params[:id]
 	end
 
 	def update
@@ -40,6 +43,27 @@ class LocationTypesController < ApplicationController
 
 	    if @location_type.save
 	 		current_user.location_types << @location_type
+
+	 		if current_user.admin?
+		 		User.where("id <> " + current_user.id.to_s).each do |u|
+		 			duplicated = false
+
+		 			u.location_types.each do |loc|
+		 				if loc.category.downcase.eql? @location_type.category.downcase
+		 					duplicated = true
+		 					break
+		 				end
+		 			end
+
+		 			if !duplicated
+		 				new_loc = LocationType.new(location_type_params)
+		 				if new_loc.save
+		 					u.location_types << new_loc
+		 				end
+		 			end
+		 		end
+		 	end
+
 			redirect_to location_types_path	
 		else
 			render :new

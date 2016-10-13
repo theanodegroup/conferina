@@ -1,3 +1,5 @@
+<%= include_gon %>
+
 <div class="container">
   <h1>Update Session Type</h1>
    
@@ -21,7 +23,12 @@
       <%= f.label :category %><br>
       <%= f.text_field :category, :required => true %>
     </p>
-   
+    
+    <p>
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :class => 'form-control', :rows => 3, :placeholder => 'Description' %>
+    </p>
+    
     <p>
       <label>Icon</label>
       <%= image_tag(@session_type.avatar_url) if @session_type.avatar? %>
@@ -37,3 +44,20 @@
    
   <%= link_to 'Back', session_types_path %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    console.log(gon.all);
+    $("input[type='submit']").on('click', function(e){
+      var session_type = $('#session_type_category').val().toLowerCase();
+      for (var i = 0; i < gon.all.length; i++) {
+        if(gon.id == gon.all[i]['id']) continue;
+        if(session_type == gon.all[i]['category'].toLowerCase()) {
+          e.preventDefault();
+          alert("Oops, sorry it looks like you already have that Session Type saved. Please choose a unique Session Type, thanks");
+          break;
+        }
+      }
+    });
+  });
+</script>

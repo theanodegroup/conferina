@@ -1,3 +1,5 @@
+<%= include_gon %>
+
 <div class="container">
   <h1>Update Person Type</h1>
    
@@ -42,3 +44,20 @@
    
   <%= link_to 'Back', person_types_path %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    console.log(gon.all);
+    $("input[type='submit']").on('click', function(e){
+      var person_type = $('#person_type_category').val().toLowerCase();
+      for (var i = 0; i < gon.all.length; i++) {
+        if(gon.id == gon.all[i]['id']) continue;
+        if(person_type == gon.all[i]['category'].toLowerCase()) {
+          e.preventDefault();
+          alert("Oops, sorry it looks like you already have that Person Type saved. Please choose a unique Person Type, thanks");
+          break;
+        }
+      }
+    });
+  });
+</script>

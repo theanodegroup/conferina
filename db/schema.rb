@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007075225) do
+ActiveRecord::Schema.define(version: 20161011214615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,10 +118,11 @@ ActiveRecord::Schema.define(version: 20161007075225) do
 
   create_table "session_types", force: :cascade do |t|
     t.string   "category"
-    t.boolean  "by_admin",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "by_admin",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "avatar"
+    t.text     "description"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -135,8 +136,9 @@ ActiveRecord::Schema.define(version: 20161007075225) do
     t.integer  "event_id"
     t.integer  "session_type_id"
     t.integer  "location_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "is_published",    default: false
   end
 
   add_index "sessions", ["event_id"], name: "index_sessions_on_event_id", using: :btree

@@ -66,6 +66,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def session_publish
+    @session = Session.find(params[:id])
+    if @session.update(is_published: !@session.is_published) 
+      redirect_to event_data_path(event_id: @session[:event_id], category: 'sessions')
+    end
+  end
+
   def search
     sql = ''
     if not params[:session][:name].eql? ''

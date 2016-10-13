@@ -1,3 +1,5 @@
+<%= include_gon %>
+
 <div class="container">
   <h2>Create Location Type</h2>
 
@@ -21,3 +23,19 @@
 
   <%= link_to 'Back', location_types_path %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    console.log(gon.all);
+    $("input[type='submit']").on('click', function(e){
+      var location_type = $('#location_type_category').val().toLowerCase();
+      for (var i = 0; i < gon.all.length; i++) {
+        if(location_type == gon.all[i]['category'].toLowerCase()) {
+          e.preventDefault();
+          alert("Oops, sorry it looks like you already have that Location Type saved. Please choose a unique Location Type, thanks");
+          break;
+        }
+      }
+    });
+  });
+</script>

@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :users
 
   resources :events
-  get 'publishable/:id', to: 'events#publishable', as: 'publishable' 
+  get 'publishable/:id', to: 'events#publishable', as: 'publishable'
+  get 'session_publish/:id', to: 'sessions#session_publish', as: 'session_publish' 
   get 'event_data', to: 'events#event_data'
   get 'event_data/:id', to: 'events#event_data'
   get 'search_events', to: 'events#search_events'

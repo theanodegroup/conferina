@@ -70,7 +70,7 @@ class EventsController < ApplicationController
     @session_types = current_user.session_types
     @events = current_user.events
 
-    if params[:event_id].blank?
+    if params[:event_id].blank? || (params[:event_id].eql? 'undefined')
       @event = current_user.events.first 
     else
       @event = Event.find(params[:event_id]);  
@@ -94,9 +94,9 @@ class EventsController < ApplicationController
 
       if (not params[:session_search].blank?) && (params[:session_search].eql? 'true')
         # @sessions = Session.where(params[:sql]).order(:name)
-        @sessions = @event.sessions.where(params[:sql]).order(:name)
+        @sessions = @event.sessions.where(params[:sql]).order(:start_time)
       else
-        @sessions = @event.sessions.order(:name)
+        @sessions = @event.sessions.order(:start_time)
       end
     end
 

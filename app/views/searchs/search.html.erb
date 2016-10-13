@@ -158,6 +158,21 @@
         tmp_html = tmp_html + '<span>Duration:</span>';
         tmp_html = tmp_html + '<p>' + moment(gon.events[id].start_date).format('dddd, MMMM D, YYYY') + ' - ' + moment(gon.events[id].end_date).format('dddd, MMMM D, YYYY') + '</p><hr/>';
 
+        if (gon.events[id].call_for != null && gon.events[id].call_for != "" ) {
+            tmp_html = tmp_html + '<span>Call For Papers Abstracts Due</span>';
+            tmp_html = tmp_html + '<p>' + gon.events[id].call_for + '</p><hr/>';  
+        }
+
+        if (gon.events[id].submission != null && gon.events[id].submission != "" ) {
+            tmp_html = tmp_html + '<span>Paper Submission Deadline</span>';
+            tmp_html = tmp_html + '<p>' + gon.events[id].submission + '</p><hr/>';  
+        }
+
+        if (gon.events[id].notification != null && gon.events[id].notification != "" ) {
+            tmp_html = tmp_html + '<span>Notification Of Acceptance</span>';
+            tmp_html = tmp_html + '<p>' + gon.events[id].notification + '</p><hr/>';  
+        }
+
         tmp_html = tmp_html + '<span>Map Address:</span>';
         tmp_html = tmp_html + '<p>' + gon.events[id].address + '</p><hr/>';
 

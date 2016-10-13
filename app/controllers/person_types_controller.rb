@@ -14,11 +14,14 @@ class PersonTypesController < ApplicationController
 	end
 
 	def new
-		@person_type = PersonType.new	
+		@person_type = PersonType.new
+		gon.all = current_user.person_types
 	end
 
 	def edit
 		@person_type = PersonType.find(params[:id])
+		gon.all = current_user.person_types
+		gon.id = params[:id]
 	end
 
 	def update
@@ -39,6 +42,27 @@ class PersonTypesController < ApplicationController
 
 	    if @person_type.save
 	 		current_user.person_types << @person_type
+
+	 		if current_user.admin?
+		 		User.where("id <> " + current_user.id.to_s).each do |u|
+		 			duplicated = false
+
+		 			u.person_types.each do |p|
+		 				if p.category.downcase.eql? @person_type.category.downcase
+		 					duplicated = true
+		 					break
+		 				end
+		 			end
+
+		 			if !duplicated
+		 				new_person = PersonType.new(person_type_params)
+		 				if new_person.save
+		 					u.person_types << new_person
+		 				end
+		 			end
+		 		end
+		 	end
+
 			redirect_to person_types_path
 		else
 			render :new

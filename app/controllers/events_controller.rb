@@ -6,7 +6,7 @@ class EventsController < ApplicationController
     if params[:sql].present?
       @events_without_tags = current_user.events.where(params[:sql]).order(:name)
 
-      if not params[:tags].present?
+      if params[:tags].present?
         @events = []
         @sorted_tags = params[:tags].sort!
         @events_without_tags.each do |event|

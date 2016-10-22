@@ -92,14 +92,14 @@
 		  <div class="form-group row">
 			<label for="tags" class="col-xs-3 col-form-label">Tags</label>
 			<div class="col-xs-6">
-			  <%= f.select :tags, options_for_select(@tags.map{ |c| [c.name, c.id] }), {}, {:class => 'form-control', :multiple => true, :width => '100%' } %>
+			  <%= f.select :tags, options_for_select(@tags.map{ |c| [c.name, c.id] }), {}, {:class => 'form-control', :multiple => true, :style => 'width: 100%' } %>
 			</div>
 		  </div> 
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <%= f.submit "Search", :class => 'btn btn-primary', :width => '100%' %>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
       </div>
     <% end %>
     </div>

@@ -5,7 +5,8 @@
 
   <%= form_for :location_type, url: location_types_path do |f| %>
     <p>
-      <%= f.label :category %><br>
+      <label for="location_type_category">Location Type</label>
+      <br>
       <%= f.text_field :category, :required => true %>
     </p>
    

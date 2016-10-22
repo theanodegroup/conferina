@@ -1,11 +1,12 @@
 <%= include_gon %>
 
 <div class="container">
-  <h2>Create session Type</h2>
+  <h2>Create Session Type</h2>
 
   <%= form_for :session_type, url: session_types_path do |f| %>
     <p>
-      <%= f.label :category %><br>
+      <label for="session_type_category">Session Type</label>
+      <br>
       <%= f.text_field :category, :required => true %>
     </p>
     

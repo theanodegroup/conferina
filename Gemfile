@@ -14,7 +14,8 @@ gem 'jquery-timepicker-addon-rails'
 
 # gem 'gmaps4rails'
 
-gem 'carrierwave'
+# gem 'carrierwave'
+gem 'carrierwave-aws'
 gem "mini_magick"
 
 gem 'gon'

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'session_publish/:id', to: 'sessions#session_publish', as: 'session_publish' 
   get 'event_data', to: 'events#event_data'
   get 'event_data/:id', to: 'events#event_data'
-  get 'search_events', to: 'events#search_events'
+  post 'search_events', to: 'events#search_events'
 
   post 'persons/search', to: 'persons#search', as: 'search_person'
   post 'locations/search', to: 'locations#search', as: 'search_location'

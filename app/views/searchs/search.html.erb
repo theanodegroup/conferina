@@ -2,7 +2,7 @@
 
 <div class="container">
     <div id="custom-search-input" class="form-group row" style="margin-top: 20px">
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <%= form_tag("/search", method: "post", id: "event_search_form") do %>
                 <div class="input-group">
                     <select name="tag_id" id="tag_id" class="form-control">
@@ -22,8 +22,8 @@
                 </div>
             <% end %>
         </div>
-        <div class="col-md-6 view-choice">
-            <div class="btn-group pull-right" data-toggle="buttons">
+        <div class="col-sm-6 view-choice">
+            <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-primary active">
                 <input type="radio" name="view_choice" id="list_view" autocomplete="off" value="list" checked> 
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>

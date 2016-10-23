@@ -192,43 +192,6 @@ header {
 }
 
 
-@media screen and (max-width: 768px) {
-  header {
-    nav {
-      .navbar-nav {
-        float: none;
-      }
-    } 
-  }
-  
-}
-
-@media screen and (max-width: 414px) {
-  .container {
-    margin-top: 50px;
-  }
-
-  .landing-photo {
-    margin-top: 50px;
-  }
-
-  header {
-    .navbar {
-      min-height: 50px;
-    } 
-
-    .navbar-header {
-      a {
-        padding-top: 0px;
-      }
-    }
-  }
-  .navbar-brand > img {
-    width: 48px;
-    height: 48px;
-  }
-
-}
 
 .asteroid {
   color: red;
@@ -319,6 +282,10 @@ ul.events-grid.active {
   .btn.active {
     outline: initial;
   }
+
+  .btn-group {
+    float: right;
+  }
 }
 
 table.events-list {
@@ -372,4 +339,58 @@ td > p {
   //   display: inline-block;
   //   margin-right: 20px;
   // }
+}
+
+
+
+@media screen and (max-width: 768px) {
+  header {
+    nav {
+      .navbar-nav {
+        float: none;
+      }
+    } 
+  }
+  
+}
+
+@media screen and (max-width: 414px) {
+  main {
+    padding-top: 50px;
+  }
+
+  .view-choice {
+    .btn-group {
+      float: left;
+    }
+  }
+
+  .container {
+    margin-top: 0px;
+  }
+
+  .alert {
+    top: 50px;
+  }
+
+  .landing-photo {
+    margin-top: 50px;
+  }
+
+  header {
+    .navbar {
+      min-height: 50px;
+    } 
+
+    .navbar-header {
+      a {
+        padding-top: 0px;
+      }
+    }
+  }
+  .navbar-brand > img {
+    width: 48px;
+    height: 48px;
+  }
+
 }

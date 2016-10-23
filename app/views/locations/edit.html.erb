@@ -127,7 +127,13 @@
 	  <div class="form-group row">
 		<label for="location_type_id" class="col-xs-3 col-form-label">Location Type</label>
 		<div class="col-xs-4">
-		  <%= f.select :location_type_id, options_for_select(@location_types.map{ |c| [c.category, c.id] }, :selected => @location.location_type_id), {}, {:class => 'form-control'} %>
+		  
+		  <select class="form-control" name="location[location_type_id]" id="location_location_type_id">
+		  	<option value="">Select</option>
+		  	<% @location_types.each do |c| %>
+		  	<option value="<%= c.id %>" <% if @location.location_type_id == c.id %>selected<% end %>><%= c.category %></option>
+		  	<% end %>	
+		  </select>
 		</div>
 	  </div>
 

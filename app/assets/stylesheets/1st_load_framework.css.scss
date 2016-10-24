@@ -341,7 +341,16 @@ td > p {
   // }
 }
 
+@media screen and (max-width: 991px) {
+  main {
+    padding-top: 50px;
+  }
 
+    .alert {
+      top: 50px;
+    }
+
+}
 
 @media screen and (max-width: 768px) {
   header {

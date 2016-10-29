@@ -16,7 +16,7 @@ $(document).ready(function(){
 	    // 		$(this).css('color', '#fff');
 	    // 	});
     	// });
-    	$('.collapse.navbar-collapse li.dropdown a.dropdown-toggle').css('background-color', '#000');
-    	$('.collapse.navbar-collapse li.dropdown a.dropdown-toggle').css('color', '#fff');
+    	// $('.collapse.navbar-collapse li.dropdown a.dropdown-toggle').css('background-color', '#000');
+    	// $('.collapse.navbar-collapse li.dropdown a.dropdown-toggle').css('color', '#fff');
     }
 });

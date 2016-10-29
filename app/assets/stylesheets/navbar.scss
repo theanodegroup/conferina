@@ -72,4 +72,9 @@
     header .navbar ul {
         padding-top: 0;
     }
+
+    .collapse.navbar-collapse li.dropdown a.dropdown-toggle {
+        background-color: #000;
+        color: #fff;
+    }
 }

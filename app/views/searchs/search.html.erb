@@ -41,15 +41,18 @@
     <ul class="events-grid">
         <% @loop_no = 0 %>
         <% @events.each do |event| %>
-            <li data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" style="background: cornflowerblue url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;" class="list-selectable" data-toggle="modal" data-target="#eventModal">
-                <a>
-                    <p class="title"><%= event.name %></p>
-                    <p class="event-date">
-                        <span class="start-date"><%= event.start_date %></span>
-                        <span> - </span>
-                        <span class="end-date"><%= event.end_date %></span>
-                    </p>
-                </a>
+            <li data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" class="col-md-4 col-sm-6 col-xs-12" data-toggle="modal" data-target="#eventModal">
+                <div class="list-selectable" style="background: white url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <a>
+                        <p class="title"><%= event.name %></p>
+                        <p class="event-date">
+                            <span class="start-date"><%= event.start_date %></span>
+                            <span> - </span>
+                            <span class="end-date"><%= event.end_date %></span>
+                        </p>
+                    </a>
+                </div>
             </li>
         <% @loop_no += 1 %>
         <% end %>
@@ -140,6 +143,11 @@
         var unchecked = $('input[name=view_choice]:not(:checked)').val();
         $('.events-' + unchecked).removeClass('active');
         $('.events-' + checked).addClass('active');
+
+        $('ul.events-grid li .list-selectable').each(function(){
+            var width = $(this).width();
+            $(this).height(width*0.66);
+        });
     });
 
     $('.list-selectable').on('click', function() {
@@ -232,6 +240,20 @@
             url: 'https://conference-webapp.herokuapp.com/search'
         });
 
+    });
+
+    $(window).resize(function(){
+        $('ul.events-grid li .list-selectable').each(function(){
+            var width = $(this).width();
+            $(this).height(width*0.66);
+        });
+    });
+
+    $(window).load(function() {
+        $('ul.events-grid li .list-selectable').each(function(){
+            var width = $(this).width();
+            $(this).height(width*0.66);
+        });
     });
 </script>
 

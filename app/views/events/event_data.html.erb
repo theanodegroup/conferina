@@ -46,7 +46,7 @@
 				      <td><%= person.subtitle %></td>
 				      <td>
 				      	<%= link_to 'Edit', edit_person_path(person) %>
-				      	<%= link_to 'Delete', person_path(person), method: :delete, data: { confirm: "Are you sure?" } %>		
+				      	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>		
 			      	  </td>
 				    </tr>
 				  <% end %>
@@ -82,7 +82,7 @@
 				      <td><%= location.state %></td>
 				      <td>
 				      	<%= link_to 'Edit', edit_location_path(location) %>
-				      	<%= link_to 'Delete', location_path(location), method: :delete, data: { confirm: "Are you sure?" } %>
+				      	<%= link_to 'Delete', location_path(location), method: :delete, :class => 'delete' %>
 				      		
 				      </td>
 				    </tr>
@@ -127,7 +127,7 @@
 					       end
 				      	%> 
 				      	<%= link_to 'Edit', edit_session_path(session) %>
-				      	<%= link_to 'Delete', session_path(session), method: :delete, data: { confirm: "Are you sure?" } %>
+				      	<%= link_to 'Delete', session_path(session), method: :delete, :class => 'delete' %>
 				      	<%= link_to publish_btn, session_publish_path(session) %>	
 				      </td>
 				    </tr>
@@ -446,6 +446,26 @@
 	<% end %>
 </div>
 
+<!-- Start: Confirm Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End: Confirm Modal -->
+
 <script type="text/javascript">
 
   $(document).ready(function(){
@@ -467,6 +487,22 @@
 
   	$(".nav-tabs a[href='#" + category + "']").tab('show');
 
+
+  	var selected;
+
+	$("a.delete").on('click', function(e){
+		e.preventDefault();
+		$(this).removeAttr("data-method");
+		$('#confirmModal').modal('show');
+		selected = $(this).attr('href');
+	});
+
+	$('#confirmModal button.btn-default').on('click', function(){
+		$.ajax({
+		  method: "DELETE",
+		  url: selected
+		});
+	});
   });
 </script>
 

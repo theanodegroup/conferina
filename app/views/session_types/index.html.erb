@@ -20,7 +20,7 @@
 		      <td><%= session_type.description %></td>
 		      <td>
 		      	<%= link_to 'Edit', edit_session_type_path(session_type) %>
-		      	<%= link_to 'Delete', session_type_path(session_type), method: :delete, data: { confirm: "Are you sure?", erasable: !(Session.where(session_type_id: session_type.id).present?) } %>		
+		      	<%= link_to 'Delete', session_type_path(session_type), method: :delete, data: {erasable: !(Session.where(session_type_id: session_type.id).present?) } %>		
 	      	  </td>
 		    </tr>
 		  <% end %>
@@ -66,7 +66,7 @@
         <h4 class="modal-title" id="myModalLabel">Confirm</h4>
       </div>
       <div class="modal-body">
-        Oops, it looks like you have Location/s using this Location Type.
+        Oops, it looks like you have Session/s using this Session Type.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -83,9 +83,18 @@
 
 		$("a[data-erasable='false']").on('click', function(e){
 			e.preventDefault();
-			$(this).removeAttr("data-confirm");
 			$(this).removeAttr("data-method");
-			// alert("Oops, it looks like you have Location/s using this Location Type.");
+			$('#confirmModal .modal-body').text('Oops, it looks like you have Session/s using this Session Type.');
+			$('#confirmModal button.btn-default').text('Delete');
+			$('#confirmModal').modal('show');
+			selected = $(this).attr('href');
+		});
+
+		$("a[data-erasable='true']").on('click', function(e){
+			e.preventDefault();
+			$(this).removeAttr("data-method");
+			$('#confirmModal .modal-body').text('Are you sure?');
+			$('#confirmModal button.btn-default').text('OK');
 			$('#confirmModal').modal('show');
 			selected = $(this).attr('href');
 		});

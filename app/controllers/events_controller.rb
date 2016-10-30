@@ -6,7 +6,9 @@ class EventsController < ApplicationController
     if params[:sql].present?
       @events_without_tags = current_user.events.where(params[:sql]).order(:name)
 
-      if params[:tags].present?
+      params[:tags].delete("")
+
+      if params[:tags].present? && (params[:tags].count > 0)
         @events = []
         @sorted_tags = params[:tags].sort!
         @events_without_tags.each do |event|
@@ -142,11 +144,11 @@ class EventsController < ApplicationController
     end
 
     if not params[:event][:start_date].eql? ''
-      sql = sql + "start_date ILIKE '%" + params[:event][:start_date] + "%' AND "
+      sql = sql + "start_date = '" + params[:event][:start_date] + "' AND "
     end
 
     if not params[:event][:end_date].eql? ''
-      sql = sql + "name ILIKE '%" + params[:event][:end_date] + "%' AND "
+      sql = sql + "end_date = '" + params[:event][:end_date] + "' AND "
     end
 
     if not params[:event][:address].eql? ''
@@ -158,20 +160,6 @@ class EventsController < ApplicationController
     else
       sql = sql + 'TRUE'
     end
-
-    # @events_without_tags = current_user.events.where(sql).order(:name)
-
-    # if not params[:event][:tags].present?
-    #   @events = []
-    #   @sorted_tags = params[:event][:tags].sort!
-    #   @events_without_tags.each do |event|
-    #     if event.tags.pluck(:id).sort! == @sorted_tags
-    #       @events.push(event)
-    #     end
-    #   end
-    # else
-    #   @events = @events_without_tags
-    # end
 
     redirect_to events_path(sql: sql, tags: params[:event][:tags])
   end

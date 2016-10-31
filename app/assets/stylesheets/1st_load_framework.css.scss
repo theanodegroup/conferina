@@ -345,10 +345,10 @@ td > p {
     }
   }
 
-  // a {
-  //   display: inline-block;
-  //   margin-right: 20px;
-  // }
+  .fa-angle-double-down {
+    cursor: pointer;
+    color: green;
+  }
 }
 
 @media screen and (max-width: 991px) {

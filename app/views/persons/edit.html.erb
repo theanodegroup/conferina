@@ -87,11 +87,15 @@
 		</div>
 	  </div>
 
-
 	  <div class="form-group row">
 		<label for="person_type_id" class="col-xs-3 col-form-label">Person Type</label>
 		<div class="col-xs-4">
-		  <%= f.select :person_type_id, options_for_select(@person_types.map{ |c| [c.category, c.id] }, :selected => @person.person_type_id), {}, {:class => 'form-control'} %>
+		  <select class="form-control" name="person[person_type_id]" id="person_type_id">
+		  	<option value="">Select</option>
+		  	<% @person_types.each do |c| %>
+		  	<option value="<%= c.id %>" <% if @person.person_type_id == c.id %>selected<% end %>><%= c.category %></option>
+		  	<% end %>	
+		  </select>
 		</div>
 	  </div>
 

@@ -146,41 +146,41 @@
 				<%= form_for :social, url: social_path(@event.social.id), method: :patch, :html => { :id => "edit_social_form", :role => "form" } do |f| %>
 
 				  <div class="form-group row">
-					<label for="website" class="col-xs-3 col-form-label">
+					<label for="website" class="col-sm-3 col-xs-5 col-form-label">
 						<span>Website URL</span> 
 						<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
 					</label>
-					<div class="col-xs-5">
+					<div class="col-sm-5 col-xs-7">
 					  <input class="form-control" type="text" name="social[website]" id="social_website" data-error="The website address is not valid" value="<%= @social.website %>">
 					</div>
 				  </div>
 
 				  <div class="form-group row">
-					<label for="facebook" class="col-xs-3 col-form-label">
+					<label for="facebook" class="col-sm-3 col-xs-5 col-form-label">
 						<span>Facebook URL</span> 
 						<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
 					</label>
-					<div class="col-xs-5">
+					<div class="col-sm-5 col-xs-7">
 					  <input class="form-control" type="text" name="social[facebook]" id="social_facebook" data-error="The facebook address is not valid" value="<%= @social.facebook %>">
 					</div>
 				  </div>
 
 				  <div class="form-group row">
-					<label for="twitter" class="col-xs-3 col-form-label">
+					<label for="twitter" class="col-sm-3 col-xs-5 col-form-label">
 						<span>Twitter URL</span> 
 						<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
 					</label>
-					<div class="col-xs-5">
+					<div class="col-sm-5 col-xs-7">
 					  <input class="form-control" type="text" name="social[twitter]" id="social_twitter" data-error="The twitter address is not valid" value="<%= @social.twitter %>">
 					</div>
 				  </div>
 
 				  <div class="form-group row">
-					<label for="youtube" class="col-xs-3 col-form-label">
+					<label for="youtube" class="col-sm-3 col-xs-5 col-form-label">
 						<span>YouTube URL</span> 
 						<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
 					</label>
-					<div class="col-xs-5">
+					<div class="col-sm-5 col-xs-7">
 					  <input class="form-control" type="text" name="social[youtube]" id="social_youtube" data-error="The youtube address is not valid" value="<%= @social.youtube %>">
 					</div>
 				  </div>
@@ -211,64 +211,64 @@
 	      	
 
 			  <div class="form-group row">
-				<label for="name" class="col-xs-3 col-form-label">Name/Title</label>
-				<div class="col-xs-6">
+				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name/Title</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :name, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="subtitle" class="col-xs-3 col-form-label">Company</label>
-				<div class="col-xs-6">
+				<label for="subtitle" class="col-sm-3 col-xs-5 col-form-label">Company</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :subtitle, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="description" class="col-xs-3 col-form-label">Description</label>
-				<div class="col-xs-6">
+				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :description, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="website" class="col-xs-3 col-form-label">Website URL</label>
-				<div class="col-xs-6">
+				<label for="website" class="col-sm-3 col-xs-5 col-form-label">Website URL</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :website, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="youtube" class="col-xs-3 col-form-label">Youtube URL</label>
-				<div class="col-xs-6">
+				<label for="youtube" class="col-sm-3 col-xs-5 col-form-label">Youtube URL</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :youtube, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="facebook" class="col-xs-3 col-form-label">Facebook Link</label>
-				<div class="col-xs-6">
+				<label for="facebook" class="col-sm-3 col-xs-5 col-form-label">Facebook Link</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :facebook, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="twitter" class="col-xs-3 col-form-label">Twitter Link</label>
-				<div class="col-xs-6">
+				<label for="twitter" class="col-sm-3 col-xs-5 col-form-label">Twitter Link</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :twitter, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
-				<div class="col-xs-6">
+				<label for="phone" class="col-sm-3 col-xs-5 col-form-label">Phone Number</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :phone, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="email" class="col-xs-3 col-form-label">Email Address</label>
-				<div class="col-xs-6">
+				<label for="email" class="col-sm-3 col-xs-5 col-form-label">Email Address</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.email_field :email, :class => 'form-control' %>
 				</div>
 			  </div>
@@ -302,64 +302,64 @@
 	      	
 
 			  <div class="form-group row">
-				<label for="name" class="col-xs-3 col-form-label">Name</label>
-				<div class="col-xs-6">
+				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :name, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="address" class="col-xs-3 col-form-label">Address</label>
-				<div class="col-xs-6">
+				<label for="address" class="col-sm-3 col-xs-5 col-form-label">Address</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :address, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="city" class="col-xs-3 col-form-label">City</label>
-				<div class="col-xs-6">
+				<label for="city" class="col-sm-3 col-xs-5 col-form-label">City</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :city, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="state" class="col-xs-3 col-form-label">Province / State</label>
-				<div class="col-xs-6">
+				<label for="state" class="col-sm-3 col-xs-5 col-form-label">Province / State</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :state, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="country" class="col-xs-3 col-form-label">Country</label>
-				<div class="col-xs-6">
+				<label for="country" class="col-sm-3 col-xs-5 col-form-label">Country</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :country, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="zip" class="col-xs-3 col-form-label">Postal Code /Zip</label>
-				<div class="col-xs-6">
+				<label for="zip" class="col-sm-3 col-xs-5 col-form-label">Postal Code /Zip</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :zip, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="phone" class="col-xs-3 col-form-label">Phone Number</label>
-				<div class="col-xs-6">
+				<label for="phone" class="col-sm-3 col-xs-5 col-form-label">Phone Number</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :phone, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="description" class="col-xs-3 col-form-label">Description</label>
-				<div class="col-xs-6">
+				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :description, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="subtitle" class="col-xs-3 col-form-label">Subtitle</label>
-				<div class="col-xs-6">
+				<label for="subtitle" class="col-sm-3 col-xs-5 col-form-label">Subtitle</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.email_field :subtitle, :class => 'form-control' %>
 				</div>
 			  </div>
@@ -389,43 +389,43 @@
 	      </div>
 	      <div class="modal-body">
 			  <div class="form-group row">
-				<label for="name" class="col-xs-3 col-form-label">Name</label>
-				<div class="col-xs-6">
+				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :name, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="start_time" class="col-xs-3 col-form-label">Start Time</label>
-				<div class="col-xs-6">
+				<label for="start_time" class="col-sm-3 col-xs-5 col-form-label">Start Time</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :start_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="end_time" class="col-xs-3 col-form-label">End Time</label>
-				<div class="col-xs-6">
+				<label for="end_time" class="col-sm-3 col-xs-5 col-form-label">End Time</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :end_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="description" class="col-xs-3 col-form-label">Description</label>
-				<div class="col-xs-6">
+				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :description, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="other_time" class="col-xs-3 col-form-label">Alternative Time Display</label>
-				<div class="col-xs-6">
+				<label for="other_time" class="col-sm-3 col-xs-5 col-form-label">Alternative Time Display</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :other_time, :class => 'form-control' %>
 				</div>
 			  </div>
 
 			  <div class="form-group row">
-				<label for="tags" class="col-xs-3 col-form-label">Tags</label>
-				<div class="col-xs-6">
+				<label for="tags" class="col-sm-3 col-xs-5 col-form-label">Tags</label>
+				<div class="col-sm-6 col-xs-7">
 				  <%= f.text_field :tags, :class => 'form-control' %>
 				</div>
 			  </div>

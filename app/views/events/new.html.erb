@@ -7,22 +7,22 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="name" class="col-xs-3 col-form-label">Event Name <span class="asteroid">*</span></label>
-		<div class="col-xs-6">
+		<label for="name" class="col-sm-3 col-xs-5 col-form-label">Event Name <span class="asteroid">*</span></label>
+		<div class="col-sm-6 col-xs-7">
 		  <%= f.text_field :name, :class => 'form-control' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="description" class="col-xs-3 col-form-label">Description <span class="asteroid">*</span></label>
-		<div class="col-xs-6">
+		<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description <span class="asteroid">*</span></label>
+		<div class="col-sm-6 col-xs-7">
 		  <%= f.text_area :description, :class => 'form-control', :rows => 7 %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="category_id" class="col-xs-3 col-form-label">Category</label>
-		<div class="col-xs-3">
+		<label for="category_id" class="col-sm-3 col-xs-5 col-form-label">Category</label>
+		<div class="col-sm-6 col-xs-7">
 		  <% if @category_types %>
 		  <%= f.select :category_id, options_for_select(@category_types.map{ |c| [c.category, c.id] }), {}, {:class => 'form-control'} %>
 		  <% else %>
@@ -32,30 +32,30 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="avatar" class="col-xs-3 col-form-label">Event Logo</label>
-		<div class="col-xs-6">
+		<label for="avatar" class="col-sm-3 col-xs-5 col-form-label">Event Logo</label>
+		<div class="col-sm-6 col-xs-7">
 	      <%= f.file_field :avatar %>
 	      <%= f.hidden_field :avatar_cache %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="timezone" class="col-xs-3 col-form-label">Timezone</label>
-		<div class="col-xs-3">
+		<label for="timezone" class="col-sm-3 col-xs-5 col-form-label">Timezone</label>
+		<div class="col-sm-6 col-xs-7">
 		  <select name="event[timezone]" id="event_timezone" class="form-control"></select>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="start_date" class="col-xs-3 col-form-label">Start Date <span class="asteroid">*</span></label>
-		<div class="col-xs-3">
+		<label for="start_date" class="col-sm-3 col-xs-5 col-form-label">Start Date <span class="asteroid">*</span></label>
+		<div class="col-sm-6 col-xs-7">
 		<%= f.text_field :start_date, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="end_date" class="col-xs-3 col-form-label">End Date <span class="asteroid">*</span></label>
-		<div class="col-xs-3">
+		<label for="end_date" class="col-sm-3 col-xs-5 col-form-label">End Date <span class="asteroid">*</span></label>
+		<div class="col-sm-6 col-xs-7">
 		  <%= f.text_field :end_date, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>

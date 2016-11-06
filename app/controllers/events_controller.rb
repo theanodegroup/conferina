@@ -10,10 +10,12 @@ class EventsController < ApplicationController
 
       if params[:tags].present? && (params[:tags].count > 0)
         @events = []
-        @sorted_tags = params[:tags].sort!
         @events_without_tags.each do |event|
-          if event.tags.pluck(:id).sort! == @sorted_tags
-            @events.push(event)
+          event.tags.each do |t|
+            if params[:tags].include? t.id.to_s
+              @events.push(event)
+              break  
+            end
           end
         end
       else

@@ -7,30 +7,30 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="name" class="col-xs-3 col-form-label">Session Name <span class="asteroid">*</span></label>
-		<div class="col-xs-4">
+		<label for="name" class="col-sm-3 col-xs-4 col-form-label">Session Name <span class="asteroid">*</span></label>
+		<div class="col-sm-4 col-xs-8">
 		  <%= f.text_field :name, :class => 'form-control' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="description" class="col-xs-3 col-form-label">Description</label>
-		<div class="col-xs-6">
+		<label for="description" class="col-sm-3 col-xs-4 col-form-label">Description</label>
+		<div class="col-sm-6 col-xs-8">
 		  <%= f.text_area :description, :class => 'form-control', :rows => 7 %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="persons" class="col-xs-3 col-form-label">Select People</label>
-		<div class="col-xs-6">
+		<label for="persons" class="col-sm-3 col-xs-4 col-form-label">Select People</label>
+		<div class="col-sm-6 col-xs-8">
 		  
 		  <%= f.select :persons, options_from_collection_for_select(@event.persons, "id", "name", @session.persons.collect{ |p| p.id }), {}, {:class => 'form-control', :multiple => true } %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="location_id" class="col-xs-3 col-form-label">Location</label>
-		<div class="col-xs-4">
+		<label for="location_id" class="col-sm-3 col-xs-4 col-form-label">Location</label>
+		<div class="col-sm-4 col-xs-8">
 		  <select class="form-control valid" name="session[location_id]" id="session_location_id" aria-invalid="false" >
 		  	<option value="">Select</option>
 		  	<% @event.locations.each do |c| %>
@@ -41,22 +41,22 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="start_time" class="col-xs-3 col-form-label">Start Time <span class="asteroid">*</span></label>
-		<div class="col-xs-3">
+		<label for="start_time" class="col-sm-3 col-xs-4 col-form-label">Start Time <span class="asteroid">*</span></label>
+		<div class="col-sm-3 col-xs-8">
 		<%= f.text_field :start_time, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="end_time" class="col-xs-3 col-form-label">End Time <span class="asteroid">*</span></label>
-		<div class="col-xs-3">
+		<label for="end_time" class="col-sm-3 col-xs-4 col-form-label">End Time <span class="asteroid">*</span></label>
+		<div class="col-sm-3 col-xs-8">
 		  <%= f.text_field :end_time, :readonly => true, :class => 'form-control' %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="avatar" class="col-xs-3 col-form-label">Icon</label>
-		<div class="col-xs-4">
+		<label for="avatar" class="col-sm-3 col-xs-4 col-form-label">Icon</label>
+		<div class="col-sm-4 col-xs-8">
 		  <%= image_tag(@session.avatar_url) if @session.avatar? %>
 	      <%= f.file_field :avatar %>
 	      <%= f.hidden_field :avatar_cache %>
@@ -64,8 +64,8 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="detailed_avatar" class="col-xs-3 col-form-label">Detailed Icon</label>
-		<div class="col-xs-4">
+		<label for="detailed_avatar" class="col-sm-3 col-xs-4 col-form-label">Detailed Icon</label>
+		<div class="col-sm-4 col-xs-8">
 		  <%= image_tag(@session.detailed_avatar_url) if @session.detailed_avatar? %>
 	      <%= f.file_field :detailed_avatar %>
 	      <%= f.hidden_field :detailed_avatar_cache %>
@@ -73,16 +73,16 @@
 	  </div>
 
 	  <div class="form-group row">
-		<label for="tags" class="col-xs-3 col-form-label">Tags</label>
-		<div class="col-xs-6">
+		<label for="tags" class="col-sm-3 col-xs-4 col-form-label">Tags</label>
+		<div class="col-sm-6 col-xs-8">
 		  
 		  <%= f.select :tags, options_from_collection_for_select(@tags, "id", "name", @session.tags.collect{ |p| p.id }), {}, {:class => 'form-control', :multiple => true } %>
 		</div>
 	  </div>
 
 	  <div class="form-group row">
-		<label for="session_type_id" class="col-xs-3 col-form-label">Session Type</label>
-		<div class="col-xs-4">
+		<label for="session_type_id" class="col-sm-3 col-xs-4 col-form-label">Session Type</label>
+		<div class="col-sm-4 col-xs-8">
 		  <select class="form-control valid" name="session[session_type_id]" id="session_session_type_id" aria-invalid="false">
 			<option value="">Select</option>
 		  	<% @session_types.each do |c| %>
@@ -93,8 +93,8 @@
 	  </div>
 
 	  <div class="form-group row" style="display: none">
-		<label for="other_time" class="col-xs-3 col-form-label">Alternative Time Display</label>
-		<div class="col-xs-4">
+		<label for="other_time" class="col-sm-3 col-xs-4 col-form-label">Alternative Time Display</label>
+		<div class="col-sm-4 col-xs-8">
 		  <%= f.text_field :other_time, :class => 'form-control' %>
 		</div>
 	  </div>

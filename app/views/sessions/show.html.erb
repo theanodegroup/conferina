@@ -15,7 +15,7 @@
 	<label>People</label>
 	<% @session.persons.each do |p| %>
 	<div class="row">
-		<div class="col-md-2 col-xs-4"><%= p.person_type.category %></div>
+		<div class="col-md-2 col-xs-4"><%= p.person_type.nil? 'Unknown' : p.person_type.category %></div>
 		<div class="col-md-4 col-xs-8"><%= p.name %></div>
 	</div>
 	<% end %>
@@ -47,16 +47,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#map_address").geocomplete({
-	      map: ".map_canvas",
-	      location: "<%= @session.location.map_address %>",
-	      markerOptions: {
-	        draggable: false
-	      }
-	    });
+		if ((gon.session.location_id != undefined) && (parseInt(gon.session.location_id) > 0)) {
+			$("#map_address").geocomplete({
+		      map: ".map_canvas",
+		      location: "<%= @session.location.map_address %>",
+		      markerOptions: {
+		        draggable: false
+		      }
+		    });
+		}
 
-	    console.log(gon.s);
-	    console.log(gon.status);
 	});
 </script>
 

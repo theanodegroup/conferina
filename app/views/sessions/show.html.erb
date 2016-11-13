@@ -47,10 +47,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		if ((gon.session.location_id != undefined) && (parseInt(gon.session.location_id) > 0)) {
+		if ((gon.location.id != undefined) && (parseInt(gon.location.id) > 0)) {
 			$("#map_address").geocomplete({
 		      map: ".map_canvas",
-		      location: "<%= @session.location.map_address %>",
+		      location: gon.location.map_address,
 		      markerOptions: {
 		        draggable: false
 		      }

@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		if ((gon.location.id != undefined) && (parseInt(gon.location.id) > 0)) {
+		if ((gon.location != null) && (parseInt(gon.location.id) > 0)) {
 			$("#map_address").geocomplete({
 		      map: ".map_canvas",
 		      location: gon.location.map_address,

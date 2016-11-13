@@ -1,4 +1,4 @@
-
+<%= include_gon %>
 
 <div class="container show">
   <div><h2><%= @session.name %></h2></div>
@@ -44,6 +44,7 @@
   <% end %>
 </div>
 
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#map_address").geocomplete({
@@ -53,6 +54,8 @@
 	        draggable: false
 	      }
 	    });
+
+	    console.log(gon.s);
 	});
 </script>
 

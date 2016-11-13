@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 
   def show
     @session = Session.find(params[:id])
+    gon.s = @session
   end
 
   def update

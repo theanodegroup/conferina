@@ -10,3 +10,11 @@
 		margin: 5px 0 5px 15px;
 	}
 }
+
+.list-sessions {
+	display: none;
+}
+
+.list-sessions.active {
+	display: block;
+}

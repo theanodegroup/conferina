@@ -1,9 +1,8 @@
-class Location < ActiveRecord::Base
+class Venue < ActiveRecord::Base
 	mount_uploader :avatar, AvatarUploader
 	mount_uploader :detailed_avatar, DetailedAvatarUploader
 	
-	belongs_to :event
+	belongs_to :user
 	belongs_to :location_type
-	belongs_to :venue
-	has_many :sessions
+	has_many :locations
 end

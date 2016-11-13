@@ -16,11 +16,12 @@ class SearchsController < ApplicationController
 
 		gon.users = []
 		gon.socials = []
-
+		gon.sessions = []
 		@events.each do |event|
 			# gon_events[index].push(user_name: event.users.first.name)
 			gon.users.push(event.users.first.name)
 			gon.socials.push(event.social)
+			gon.sessions.push(event.sessions.order(:start_time))
 		end
 
 		gon.events = @events

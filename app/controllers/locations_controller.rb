@@ -44,34 +44,18 @@ class LocationsController < ApplicationController
 
     if not params[:location][:address].eql? ''
       sql = sql + "address ILIKE '%" + params[:location][:address] + "%' OR "
-    end
-
-    if not params[:location][:address].eql? ''
-      sql = sql + "map_address ILIKE '%" + params[:location][:address] + "%' OR "
-    end    
+    end   
 
     if not params[:location][:city].eql? ''
       sql = sql + "city ILIKE '%" + params[:location][:city] + "%' OR "
-    end
-
-    if not params[:location][:city].eql? ''
-      sql = sql + "map_address ILIKE '%" + params[:location][:city] + "%' OR "
     end
 
     if not params[:location][:state].eql? ''
       sql = sql + "state ILIKE '%" + params[:location][:state] + "%' OR "
     end
 
-    if not params[:location][:state].eql? ''
-      sql = sql + "map_address ILIKE '%" + params[:location][:state] + "%' OR "
-    end
-
     if not params[:location][:country].eql? ''
       sql = sql + "country ILIKE '%" + params[:location][:country] + "%' OR "
-    end
-
-    if not params[:location][:country].eql? ''
-      sql = sql + "map_address ILIKE '%" + params[:location][:country] + "%' OR "
     end
 
     if not params[:location][:zip].eql? ''

@@ -2,6 +2,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// import Custom CSS
+@import "predefine";
+
 //Variables
 $small-bottom: 20px;
 
@@ -350,9 +353,17 @@ td > p {
     }
   }
 
-  .fa-angle-double-down {
+  .fa-angle-double-down, .fa-angle-double-up {
     cursor: pointer;
     color: green;
+    margin-bottom: 20px;
+  }
+
+  .session-item {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(30, 240, 10, 0.3);
+    }  
   }
 }
 

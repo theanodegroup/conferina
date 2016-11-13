@@ -1,0 +1,122 @@
+<div class="container">
+	<h2>Venue Maps</h2>
+
+	<div class="small-bottom">
+		<%= link_to '+ Add New Venue', new_venue_path, class: "btn btn-primary" %>
+		<a href="#" class="pull-right" data-toggle="modal" data-target="#venue_modal">Advanced Search</a>
+	</div>
+
+	<% if @venues.present? %>
+	<div class="row"> 
+		<table class="table table-striped">
+		  <tr>
+		    <th class="text-primary col-md-3">Name</th>
+		    <th class="text-primary col-md-4">Address</th>
+		    <th class="text-primary col-md-1">City</th>
+		    <th class="text-primary col-md-2">Province / State</th>
+		    <th class="text-primary col-md-2">Actions</th>
+		  </tr>
+
+		  <% @venues.order(:name).each do |venue| %>
+		    <tr>
+		      <td><%= venue.name %></td>
+		      <td><%= venue.address %></td>
+		      <td><%= venue.city %></td>
+		      <td><%= venue.state %></td>
+		      <td>
+		      	<%= link_to 'Edit', edit_venue_path(venue) %>
+		      	<%= link_to 'Delete', venue_path(venue), method: :delete, :class => 'delete' %>
+		      		
+		      </td>
+		    </tr>
+		  <% end %>
+		 
+		</table>
+	</div>
+	<% end %>
+</div>
+
+<!-- Start: Venues Modal Dialog -->
+<div id="venue_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <%= form_for :venue, url: search_venue_path, :html => { :id => "search_venue_form" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="form-group row">
+			<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :name, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="address" class="col-sm-3 col-xs-5 col-form-label">Address</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :address, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="city" class="col-sm-3 col-xs-5 col-form-label">City</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :city, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="state" class="col-sm-3 col-xs-5 col-form-label">Province / State</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :state, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="country" class="col-sm-3 col-xs-5 col-form-label">Country</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :country, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="zip" class="col-sm-3 col-xs-5 col-form-label">Postal Code /Zip</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :zip, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="phone" class="col-sm-3 col-xs-5 col-form-label">Phone Number</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :phone, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.text_field :description, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <div class="form-group row">
+			<label for="subtitle" class="col-sm-3 col-xs-5 col-form-label">Subtitle</label>
+			<div class="col-sm-6 col-xs-7">
+			  <%= f.email_field :subtitle, :class => 'form-control' %>
+			</div>
+		  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- End: Venues Modal Dialog -->

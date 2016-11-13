@@ -70,6 +70,12 @@ class EventsController < ApplicationController
         end
       end
 
+      venues = current_user.venues
+      venues.each do |v|
+        @loc = @event.locations.create(name: v.name, address: v.address, city: v.city, state: v.state, country: v.country, zip: v.zip, map_address: v.map_address, avatar: v.avatar, detailed_avatar: v.detailed_avatar, phone: v.phone, description: v.description, subtitle: v.subtitle, lat: v.lat, lng: v.lng, location_type_id: v.location_type_id)
+        v.locations << @loc
+      end
+      
       redirect_to events_path
     else
       render :new

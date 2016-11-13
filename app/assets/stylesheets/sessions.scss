@@ -1,0 +1,13 @@
+// import Custom CSS
+@import "predefine";
+
+.show {
+	h2 {
+		color: $lipstick;
+		margin-bottom: 30px;
+	}
+
+	label {
+		color: $deep-lavender;
+	}
+}

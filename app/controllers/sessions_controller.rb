@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :get_requisites
+  before_action :authenticate_user!, :except => :show
+  before_action :get_requisites, :except => :show
 
   def index
   end
@@ -13,6 +13,10 @@ class SessionsController < ApplicationController
   def edit
     @session = Session.find(params[:id])
     @event = Event.find_by_id(@session[:event_id])
+  end
+
+  def show
+    @session = Session.find(params[:id])
   end
 
   def update

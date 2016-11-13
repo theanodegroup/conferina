@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post 'persons/search', to: 'persons#search', as: 'search_person'
   post 'locations/search', to: 'locations#search', as: 'search_location'
   post 'sessions/search', to: 'sessions#search', as: 'search_session'
+  post 'venues/search', to: 'venues#search', as: 'search_venue'
 
   post 'location_types/search', to: 'location_types#search', as: 'search_location_type'
   post 'category_types/search', to: 'category_types#search', as: 'search_category_type'
@@ -39,5 +40,6 @@ Rails.application.routes.draw do
   resources :locations
   resources :sessions
   resources :socials
+  resources :venues
 
 end

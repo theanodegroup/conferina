@@ -1,0 +1,59 @@
+
+
+<div class="container show">
+  <div><h2><%= @session.name %></h2></div>
+
+  <% if @session.description.present? %>
+  <div class="form-group">
+	<label>Description</label>
+	<p><%= @session.description %></p>
+  </div>
+  <% end %>
+  
+  <% if @session.persons.count > 0 %>
+  <div class="form-group">
+	<label>People</label>
+	<% @session.persons.each do |p| %>
+	<div class="row">
+		<div class="col-md-2 col-xs-4"><%= p.person_type.category %></div>
+		<div class="col-md-4 col-xs-8"><%= p.name %></div>
+	</div>
+	<% end %>
+  </div>
+  <% end %>
+
+  <% if @session.location.present? %>
+  <div class="form-group">
+	<label>Location</label>
+	<div class="row">
+		<div class="col-md-4 col-xs-12"><%= @session.location.name %></div>
+		<div class="col-md-6 col-xs-12"><%= @session.location.map_address %></div>
+	</div>
+	<input id="map_address" type="hidden" value="<%= @session.location.map_address %>" />
+	<div class="map_canvas"></div>
+  </div>
+  <% end %>
+
+  <div class="form-group">
+	<label>Start Time:</label><span>&nbsp;<%= @session.start_time %></span>
+	<br>
+	<label>End Time:</label><span>&nbsp;<%= @session.end_time %></span>
+  </div>
+  <% if @session.avatar_url.present? %>
+	  <%= image_tag @session.avatar_url %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#map_address").geocomplete({
+	      map: ".map_canvas",
+	      location: "<%= @session.location.map_address %>",
+	      markerOptions: {
+	        draggable: false
+	      }
+	    });
+	});
+</script>
+
+

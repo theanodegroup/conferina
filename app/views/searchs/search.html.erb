@@ -150,6 +150,7 @@
         });
     });
 
+    console.log(gon.sessions);
     $('.list-selectable').on('click', function() {
         var id = parseInt($(this).data('id'));
         $('#myModalLabel').html(gon.events[id].name);
@@ -218,9 +219,47 @@
         tmp_html = tmp_html + '<li><i class="fa fa-mobile fa-2x" aria-hidden="true"></i></li>';
         tmp_html = tmp_html + '<li><a href="mailto:?subject=' + gon.events[id].name + '&body=' + email_body + '"><i id="share_email" class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a></li></ul>';
 
-        tmp_html = tmp_html + '<hr/><i class="fa fa-angle-double-down" aria-hidden="true"> Detailed Sessions</i>'
+        tmp_html = tmp_html + '<hr/><i class="fa fa-angle-double-down session-icon" aria-hidden="true"> Detailed Sessions</i>';
+
+        tmp_html = tmp_html + '<div class="container-fluid list-sessions">';
+
+        tmp_html = tmp_html + '<div class="row">';
+        tmp_html = tmp_html + '<table class="table table-striped">';
+        tmp_html = tmp_html + '<tr>';
+        tmp_html = tmp_html + '<th class="text-primary col-md-3">Start Time</th>';
+        tmp_html = tmp_html + '<th class="text-primary col-md-3">End Time</th>';
+        tmp_html = tmp_html + '<th class="text-primary col-md-6">Session Name</th>';
+        tmp_html = tmp_html + '</tr>';
+
+        for (var i = 0; i < gon.sessions[id].length; i++) {
+            gon.sessions[id][i]
+            tmp_html = tmp_html + '<tr class="session-item" data-session="' + gon.sessions[id][i].id + '">';
+            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['start_time'] + '</td>';
+            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['end_time'] + '</td>';
+            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['name'] + '</td>';
+            tmp_html = tmp_html + '</tr>';
+        }
+             
+        tmp_html = tmp_html + '</table>';
+        tmp_html = tmp_html + '</div>';
+
+        tmp_html = tmp_html + '</div>';
 
         $('#eventModal .modal-body').html(tmp_html);
+        
+        $('.session-icon').on('click', function(){
+            $('.list-sessions').toggleClass('active');
+            $(this).toggleClass('fa-angle-double-down');
+            $(this).toggleClass('fa-angle-double-up');
+        });
+
+        $('.list-sessions .session-item').on('click', function(){
+            var id = $(this).data('session');
+            if ((typeof id !== 'undefined') && (parseInt(id) > -1)) {
+                window.location.href = '/sessions/' + id;
+            }
+        });
+
         $('#facebook').on('click', function(){
             FB.ui({
                 method: 'feed',

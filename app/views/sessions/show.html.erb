@@ -1,6 +1,8 @@
 <%= include_gon %>
 
 <div class="container show">
+  <%= link_to 'BACK', search_path, class: 'btn btn-primary' %>
+
   <div><h2><%= @session.name %></h2></div>
 
   <% if @session.description.present? %>

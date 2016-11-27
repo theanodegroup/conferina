@@ -114,7 +114,7 @@
         e.value="yes";
       else{
         // e.value="no";
-        $('.list-selectable[data-id="' + $('#selected_event_id').val() + '"]').trigger('click');
+        $('.list-selectable[data-eventid="' + $('#selected_event_id').val() + '"]').trigger('click');
         $('.session-icon').trigger('click');
       }
     }
@@ -166,7 +166,7 @@
     console.log(gon.sessions);
     $('.list-selectable').on('click', function() {
         var id = parseInt($(this).data('id'));
-        $('#selected_event_id').val(id);
+        $('#selected_event_id').val($(this).data('eventid'));
 
         $('#myModalLabel').html(gon.events[id].name);
 
@@ -309,6 +309,12 @@
             $(this).height(width*0.66);
         });
     });
+
+    if(Cookies.get('event') != undefined) {
+        $('.list-selectable[data-eventid="' + Cookies.get('event') + '"]').trigger('click');
+        $('.session-icon').trigger('click');
+        Cookies.remove('event'); 
+    }
 </script>
 
 <!-- http://docs.aws.amazon.com/AmazonS3/latest/dev/AuthUsingTempSessionTokenRuby.html -->

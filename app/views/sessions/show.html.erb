@@ -62,6 +62,14 @@
 		      }
 		    });
 		}
+
+		$('a[href="/search"]').on('click', function(){
+			if(Cookies.get('event') == undefined) {
+	        	Cookies.set('event', gon.event_id);
+	        	// window.location.href
+	        }
+		});
+
 		console.log(gon.session);
 	});
 </script>

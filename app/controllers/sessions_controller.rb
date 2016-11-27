@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
     @session = Session.find(params[:id])
     gon.session = @session
     gon.location = @session.location
+    gon.event_id = @session.event_id
   end
 
   def update

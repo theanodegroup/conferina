@@ -166,7 +166,6 @@
     console.log(gon.sessions);
     $('.list-selectable').on('click', function() {
         var id = parseInt($(this).data('id'));
-        $('#selected_event_id').val(id);
 
         $('#myModalLabel').html(gon.events[id].name);
 
@@ -271,6 +270,7 @@
         $('.list-sessions .session-item').on('click', function(){
             var id = $(this).data('session');
             if ((typeof id !== 'undefined') && (parseInt(id) > -1)) {
+                $('#selected_event_id').val(id);
                 window.location.href = '/sessions/' + id;
             }
         });

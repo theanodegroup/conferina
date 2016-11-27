@@ -113,6 +113,7 @@
       if(e.value=="no")
         e.value="yes";
       else{
+        // e.value="no";
         $('.list-selectable[data-id="' + $('#selected_event_id').val() + '"]').trigger('click');
         $('.session-icon').trigger('click');
       }
@@ -165,8 +166,8 @@
     console.log(gon.sessions);
     $('.list-selectable').on('click', function() {
         var id = parseInt($(this).data('id'));
-        var id = $(this).data('session');
-        
+        $('#selected_event_id').val(id);
+
         $('#myModalLabel').html(gon.events[id].name);
 
         var tmp_html = '';
@@ -268,8 +269,8 @@
         });
 
         $('.list-sessions .session-item').on('click', function(){
+            var id = $(this).data('session');
             if ((typeof id !== 'undefined') && (parseInt(id) > -1)) {
-                $('#selected_event_id').val(id);
                 window.location.href = '/sessions/' + id;
             }
         });

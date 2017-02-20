@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :feedbacks
   resources :notes
   resources :notes
   root to: 'visitors#index'

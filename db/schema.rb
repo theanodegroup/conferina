@@ -48,11 +48,13 @@ ActiveRecord::Schema.define(version: 20170220031714) do
   create_table "favorites", force: :cascade do |t|
     t.integer  "favoritable_id"
     t.string   "favoritable_type"
+    t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
 
   add_index "favorites", ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable_type_and_favoritable_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "user_id"
@@ -100,11 +102,13 @@ ActiveRecord::Schema.define(version: 20170220031714) do
     t.text     "content"
     t.integer  "notable_id"
     t.string   "notable_type"
+    t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
   add_index "notes", ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id", using: :btree
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name"
@@ -296,5 +300,7 @@ ActiveRecord::Schema.define(version: 20170220031714) do
   add_index "venues", ["location_type_id"], name: "index_venues_on_location_type_id", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "favorites", "users"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "notes", "users"
 end

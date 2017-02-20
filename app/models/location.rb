@@ -8,4 +8,5 @@ class Location < ActiveRecord::Base
 
 	has_many :sessions
 	has_many :notes, as: :notable
+	has_many :favorites, as: :favorites
 end

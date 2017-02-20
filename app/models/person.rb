@@ -9,4 +9,5 @@ class Person < ActiveRecord::Base
 	has_and_belongs_to_many :sessions, :join_table => "persons_sessions"
 
 	has_many :notes, as: :notable
+	has_many :favorites, as: :favorites
 end

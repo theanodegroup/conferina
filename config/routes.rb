@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :favorites
+  resources :feedbacks
+  resources :notes
+  resources :notes
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }
   

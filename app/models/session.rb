@@ -8,4 +8,7 @@ class Session < ActiveRecord::Base
 
 	has_and_belongs_to_many :persons, :join_table => "persons_sessions"
 	has_and_belongs_to_many :tags, :join_table => "tags_sessions"
+
+	has_many :notes, as: :notable
+	has_many :favorites, as: :favorites
 end

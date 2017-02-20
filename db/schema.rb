@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113123757) do
+ActiveRecord::Schema.define(version: 20170220031714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,26 @@ ActiveRecord::Schema.define(version: 20161113123757) do
     t.decimal  "lng",          precision: 17, scale: 14
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "favoritable_id"
+    t.string   "favoritable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "favorites", ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable_type_and_favoritable_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
+
   create_table "location_types", force: :cascade do |t|
     t.string   "category"
     t.boolean  "by_admin",   default: false
@@ -77,6 +97,18 @@ ActiveRecord::Schema.define(version: 20161113123757) do
 
   add_index "locations", ["event_id"], name: "index_locations_on_event_id", using: :btree
   add_index "locations", ["location_type_id"], name: "index_locations_on_location_type_id", using: :btree
+
+  create_table "notes", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "notable_id"
+    t.string   "notable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "notes", ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id", using: :btree
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name"
@@ -268,4 +300,7 @@ ActiveRecord::Schema.define(version: 20161113123757) do
   add_index "venues", ["location_type_id"], name: "index_venues_on_location_type_id", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "favorites", "users"
+  add_foreign_key "feedbacks", "users"
+  add_foreign_key "notes", "users"
 end

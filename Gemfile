@@ -32,11 +32,15 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise_invitable', '~> 1.7.0'
 
 gem 'twilio-ruby', '~> 4.11.1'
+
+# Demo/testing data generation
+gem 'faker'
 
 gem 'high_voltage'
 group :development do
@@ -48,7 +52,6 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'dotenv-rails'
 end

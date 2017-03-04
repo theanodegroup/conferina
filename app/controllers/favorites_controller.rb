@@ -1,74 +1,38 @@
 class FavoritesController < ApplicationController
-  before_action :set_favorite, only: [:show, :edit, :update, :destroy]
 
-  # GET /favorites
-  # GET /favorites.json
-  def index
-    @favorites = Favorite.all
-  end
+  def toggle
+    # @tod: Fix excessive number of instance vars required to make this work
 
-  # GET /favorites/1
-  # GET /favorites/1.json
-  def show
-  end
+    puts "A"
+    # Toggles an item between favorite and unfavorite
+    favoritable_id = favoritable_params[:favoritable_id].to_i
+    favoritable_type = favoritable_params[:favoritable_type].try(:constantize)
+    @favorite_button_id = favoritable_params[:favorite_button_id]
 
-  # GET /favorites/new
-  def new
-    @favorite = Favorite.new
-  end
 
-  # GET /favorites/1/edit
-  def edit
-  end
+    # Only favorite if id and type present
+    if favoritable_type.present? && favoritable_id.present?
+      puts "B"
+      @favoritable = favoritable_type.find_by(id: favoritable_id)
 
-  # POST /favorites
-  # POST /favorites.json
-  def create
-    @favorite = Favorite.new(favorite_params)
-
-    respond_to do |format|
-      if @favorite.save
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
-        format.json { render :show, status: :created, location: @favorite }
+      if current_user.voted_for?(@favoritable)
+        puts "C"
+        flash[:notice] = "Unfavorited #{@favoritable.category}"
+        @favoritable.unliked_by(current_user) # Unfavorite
       else
-        format.html { render :new }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
+        flash[:notice] = "Favorited #{@favoritable.category}"
+        @favoritable.liked_by(current_user) # Favorite
       end
     end
-  end
 
-  # PATCH/PUT /favorites/1
-  # PATCH/PUT /favorites/1.json
-  def update
     respond_to do |format|
-      if @favorite.update(favorite_params)
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
-        format.json { render :show, status: :ok, location: @favorite }
-      else
-        format.html { render :edit }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
-      end
+      format.js
     end
-  end
 
-  # DELETE /favorites/1
-  # DELETE /favorites/1.json
-  def destroy
-    @favorite.destroy
-    respond_to do |format|
-      format.html { redirect_to favorites_url, notice: 'Favorite was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_favorite
-      @favorite = Favorite.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def favorite_params
-      params.require(:favorite).permit(:favoritable_id)
+    def favoritable_params
+      params.permit(:favoritable_id, :favoritable_type, :user_id, :favorite_button_id)
     end
 end

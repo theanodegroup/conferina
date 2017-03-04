@@ -45,6 +45,8 @@ gem 'twilio-ruby', '~> 4.11.1'
 # Demo/testing data generation
 gem 'faker'
 
+gem 'acts_as_votable', '~> 0.10.0' # Favoritable
+
 gem 'high_voltage'
 group :development do
   gem 'better_errors'

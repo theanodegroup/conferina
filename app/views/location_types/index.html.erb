@@ -6,7 +6,7 @@
 		<a href="#" class="pull-right" data-toggle="modal" data-target="#location_type_modal">Advanced Search</a>
 	</div>
 	<div class="row">
-		<table class="table table-striped">
+		<table class="table table-striped ">
 		  <tr>
 		    <th class="text-primary col-md-5">Location Type</th>
 		    <th class="text-primary col-md-5">Description</th>
@@ -15,17 +15,29 @@
 
 		  <% @location_types.each do |location_type| %>
 		    <tr>
+		    	<% favorite_id = location_type.id %>
+		    	<% @favorite_button_id = "favorite_#{favorite_id}" %>
+		    	<% @favoritable = location_type %>
 		      <td><%= location_type.category %></td>
 		      <td><%= image_tag(location_type.avatar.url(:thumb)) if location_type.avatar? %></td>
 		      <td>
+		      	<%= render partial: 'favorites/button' %>
 		      	<%= link_to 'Notes', view_notes_path_builder(location_type) %>
 		      	<%= link_to 'Edit', edit_location_type_path(location_type) %>
-		      	<%= link_to 'Delete', location_type_path(location_type), method: :delete, data: {erasable: !(Location.where(location_type_id: location_type.id).present?) } %>
-	      	  </td>
+		      	<%= link_to 'Delete', location_type_path(location_type), method: :delete,
+		      	            data: {erasable: !(Location.where(location_type_id: location_type.id).present?) } %>
+      	  </td>
 		    </tr>
+
+				<%= render partial: 'favorites/hidden_form', locals: {
+					id: location_type.id,
+					type: location_type.class,
+					favorite_button_id: @favorite_button_id,
+				} %>
 		  <% end %>
 		</table>
 	</div>
+
 
 
 	<!-- Start: Location Type Search Modal -->
@@ -108,4 +120,3 @@
 	});
 
 </script>
-

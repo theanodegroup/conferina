@@ -15,10 +15,12 @@
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
-       <%= render 'layouts/messages' %>
-       <div class="container">
-         <%= yield %>
-       </div>
+      <div id='flash_messages'>
+        <%= render 'layouts/messages' %>
+      </div>
+      <div class="container">
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

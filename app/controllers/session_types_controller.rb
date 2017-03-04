@@ -2,11 +2,12 @@ class SessionTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
+		@session_types =SessionType.all
 		if (not params[:session_type_search].blank?) && (params[:session_type_search].eql? 'true')
 	      @session_types = current_user.session_types.where(params[:sql]).order(:category)
 	    else
 	      @session_types = current_user.session_types.order(:category)
-	    end	
+	    end
 	end
 
 	def show
@@ -26,7 +27,7 @@ class SessionTypesController < ApplicationController
 
 	def update
 		@session_type = SessionType.find(params[:id])
- 
+
 	  	if @session_type.update(session_type_params)
 	  		redirect_to session_types_path
 	  	else
@@ -63,11 +64,11 @@ class SessionTypesController < ApplicationController
 		 		end
 		 	end
 
-			redirect_to session_types_path	
+			redirect_to session_types_path
 		else
 			render :new
 		end
-	    
+
 	end
 
 	def search
@@ -90,14 +91,14 @@ class SessionTypesController < ApplicationController
 		# current_user.session_types.delete(params[:id])
 		@session_type = SessionType.find(params[:id])
 		@session_type.destroy
-		 
-		redirect_to session_types_path	
+
+		redirect_to session_types_path
 	end
 
 	private
-  
+
 	def session_type_params
 		params.require(:session_type).permit(:category, :description, :avatar)
 	end
-	
+
 end

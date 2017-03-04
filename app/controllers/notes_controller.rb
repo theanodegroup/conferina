@@ -1,5 +1,34 @@
 class NotesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_notable, only: [:show, :edit, :update, :destroy]
+
+  def view
+    # @todo: use a better approach, this is not ideal
+
+    # Treat it as either new or show depending on if notes already exist
+
+      # Get the notable query and value by extracting it from params
+      notable_id = notable_params[:notable_id].to_i
+      notable_type = notable_params[:notable_type].constantize
+      @notable = notable_type.find_by(id: notable_id)
+
+      puts [notable_type.inspect, notable_id.inspect].inspect
+
+      @note = Note.find_by(notable_params)
+
+      if @note.nil?
+        # Create new note
+        @note = Note.new(notable_params)
+        new
+        render 'notes/new'
+      else
+        # View existing note
+        show
+        render 'notes/show'
+      end
+
+  end
 
   # GET /notes
   # GET /notes.json
@@ -14,7 +43,7 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    @note = Note.new
+    @note = Note.new unless @note.present?
   end
 
   # GET /notes/1/edit
@@ -25,6 +54,7 @@ class NotesController < ApplicationController
   # POST /notes.json
   def create
     @note = Note.new(note_params)
+    @note.user_id = current_user.id
 
     respond_to do |format|
       if @note.save
@@ -67,8 +97,16 @@ class NotesController < ApplicationController
       @note = Note.find(params[:id])
     end
 
+    def set_notable
+      @notable = @note.notable_type.constantize.find_by(id: @note.notable_id)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def note_params
-      params.require(:note).permit(:content, :references)
+      params.require(:note).permit(:content, :notable_id, :notable_type, :user_id)
+    end
+
+    def notable_params
+      params.permit(:notable_id, :notable_type, :user_id)
     end
 end

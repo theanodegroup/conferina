@@ -1,4 +1,6 @@
 <%= form_for @note, :html => { :class => "form-horizontal note" } do |f| %>
+  <%= f.hidden_field :notable_id %>
+  <%= f.hidden_field :notable_type %>
 
   <% if @note.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,39 +18,17 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :content, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :content, :class => 'form-control' %>
+    <div class="col-lg-6">
+      <%= f.text_area :content, rows: 10, :class => 'form-control' %>
+      <%=f.error_span(:content) %>
     </div>
-    <%=f.error_span(:content) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :notable_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :notable_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:notable_id) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :notable_type, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :notable_type, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:notable_type) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:user_id) %>
   </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                notes_path, :class => 'btn btn-default' %>
+                polymorphic_path(@note.notable_type.constantize), :class => 'btn btn-default' %>
     </div>
   </div>
 

@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :view_notes_path_builder
+
   protected
 
   def configure_permitted_parameters
@@ -16,5 +18,9 @@ class ApplicationController < ActionController::Base
 	# end
 	devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :password, :password_confirmation, :invitation_token])
 	# devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role])
+  end
+
+  def view_notes_path_builder(notable)
+    view_notes_path(notable_id: notable.id, notable_type: notable.class)
   end
 end

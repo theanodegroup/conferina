@@ -16,30 +16,24 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:user_id) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :content, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :content, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:content) %>
-  </div>
-  <div class="form-group">
     <%= f.label :subject, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+    <div class="col-md-4">
       <%= f.text_field :subject, :class => 'form-control' %>
     </div>
     <%=f.error_span(:subject) %>
   </div>
 
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.label :content, :class => 'control-label col-lg-2' %>
+    <div class="col-md-4">
+      <%= f.text_area :content, rows: 10, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:content) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-md-4">
+      <%= f.submit 'Send Feedback', :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 feedbacks_path, :class => 'btn btn-default' %>
     </div>

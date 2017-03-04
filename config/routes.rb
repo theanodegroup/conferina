@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
+
+  get 'contact', to: 'feedbacks#new', as: :contact
+
   resources :favorites
   resources :feedbacks
   resources :notes
   resources :notes
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }
-  
+
   devise_scope :user do
     post "sessions/user" => "devise/sessions#create"
     get "sessions/new.user" => "devise/sessions#new"
@@ -16,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :events
   get 'publishable/:id', to: 'events#publishable', as: 'publishable'
-  get 'session_publish/:id', to: 'sessions#session_publish', as: 'session_publish' 
+  get 'session_publish/:id', to: 'sessions#session_publish', as: 'session_publish'
   get 'event_data', to: 'events#event_data'
   get 'event_data/:id', to: 'events#event_data'
   post 'search_events', to: 'events#search_events'

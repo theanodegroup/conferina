@@ -5,23 +5,20 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:content) %></th>
+      <th><%= model_class.human_attribute_name(:user) %></th>
       <th><%= model_class.human_attribute_name(:subject) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
-        <td><%= link_to feedback.id, feedback_path(feedback) %></td>
-        <td><%= feedback.user_id %></td>
-        <td><%= feedback.content %></td>
+        <td><%= feedback.user.try(:name) %></td>
         <td><%= feedback.subject %></td>
         <td><%=l feedback.created_at %></td>
         <td>
+          <%= link_to 'View',
+                      feedback_path(feedback), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_feedback_path(feedback), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

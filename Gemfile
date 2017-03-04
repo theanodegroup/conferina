@@ -35,7 +35,7 @@ end
 
 # Bootstrap
 gem 'bootstrap-sass'
-gem "twitter-bootstrap-rails" # Adds useful bootstrap generators
+gem 'twitter-bootstrap-rails'# Adds useful bootstrap generators
 
 gem 'devise'
 gem 'devise_invitable', '~> 1.7.0'

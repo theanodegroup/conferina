@@ -313,7 +313,7 @@ DEPENDENCIES
   carrierwave-aws
   coffee-rails (~> 4.1.0)
   database_cleaner
-  devise
+  devise (~> 4.2)
   devise_invitable (~> 1.7.0)
   dotenv-rails
   factory_girl_rails

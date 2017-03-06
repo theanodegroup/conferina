@@ -1,0 +1,6 @@
+<%# Render flash mesage and update image %>
+$("#flash_messages").html("<%= j render(partial: 'layouts/messages') %>");
+
+<% favorited = current_user.voted_for?(@favoritable) %>
+<% color = favorited ? 'gold' : 'grey' %>
+$("#<%= @favorite_button_id %>").css('color', '<%= color %>');

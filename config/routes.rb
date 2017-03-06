@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-
+  # Route to display notes for a given notable type and id
+  get ':notable_type/:notable_id/notes', to: 'notes#view', as: :view_notes
   get 'contact', to: 'feedbacks#new', as: :contact
+  post 'favorites/toggle', to: 'favorites#toggle', as: :favorites_toggle
 
   resources :favorites
   resources :feedbacks
-  resources :notes
   resources :notes
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations' }

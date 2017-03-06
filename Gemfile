@@ -37,13 +37,15 @@ end
 gem 'bootstrap-sass'
 gem 'twitter-bootstrap-rails'# Adds useful bootstrap generators
 
-gem 'devise'
+# Devise
+gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 
 gem 'twilio-ruby', '~> 4.11.1'
 
-# Demo/testing data generation
-gem 'faker'
+gem 'faker' # Demo/testing data generation
+
+gem 'acts_as_votable', '~> 0.10.0' # Favoritable
 
 gem 'high_voltage'
 group :development do

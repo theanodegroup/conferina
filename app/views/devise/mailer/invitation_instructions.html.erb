@@ -1,10 +1,29 @@
-<p>Hello <%= @resource.name %>(<%= @resource.email %>)!</p>
-<p><%= User.find_by_id(@resource.invited_by_id).email %> has sent you an invitation to <%= root_url %></p>
+<% recipient = User.find_by_id(@resource.invited_by_id).email %>
+<% sender = @resource %>
 
-<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+<p>Hello <%= recipient.name %> (<%= recipient.email %>)!</p>
+
+<p>
+  <%= sender.name %> (<%= sender.email %>) has sent you an invitation to join Conferina,
+  the one location to stay informed on just those conferences that interest you
+  <%= root_url %>.
+</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @token) %></p>
 
 <% if @resource.invitation_due_at %>
-  <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+  <p>This invitation will expire on
+    <%= l(@resource.invitation_due_at,
+          format: :'devise.mailer.invitation_instructions.accept_until_format')) %>.
+  </p>
 <% end %>
 
-<p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>
+<p>If you don't want to accept the invitation, please ignore this email.</p>
+
+<p>We look forward to welcoming you! Thanks.</p>
+
+<p>
+  Best Regards,<br>
+  The Conferina Team<br>
+  www.conferina.com
+</p>

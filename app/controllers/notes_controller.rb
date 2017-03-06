@@ -7,11 +7,12 @@ class NotesController < ApplicationController
     # @todo: use a better approach, this is not ideal
 
     # Treat it as either new or show depending on if notes already exist
+      notable_params[:user_id] = current_user
 
       # Get the notable query and value by extracting it from params
       notable_id = notable_params[:notable_id].to_i
       notable_type = notable_params[:notable_type].constantize
-      @notable = notable_type.find_by(id: notable_id)
+      @notable = notable_type.find_by(id: notable_id, user_id: current_user)
 
       puts [notable_type.inspect, notable_id.inspect].inspect
 

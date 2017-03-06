@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :feedbacks
   resources :notes
   root to: 'visitors#index'
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations', invitations: 'invitations' }
 
   devise_scope :user do
     post "sessions/user" => "devise/sessions#create"

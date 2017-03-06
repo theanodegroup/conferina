@@ -1,5 +1,5 @@
 
-class UserMailer < Devise::Mailer 
+class UserMailer < Devise::Mailer
 
 
   helper :application # gives access to all helpers defined within `application_helper`.

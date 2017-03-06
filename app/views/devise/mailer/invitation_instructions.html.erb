@@ -1,12 +1,15 @@
-<% recipient = User.find_by_id(@resource.invited_by_id).email %>
-<% sender = @resource %>
-
-<p>Hello <%= recipient.name %> (<%= recipient.email %>)!</p>
+<% recipient = @resource %>
+<% sender = User.find_by_id(@resource.invited_by_id) %>
 
 <p>
-  <%= sender.name %> (<%= sender.email %>) has sent you an invitation to join Conferina,
-  the one location to stay informed on just those conferences that interest you
-  <%= root_url %>.
+  Hello <%= "#{recipient.name} (#{recipient.email})" unless recipient.name.nil? %>
+  ! <%# On seperate line as this should automatically determine the required whitespace %>
+</p>
+
+<p>
+  <%= sender.name.nil? ? sender.email : "#{sender.name} (#{sender.email})" %>
+  has sent you an invitation to join Conferina, the one location to stay informed on just those
+  conferences that interest you <%= root_url %>.
 </p>
 
 <p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @token) %></p>
@@ -14,7 +17,7 @@
 <% if @resource.invitation_due_at %>
   <p>This invitation will expire on
     <%= l(@resource.invitation_due_at,
-          format: :'devise.mailer.invitation_instructions.accept_until_format')) %>.
+          format: :'devise.mailer.invitation_instructions.accept_until_format') %>.
   </p>
 <% end %>
 

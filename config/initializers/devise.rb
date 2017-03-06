@@ -122,7 +122,8 @@ Devise.setup do |config|
   # The key to be used to check existing users when sending an invitation
   # and the regexp used to test it when validate_on_invite is not set.
   # config.invite_key = {:email => /\A[^@]+@[^@]+\z/}
-  # config.invite_key = {:email => /\A[^@]+@[^@]+\z/, :username => nil}
+  # @note: Needed this to get name to work as a field invitations
+  config.invite_key = { email:  Devise.email_regexp, name: /[a-zA-Z\-'\s]+/}
 
   # Flag that force a record to be valid before being actually invited
   # Default: false

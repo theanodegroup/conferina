@@ -32,11 +32,20 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
+# Bootstrap
 gem 'bootstrap-sass'
-gem 'devise'
+gem 'twitter-bootstrap-rails'# Adds useful bootstrap generators
+
+# Devise
+gem 'devise',           '~> 4.2'
 gem 'devise_invitable', '~> 1.7.0'
 
 gem 'twilio-ruby', '~> 4.11.1'
+
+gem 'faker' # Demo/testing data generation
+
+gem 'acts_as_votable', '~> 0.10.0' # Favoritable
 
 gem 'high_voltage'
 group :development do
@@ -48,7 +57,6 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'dotenv-rails'
 end

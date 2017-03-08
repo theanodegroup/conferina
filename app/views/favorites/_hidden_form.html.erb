@@ -1,0 +1,16 @@
+<% form_id = "toggle_favorite_#{type}_#{id}" %>
+<%= form_tag favorites_toggle_path, id: form_id, remote: true do %>
+	<%# Hidden AJAX form %>
+
+	<%= hidden_field_tag(:favoritable_id, id) %>
+	<%= hidden_field_tag(:favoritable_type, type) %>
+	<%= hidden_field_tag(:favorite_button_id, favorite_button_id) %>
+<% end %>
+
+<%# @todo: Not ideal to have inline scripts %>
+<script>
+  $('#<%= favorite_button_id %>').on('click',function(){
+    console.log('Toggling Favorites via <%= favorite_button_id %> for <%= form_id %>')
+     $('#<%= form_id %>').submit();
+  });
+</script>

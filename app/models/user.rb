@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   enum role: [:user, :organizer, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
+	acts_as_voter
+
   def set_default_role
     self.role ||= :organizer
   end

@@ -12,7 +12,7 @@ class NotesController < ApplicationController
       # Get the notable query and value by extracting it from params
       notable_id = notable_params[:notable_id].to_i
       notable_type = notable_params[:notable_type].constantize
-      @notable = notable_type.find_by(id: notable_id, user_id: current_user)
+      @notable = notable_type.find_by(id: notable_id)
 
       puts [notable_type.inspect, notable_id.inspect].inspect
 

@@ -313,6 +313,7 @@
     if(Cookies.get('event') != undefined) {
         $('.list-selectable[data-eventid="' + Cookies.get('event') + '"]').trigger('click');
         $('.session-icon').trigger('click');
+        
         Cookies.remove('event'); 
     }
 </script>

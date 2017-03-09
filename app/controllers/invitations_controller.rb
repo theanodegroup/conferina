@@ -22,6 +22,22 @@ class InvitationsController < Devise::InvitationsController
   #   resource
   # end
 
+  # Invite a Resource (or User) that Has Already Signed Up without Invitation
+  # https://github.com/scambra/devise_invitable/wiki/Invite-a-Resource-(or-User)-that-Has-Already-Signed-Up-without-Invitation
+  def invite_resource(&block)
+    @user = User.find_by(email: invite_params[:email])
+    # @user is an instance or nil
+    if @user && @user.email != current_user.email
+      # invite! instance method returns a Mail::Message instance
+      @user.invite!(current_user)
+      # return the user instance to match expected return type
+      @user
+    else
+      # invite! class method returns invitable var, which is a User instance
+      resource_class.invite!(invite_params, current_inviter, &block)
+    end
+  end
+
   private
 
   def configure_permitted_params

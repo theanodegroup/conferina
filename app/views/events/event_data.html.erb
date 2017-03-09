@@ -30,13 +30,13 @@
 				<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#person_modal">Advanced Search</a>
 			</div>
-			<div class="row"> 
+			<div class="row">
 				<table class="table table-striped">
 				  <tr>
 				    <th class="text-primary col-md-3">Name/Title</th>
-				    <th class="text-primary col-md-5">Description</th>
+				    <th class="text-primary col-md-4">Description</th>
 				    <th class="text-primary col-md-2">Company</th>
-				    <th class="text-primary col-md-2">Actions</th>
+				    <th class="text-primary col-md-3">Actions</th>
 				  </tr>
 
 				  <% @persons.each do |person| %>
@@ -45,12 +45,16 @@
 				      <td><%= person.description %></td>
 				      <td><%= person.subtitle %></td>
 				      <td>
+				      	<% @favoritable = person %>
+				      	<%= render partial: 'favorites/button' %>
+				      	<%= render partial: 'notes/shared/link', locals: { notable: person } %>
 				      	<%= link_to 'Edit', edit_person_path(person) %>
-				      	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>		
+				      	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>
 			      	  </td>
 				    </tr>
+		      	<%= render partial: 'favorites/hidden_form' %>
 				  <% end %>
-				 
+
 				</table>
 			</div>
 			<% end %>
@@ -64,14 +68,14 @@
 				<%= link_to '+ Add New Location', new_location_path(id: @event.id), class: "btn btn-primary" %>
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#location_modal">Advanced Search</a>
 			</div>
-			<div class="row"> 
+			<div class="row">
 				<table class="table table-striped">
 				  <tr>
 				    <th class="text-primary col-md-3">Name</th>
-				    <th class="text-primary col-md-4">Address</th>
+				    <th class="text-primary col-md-3">Address</th>
 				    <th class="text-primary col-md-1">City</th>
 				    <th class="text-primary col-md-2">Province / State</th>
-				    <th class="text-primary col-md-2">Actions</th>
+				    <th class="text-primary col-md-4">Actions</th>
 				  </tr>
 
 				  <% @locations.order(:name).each do |location| %>
@@ -81,15 +85,19 @@
 				      <td><%= location.city %></td>
 				      <td><%= location.state %></td>
 				      <td>
+				      	<% @favoritable = location %>
+				      	<%= render partial: 'favorites/button' %>
+				      	<%= render partial: 'notes/shared/link', locals: { notable: location } %>
 				      	<%= link_to 'Edit', edit_location_path(location) %>
 				      	<%= link_to 'Delete', location_path(location), method: :delete, :class => 'delete' %>
-				      		
+
 				      </td>
 				    </tr>
+		      	<%= render partial: 'favorites/hidden_form' %>
 				  <% end %>
-				 
+
 				</table>
-			</div>	
+			</div>
 			<% end %>
 	    </div>
 
@@ -99,9 +107,9 @@
 
 			<div class="small-bottom">
 				<%= link_to '+ Add New Session', new_session_path(id: @event.id), class: "btn btn-primary" %>
-				<a href="#" class="pull-right" data-toggle="modal" data-target="#session_modal">Advanced Search</a>		
+				<a href="#" class="pull-right" data-toggle="modal" data-target="#session_modal">Advanced Search</a>
 			</div>
-			<div class="row"> 
+			<div class="row">
 				<table class="table table-striped">
 				  <tr>
 				    <th class="text-primary col-md-2">Start Time</th>
@@ -125,16 +133,20 @@
 					        publish_btn = "Publish"
 				      		classes = "btn btn-primary"
 					       end
-				      	%> 
+				      	%>
+				      	<% @favoritable = session %>
+				      	<%= render 'favorites/button' %>
+				      	<%= render partial: 'notes/shared/link', locals: { notable: session } %>
 				      	<%= link_to 'Edit', edit_session_path(session) %>
 				      	<%= link_to 'Delete', session_path(session), method: :delete, :class => 'delete' %>
-				      	<%= link_to publish_btn, session_publish_path(session) %>	
+				      	<%= link_to publish_btn, session_publish_path(session) %>
 				      </td>
 				    </tr>
+		      	<%= render partial: 'favorites/hidden_form' %>
 				  <% end %>
-				 
+
 				</table>
-			</div>	
+			</div>
 			<% end %>
 	    </div>
 
@@ -147,7 +159,7 @@
 
 				  <div class="form-group row">
 					<label for="website" class="col-sm-3 col-xs-5 col-form-label">
-						<span>Website URL</span> 
+						<span>Website URL</span>
 						<%= image_tag(asset_path("web.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-sm-5 col-xs-7">
@@ -157,7 +169,7 @@
 
 				  <div class="form-group row">
 					<label for="facebook" class="col-sm-3 col-xs-5 col-form-label">
-						<span>Facebook URL</span> 
+						<span>Facebook URL</span>
 						<%= image_tag(asset_path("facebook-icon.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-sm-5 col-xs-7">
@@ -167,7 +179,7 @@
 
 				  <div class="form-group row">
 					<label for="twitter" class="col-sm-3 col-xs-5 col-form-label">
-						<span>Twitter URL</span> 
+						<span>Twitter URL</span>
 						<%= image_tag(asset_path("twitter.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-sm-5 col-xs-7">
@@ -177,20 +189,20 @@
 
 				  <div class="form-group row">
 					<label for="youtube" class="col-sm-3 col-xs-5 col-form-label">
-						<span>YouTube URL</span> 
-						<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>	
+						<span>YouTube URL</span>
+						<%= image_tag(asset_path("youtube.png"), height: '22', width: '22') %>
 					</label>
 					<div class="col-sm-5 col-xs-7">
 					  <input class="form-control" type="text" name="social[youtube]" id="social_youtube" data-error="The youtube address is not valid" value="<%= @social.youtube %>">
 					</div>
 				  </div>
 
-				  <%= f.hidden_field :event_id, :value => @event.id %> 
+				  <%= f.hidden_field :event_id, :value => @event.id %>
 
 				  <%= f.submit "Save", :class => 'btn btn-primary' %>
-				<% end %>		  
+				<% end %>
 
-			<% end %>		
+			<% end %>
 	    </div>
 	  </div>
 
@@ -207,8 +219,8 @@
 	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
 	      </div>
 	      <div class="modal-body">
-	      	
-	      	
+
+
 
 			  <div class="form-group row">
 				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name/Title</label>
@@ -274,7 +286,7 @@
 			  </div>
 
 
-			  <%= f.hidden_field :event_id, :value => @event.id %> 
+			  <%= f.hidden_field :event_id, :value => @event.id %>
 
 	      </div>
 	      <div class="modal-footer">
@@ -298,8 +310,8 @@
 	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
 	      </div>
 	      <div class="modal-body">
-	      	
-	      	
+
+
 
 			  <div class="form-group row">
 				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
@@ -364,7 +376,7 @@
 				</div>
 			  </div>
 
-			  <%= f.hidden_field :event_id, :value => @event.id %> 
+			  <%= f.hidden_field :event_id, :value => @event.id %>
 
 	      </div>
 	      <div class="modal-footer">
@@ -430,7 +442,7 @@
 				</div>
 			  </div>
 
-			  <%= f.hidden_field :event_id, :value => @event.id %> 
+			  <%= f.hidden_field :event_id, :value => @event.id %>
 
 	      </div>
 	      <div class="modal-footer">
@@ -469,12 +481,12 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-  	fakewaffle.responsiveTabs(['xs', 'sm']);	
+  	fakewaffle.responsiveTabs(['xs', 'sm']);
 
 	$('#edit_social_form').data("toggle", "validator");
 	$('#edit_social_form').validator();
 
-  	$('#event_id').on('change', function() { 
+  	$('#event_id').on('change', function() {
 		window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
   	});
 

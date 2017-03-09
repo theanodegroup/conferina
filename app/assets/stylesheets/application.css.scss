@@ -16,3 +16,9 @@
  *= require_tree .
  *= require_self
  */
+
+
+a:visited.btn.btn-primary {
+  // Remove visited effect from btn styled link_tos
+  color: #fff;
+}

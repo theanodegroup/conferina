@@ -1,3 +1,7 @@
+<% id = @favoritable.id %>
+<% type = @favoritable.class %>
+<% favorite_button_id = "favorite_#{type}_#{@favoritable.id}" %>
+
 <% form_id = "toggle_favorite_#{type}_#{id}" %>
 <%= form_tag favorites_toggle_path, id: form_id, remote: true do %>
 	<%# Hidden AJAX form %>

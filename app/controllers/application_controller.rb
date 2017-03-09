@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :view_notes_path_builder
 
+  def authenticate_admin!
+    return if current_user && current_user.admin?
+    redirect_to new_user_session_path, alert: 'Not authorized.'
+  end
+
   protected
 
   def configure_permitted_parameters

@@ -2,6 +2,8 @@ class Session < ActiveRecord::Base
 	mount_uploader :avatar, AvatarUploader
 	mount_uploader :detailed_avatar, DetailedAvatarUploader
 
+	acts_as_votable
+
 	belongs_to :event
 	belongs_to :session_type
 	belongs_to :location

@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:user) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:subject) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -14,13 +15,12 @@
     <% @feedbacks.each do |feedback| %>
       <tr>
         <td><%= feedback.user.try(:name) %></td>
+        <td><%= feedback.user_email  %></td>
         <td><%= feedback.subject %></td>
         <td><%=l feedback.created_at %></td>
         <td>
           <%= link_to 'View',
                       feedback_path(feedback), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_feedback_path(feedback), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       feedback_path(feedback),
                       :method => :delete,
@@ -31,7 +31,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_feedback_path,
-            :class => 'btn btn-primary' %>

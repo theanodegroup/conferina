@@ -1,3 +1,7 @@
+<% id = @favoritable.id %>
+<% type = @favoritable.class %>
+<% favorite_button_id = "favorite_#{type}_#{@favoritable.id}" %>
+
 <% favorited = current_user.voted_for?(@favoritable) %>
 <% color = favorited ? 'gold' : 'grey' %>
-<i class="fa fa-star" aria-hidden="true" style='color: <%= color %>' id='<%= @favorite_button_id %>'>
+<i class="fa fa-star" aria-hidden="true" style='color: <%= color %>' id='<%= favorite_button_id %>' /></i>

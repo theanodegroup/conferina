@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'favorites/toggle', to: 'favorites#toggle', as: :favorites_toggle
 
   resources :favorites
-  resources :feedbacks
+  resources :feedbacks, :except => [:edit, :update] # Feedback is immutable
   resources :notes
   root to: 'visitors#index'
   devise_for :users, controllers: { registrations: 'registrations', invitations: 'invitations' }

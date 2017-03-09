@@ -1,10 +1,14 @@
 class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:new, :create]
+	before_action :authenticate_admin!, only: [:show, :edit, :update, :destroy]
+
+	# Users can create new feedback, but only admins can view it.
 
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.all.order(created_at: :desc)
   end
 
   # GET /feedbacks/1
@@ -17,19 +21,15 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new
   end
 
-  # GET /feedbacks/1/edit
-  def edit
-  end
-
   # POST /feedbacks
   # POST /feedbacks.json
   def create
     @feedback = Feedback.new(feedback_params)
-    @feedback.user_id = current_user.id
+    @feedback.user_id = current_user.try(:id)
 
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Thank you for your feedback' }
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }
@@ -70,6 +70,6 @@ class FeedbacksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feedback_params
-      params.require(:feedback).permit(:user_id, :content, :subject)
+      params.require(:feedback).permit(:user_id, :content, :subject, :email)
     end
 end

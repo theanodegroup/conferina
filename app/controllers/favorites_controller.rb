@@ -3,7 +3,6 @@ class FavoritesController < ApplicationController
   def toggle
     # @tod: Fix excessive number of instance vars required to make this work
 
-    puts "A"
     # Toggles an item between favorite and unfavorite
     favoritable_id = favoritable_params[:favoritable_id].to_i
     favoritable_type = favoritable_params[:favoritable_type].try(:constantize)
@@ -12,15 +11,13 @@ class FavoritesController < ApplicationController
 
     # Only favorite if id and type present
     if favoritable_type.present? && favoritable_id.present?
-      puts "B"
       @favoritable = favoritable_type.find_by(id: favoritable_id)
 
       if current_user.voted_for?(@favoritable)
-        puts "C"
-        flash[:notice] = "Unfavorited #{@favoritable.category}"
+        flash[:notice] = "You unfavorited #{@favoritable.name}"
         @favoritable.unliked_by(current_user) # Unfavorite
       else
-        flash[:notice] = "Favorited #{@favoritable.category}"
+        flash[:notice] = "You favorited #{@favoritable.name}"
         @favoritable.liked_by(current_user) # Favorite
       end
     end

@@ -1,5 +1,5 @@
 <%- model_class = Note -%>
 <div class="page-header">
-  <h1>Edit notes for <%= "#{@note.readable_notable_type}: #{@notable.category}" %></h1>
+  <h1>Edit notes for <%= "#{@note.readable_notable_type}: #{@notable.name}" %></h1>
 </div>
 <%= render :partial => 'form' %>

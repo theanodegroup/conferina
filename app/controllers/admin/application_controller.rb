@@ -8,7 +8,7 @@ module Admin
     before_action :authenticate_user!
     before_action :authenticate_admin
 
-    def authenticate_admin
+    def authenticate_admin!
       return if current_user && current_user.admin?
       redirect_to new_user_session_path, alert: 'Not authorized.'
     end

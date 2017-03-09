@@ -14,8 +14,6 @@ class NotesController < ApplicationController
       notable_type = notable_params[:notable_type].constantize
       @notable = notable_type.find_by(id: notable_id)
 
-      puts [notable_type.inspect, notable_id.inspect].inspect
-
       @note = Note.find_by(notable_params)
 
       if @note.nil?
@@ -87,7 +85,10 @@ class NotesController < ApplicationController
   def destroy
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
+      format.html do
+        redirect_to event_data_path,
+                    notice: 'Note was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end

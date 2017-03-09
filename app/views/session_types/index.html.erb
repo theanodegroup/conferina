@@ -22,6 +22,7 @@
 		      	<%= link_to 'Delete', session_type_path(session_type), method: :delete, data: {erasable: !(Session.where(session_type_id: session_type.id).present?) } %>
 	      	  </td>
 		    </tr>
+	    <% end %>
 		</table>
 	</div>
 

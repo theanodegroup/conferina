@@ -21,8 +21,9 @@
 		      	<%= link_to 'Edit', edit_person_type_path(person_type) %>
 		      	<%= link_to 'Delete', person_type_path(person_type), method: :delete,
 		      	            data: {erasable: !(Person.where(person_type_id: person_type.id).present?) } %>
-	      	  </td>
+      	  </td>
 		    </tr>
+	    <% end %>
 		</table>
 	</div>
 

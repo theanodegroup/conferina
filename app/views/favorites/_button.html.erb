@@ -1,10 +1,10 @@
-<% id = @favoritable.id %>
-<% type = @favoritable.class %>
-<% favorite_button_id = "favorite_#{type}_#{@favoritable.id}" %>
+<% id = @notable.id %>
+<% type = @notable.class %>
+<% favorite_button_id = "favorite_#{type}_#{@notable.id}" %>
 
-<% favorited = current_user.voted_for?(@favoritable) %>
+<% favorited = current_user.voted_for?(@notable) %>
 <% color = favorited ? 'gold' : 'grey' %>
 <i class="fa fa-star"
    aria-hidden="true"
-   style='color: <%= color %>; cursor: pointer;'
+   style='color: <%= color %>; cursor: pointer; font-size: 16px'
    id='<%= favorite_button_id %>' /></i>

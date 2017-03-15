@@ -11,14 +11,14 @@ class FavoritesController < ApplicationController
 
     # Only favorite if id and type present
     if favoritable_type.present? && favoritable_id.present?
-      @favoritable = favoritable_type.find_by(id: favoritable_id)
+      @notable = favoritable_type.find_by(id: favoritable_id)
 
-      if current_user.voted_for?(@favoritable)
-        flash[:notice] = "You unfavorited #{@favoritable.name}"
-        @favoritable.unliked_by(current_user) # Unfavorite
+      if current_user.voted_for?(@notable)
+        flash[:notice] = "You unfavorited #{@notable.name}"
+        @notable.unliked_by(current_user) # Unfavorite
       else
-        flash[:notice] = "You favorited #{@favoritable.name}"
-        @favoritable.liked_by(current_user) # Favorite
+        flash[:notice] = "You favorited #{@notable.name}"
+        @notable.liked_by(current_user) # Favorite
       end
     end
 

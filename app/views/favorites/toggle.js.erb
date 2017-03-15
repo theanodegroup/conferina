@@ -1,5 +1,5 @@
 <%= render partial: 'shared_js/flash_message' %>
 
-<% favorited = current_user.voted_for?(@favoritable) %>
+<% favorited = current_user.voted_for?(@notable) %>
 <% color = favorited ? 'gold' : 'grey' %>
 $("#<%= @favorite_button_id %>").css('color', '<%= color %>');

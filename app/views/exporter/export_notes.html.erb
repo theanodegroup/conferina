@@ -1,0 +1,7 @@
+<p>Hello <%= @user.name %>,</p>
+
+<p>Here is the notes you requested:</p>
+<hr>
+<p>Notes for <%= "#{@note.readable_notable_type}: #{@notable.name}" %></p>
+
+<%= simple_format(@note.content) %>

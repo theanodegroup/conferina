@@ -1,5 +1,4 @@
-<%# Render flash mesage and update image %>
-$("#flash_messages").html("<%= j render(partial: 'layouts/messages') %>");
+<%= render partial: 'shared_js/flash_message' %>
 
 <% favorited = current_user.voted_for?(@favoritable) %>
 <% color = favorited ? 'gold' : 'grey' %>

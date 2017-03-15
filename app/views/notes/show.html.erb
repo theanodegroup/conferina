@@ -1,13 +1,14 @@
-<%- model_class = Note -%>
 <div class="page-header">
   <h1>Notes for <%= "#{@note.readable_notable_type}: #{@notable.name}" %></h1>
 </div>
 
-<p><%= simple_format(@note.content) %></p>
+<%= simple_format(@note.content) %>
 
 <%# Back goes to the index page for the notable type %>
 <%= link_to "Back",
               event_data_path, :class => 'btn btn-default'  %>
+<%= link_to 'Export', remote: true,
+              notes_export_path(id: @note.id), :class => 'btn btn-default' %>
 <%= link_to 'Edit',
               edit_note_path(@note), :class => 'btn btn-default' %>
 <%= link_to 'Delete',

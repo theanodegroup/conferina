@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get 'contact', to: 'feedbacks#new', as: :contact
   post 'favorites/toggle', to: 'favorites#toggle', as: :favorites_toggle
 
+  get 'notes/export', to: 'notes#export', as: :notes_export
+  get 'notes/export/bulk', to: 'notes#bulk_export', as: :notes_bulk_export
+
   resources :favorites
   resources :feedbacks, :except => [:edit, :update] # Feedback is immutable
   resources :notes

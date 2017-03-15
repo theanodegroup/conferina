@@ -1,7 +1,42 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_note, only: [:export, :show, :edit, :update, :destroy]
   before_action :set_notable, only: [:show, :edit, :update, :destroy]
+
+
+  def export
+    if @note.present?
+      Exporter.export_notes(@note).deliver_now
+      flash[:error] = "Notes exported via email, #{current_user.email}"
+    else
+      flash[:error] = "Could not send notes, notable type not present"
+    end
+
+    respond_to do |format|
+      format.js # AJAX only
+    end
+  end
+
+  def bulk_export
+    notable_type = params[:notable_type]
+
+    if notable_type.present?
+      notes = Note.where(notable_type: notable_type, user_id: current_user.id)
+      if notes.empty?
+        flash[:error] = "There are no notes to send"
+      else
+        Exporter.bulk_export_notes(notes).deliver_now
+      end
+
+      flash[:error] = "Notes bulk exported via email, #{current_user.email}"
+    else
+      flash[:error] = "Could not bulk export notes, notable type not present"
+    end
+
+    respond_to do |format|
+      format.js # AJAX only
+    end
+  end
 
   def view
     # @todo: use a better approach, this is not ideal

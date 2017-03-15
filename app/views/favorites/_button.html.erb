@@ -4,4 +4,7 @@
 
 <% favorited = current_user.voted_for?(@favoritable) %>
 <% color = favorited ? 'gold' : 'grey' %>
-<i class="fa fa-star" aria-hidden="true" style='color: <%= color %>' id='<%= favorite_button_id %>' /></i>
+<i class="fa fa-star"
+   aria-hidden="true"
+   style='color: <%= color %>; cursor: pointer;'
+   id='<%= favorite_button_id %>' /></i>

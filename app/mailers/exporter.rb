@@ -1,0 +1,2 @@
+class Exporter < ApplicationMailer
+end

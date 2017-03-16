@@ -5,14 +5,14 @@
 <%= simple_format(@note.content) %>
 
 <%# Back goes to the index page for the notable type %>
-<%= link_to "Back",
-              event_data_path, :class => 'btn btn-default'  %>
-<%= link_to 'Export', remote: true,
-              notes_export_path(id: @note.id), :class => 'btn btn-default' %>
-<%= link_to 'Edit',
-              edit_note_path(@note), :class => 'btn btn-default' %>
-<%= link_to 'Delete',
-              note_path(@note),
-              :method => 'delete',
-              :data => { :confirm => 'Are you Sure?' },
-              :class => 'btn btn-danger' %>
+<%= link_to "Back", event_data_path,
+            :class => 'btn btn-default'  %>
+<%= link_to 'Export', notes_export_path(id: @note.id),
+            remote: true,
+            :class => 'btn btn-default' %>
+<%= link_to 'Edit', edit_note_path(@note),
+            :class => 'btn btn-default' %>
+<%= link_to 'Delete', note_path(@note),
+            :method => 'delete',
+            :data => { :confirm => 'Are you Sure?' },
+            :class => 'btn btn-danger' %>

@@ -1,3 +1,16 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$ssb_text_size: 14px;
+
+.social-share-button {
+}
+.social-share-button {
+  display: inline-block;
+  .ssb-icon {
+    background-size: $ssb_text_size $ssb_text_size;
+    height: $ssb_text_size;
+    width: $ssb_text_size;
+  }
+}

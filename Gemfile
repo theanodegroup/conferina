@@ -47,6 +47,9 @@ gem 'faker' # Demo/testing data generation
 
 gem 'acts_as_votable', '~> 0.10.0' # Favoritable
 
+# Social sharing
+gem 'social-share-button'
+
 gem 'high_voltage'
 group :development do
   gem 'better_errors'

@@ -35,9 +35,9 @@
 				<table class="table table-striped">
 				  <tr>
 				    <th class="text-primary col-md-3">Name/Title</th>
-				    <th class="text-primary col-md-4">Description</th>
+				    <th class="text-primary col-md-3">Description</th>
 				    <th class="text-primary col-md-2">Company</th>
-				    <th class="text-primary col-md-3">Actions</th>
+				    <th class="text-primary col-md-4">Actions</th>
 				  </tr>
 
 				  <% @persons.each do |person| %>
@@ -46,9 +46,8 @@
 				      <td><%= person.description %></td>
 				      <td><%= person.subtitle %></td>
 				      <td>
-				      	<% @favoritable = person %>
-				      	<%= render partial: 'favorites/button' %>
-				      	<%= render partial: 'notes/shared/link', locals: { notable: person } %>
+				      	<% @notable = person %>
+				      	<%= render partial: 'events/event_data/actions' %>
 				      	<%= link_to 'Edit', edit_person_path(person) %>
 				      	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>
 			      	  </td>
@@ -74,7 +73,7 @@
 				<table class="table table-striped">
 				  <tr>
 				    <th class="text-primary col-md-3">Name</th>
-				    <th class="text-primary col-md-3">Address</th>
+				    <th class="text-primary col-md-2">Address</th>
 				    <th class="text-primary col-md-1">City</th>
 				    <th class="text-primary col-md-2">Province / State</th>
 				    <th class="text-primary col-md-4">Actions</th>
@@ -87,9 +86,8 @@
 				      <td><%= location.city %></td>
 				      <td><%= location.state %></td>
 				      <td>
-				      	<% @favoritable = location %>
-				      	<%= render partial: 'favorites/button' %>
-				      	<%= render partial: 'notes/shared/link', locals: { notable: location } %>
+				      	<% @notable = location %>
+				      	<%= render partial: 'events/event_data/actions' %>
 				      	<%= link_to 'Edit', edit_location_path(location) %>
 				      	<%= link_to 'Delete', location_path(location), method: :delete, :class => 'delete' %>
 
@@ -117,9 +115,9 @@
 				  <tr>
 				    <th class="text-primary col-md-2">Start Time</th>
 				    <th class="text-primary col-md-2">End Time</th>
-				    <th class="text-primary col-md-3">Session Name</th>
+				    <th class="text-primary col-md-2">Session Name</th>
 				    <th class="text-primary col-md-2">Venue/Place</th>
-				    <th class="text-primary col-md-3">Actions</th>
+				    <th class="text-primary col-md-4">Actions</th>
 				  </tr>
 
 				  <% @sessions.order(:start_time).each do |session| %>
@@ -137,9 +135,8 @@
 				      		classes = "btn btn-primary"
 					       end
 				      	%>
-				      	<% @favoritable = session %>
-				      	<%= render 'favorites/button' %>
-				      	<%= render partial: 'notes/shared/link', locals: { notable: session } %>
+				      	<% @notable = session %>
+				      	<%= render partial: 'events/event_data/actions' %>
 				      	<%= link_to 'Edit', edit_session_path(session) %>
 				      	<%= link_to 'Delete', session_path(session), method: :delete, :class => 'delete' %>
 				      	<%= link_to publish_btn, session_publish_path(session) %>

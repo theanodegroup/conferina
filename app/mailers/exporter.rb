@@ -7,7 +7,7 @@ class Exporter < ApplicationMailer
     @user = @note.user
 
     mail(
-      to: mail_to,
+      to: mail_to(@user),
       bcc: mail_bcc,
       subject: 'Your exported notes'
     )
@@ -29,20 +29,10 @@ class Exporter < ApplicationMailer
     end
 
     mail(
-      to: mail_to,
+      to: mail_to(@user),
       bcc: mail_bcc,
       subject: 'Your bulk exported notes'
     )
-  end
-
-  private
-
-  def mail_to
-    "\"#{@user.name}\" <#{@user.email}>"
-  end
-
-  def mail_bcc
-    []
   end
 
 end

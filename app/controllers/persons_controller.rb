@@ -2,6 +2,20 @@ class PersonsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_requisites
 
+  def similar_persons
+    @person = Person.find(params[:id])
+    if @person.present?
+      @people = @person.similar_persons(current_user)
+      if @people.empty?
+        flash[:error] = "No similar persons to #{@person.name} found"
+        redirect_to event_data_path
+      end
+    else
+      flash[:error] = "Person ID not provided"
+      redirect_to event_data_path
+    end
+  end
+
   def index
   end
 
@@ -43,7 +57,7 @@ class PersonsController < ApplicationController
 
   def create
     @person = Person.new(person_params)
-    
+
     # @same_person = Event.find_by_id(@person[:event_id]).persons.where(email: @person[:email])
 
     # if @same_person.count != 0
@@ -54,7 +68,7 @@ class PersonsController < ApplicationController
         # account_sid = ENV['TWILIO_LIVE_SID']
         # auth_token = ENV['TWILIO_LIVE_AUTH_TOKEN']
 
-        # @client = Twilio::REST::Client.new(account_sid, auth_token) 
+        # @client = Twilio::REST::Client.new(account_sid, auth_token)
 
 
         # invitee = User.find_by(invited_by_id: current_user.id, email: @person[:email])
@@ -87,7 +101,7 @@ class PersonsController < ApplicationController
       end
     # end
 
-    
+
   end
 
   def search
@@ -132,9 +146,9 @@ class PersonsController < ApplicationController
       sql = 'TRUE'
     else
       sql = sql + 'FALSE'
-    end  
+    end
 
-    redirect_to event_data_path(event_id: params[:person][:event_id], category: 'people', person_search: 'true', sql: sql) 
+    redirect_to event_data_path(event_id: params[:person][:event_id], category: 'people', person_search: 'true', sql: sql)
   end
 
   def destroy
@@ -142,17 +156,17 @@ class PersonsController < ApplicationController
     @event = @person.event
     @user = @person.user
     @person.destroy
-    
+
     if (not @user.nil?) && (@user.people.count == 0)
       @user.destroy
     end
 
     redirect_to event_data_path(event_id: @event[:id], category: 'people')
-    # render "events/event_data" 
+    # render "events/event_data"
   end
 
   private
-  
+
   def person_params
     params.require(:person).permit(:name, :description, :subtitle, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :website, :youtube, :facebook, :twitter, :email, :phone, :event_id, :person_type_id)
   end

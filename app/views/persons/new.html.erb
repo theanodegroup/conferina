@@ -92,12 +92,12 @@
 		  	<option value="">Select</option>
 		  	<% @person_types.each do |c| %>
 		  	<option value="<%= c.id %>"><%= c.category %></option>
-		  	<% end %>	
+		  	<% end %>
 		  </select>
 		</div>
 	  </div>
 
-	  <%= f.hidden_field :event_id, :value => @event.id %> 
+	  <%= f.hidden_field :event_id, :value => @event.id %>
 
 	  <%= f.submit "Save New Person", :class => 'btn btn-primary' %>
 	  <%= link_to 'Back', event_data_path(event_id: @event.id, category: 'people'), :class => 'btn btn-warning' %>

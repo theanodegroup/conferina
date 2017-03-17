@@ -7,7 +7,7 @@ class Notifier < ApplicationMailer
     mail(
       to: mail_to(User.admin.find_by(email: 'dayo@anode.com.au')),
       bcc: mail_bcc,
-      subject: 'New feedback recieved'
+      subject: 'New Conferina feedback received'
     )
   end
 end

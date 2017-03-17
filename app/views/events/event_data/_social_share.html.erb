@@ -47,7 +47,7 @@
   // Email
   $("#<%= ssb_notable_id %> > .social-share-button > a.ssb-email").on('click', function() {
     <% subject = URI.encode_www_form_component("Check out #{@notable.name} at #{@event.name}") %>
-    <% ssb_url = "mailto:?to=&subject=#{title}&body=#{url}" %>
+    <% ssb_url = "mailto:?to=&subject=#{subject}&body=#{url}" %>
     location.href = "<%= raw ssb_url %>"
   });
 </script>

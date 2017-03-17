@@ -1,9 +1,9 @@
 <%# @todo: Refactor/optimize to avoid multiple queries %>
-<% has_notes = current_user.notes.find_by(notable_type: notable.class,
-                                          notable_id: notable.id) %>
+<% has_notes = current_user.notes.find_by(notable_type: @notable.class,
+                                          notable_id: @notable.id) %>
 
 <% if has_notes %>
-  <b><%= link_to 'Notes', view_notes_path_builder(notable) %></b>
+  <b><%= link_to 'Notes', view_notes_path_builder(@notable) %></b>
 <% else %>
-  <%= link_to 'Notes', view_notes_path_builder(notable) %>
+  <%= link_to 'Notes', view_notes_path_builder(@notable) %>
 <% end %>

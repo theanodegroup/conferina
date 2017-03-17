@@ -24,4 +24,6 @@
 //= require_tree ./jquery-plugins
 //= require_tree ./select2
 
+//= require social-share-button
+
 //= require_tree .

@@ -3,16 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong>Name:</strong></dt>
-  <dd><%= @feedback.user.try(:name) %></dd>
-  <dt><strong>Email:</strong></dt>
-  <dd><%= @feedback.user_email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:subject) %>:</strong></dt>
-  <dd><%= @feedback.subject %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
-  <dd><%= simple_format(@feedback.content) %></dd>
-</dl>
+<%= render partial 'feedbacks/feedback' %>
 
 <%= link_to "Back",
               feedbacks_path, :class => 'btn btn-default'  %>

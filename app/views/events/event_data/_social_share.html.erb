@@ -1,17 +1,68 @@
-<% email_subject = "Check out #{@notable.name} at Conferina!" %>
-
-<% email_body = "Check out #{@notable.name} at #{ @notable.event.name } powered by Conferina.
-Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet. #{root_url}" %>
-<% if @notable.class == Person %>
-<% elsif @notable.class == Location %>
-<% else %>
-<% end %>
+<%#
+  email_subject = "Check out #{@notable.name} at Conferina!"
 
 
-<% share_text = "Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet." %>
-<%= social_share_button_tag("#{email_body} #{root_url}",
-                            'data-twitter-title': share_text,
-                            'data-email-title': email_subject,
-                            'data-email-url': email_body,
-                            url: email_body,
-                            style: 'display: inline-block;') %>
+  if @notable.class == Person
+    email_subject =
+    # Terrible hack to force this to work for emails
+    first_part = "Check out #{@notable.name} at #{ @notable.event.name } powered by Conferina."
+    second_part = "Conferina is the one location to stay informed on those conferences that interest you."
+    third_part = "It’s how minds meet. #{root_url}"
+    url = "#{first_part}\n#{second_part}#{third_part}"
+  elsif @notable.class == Location
+
+
+%>
+
+<% ssb_notable_id = "ssb_#{@notable.class}_#{@notable.id}" %>
+
+<div id='<%= ssb_notable_id %>'>
+  <%= social_share_button_tag %>
+</div>
+
+<script>
+  <% require 'uri' %>
+  // Manually rewrite the social share button URLs manually
+
+  <% url = event_url(@notable.event) %>
+  <% title = URI.encode_www_form_component("Check out #{@notable.name} at #{@event.name} (#{event_url(@event)}) powered by Conferina (How Minds Meet)") %>
+
+  // Replace existing social share button listeners with customized ones
+
+  // Twitter
+  $("#<%= ssb_notable_id %> > .social-share-button > a.ssb-twitter").on('click', function() {
+    <% twitter_text = title %>
+    <% hashtags = URI.encode_www_form_component('conferina') %>
+    <% ssb_url = "https://twitter.com/intent/tweet?url=#{url}&text=#{twitter_text}&hashtags=#{hashtags}" %>
+    SocialShareButton.openUrl("<%= raw ssb_url %>", 650, 300)
+  });
+
+  // Facebook
+  $("#<%= ssb_notable_id %> > .social-share-button > a.ssb-facebook").on('click', function() {
+    <% desc = URI.encode_www_form_component("Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet. #{root_url}") %>
+    <% ssb_url = "http://www.facebook.com/sharer/sharer.php?u=#{url}&display=popup&title=#{title}&description=#{desc}" %>
+    SocialShareButton.openUrl("<%= raw ssb_url %>", 555, 400)
+  });
+
+  // Email
+  $("#<%= ssb_notable_id %> > .social-share-button > a.ssb-email").on('click', function() {
+    <% subject = URI.encode_www_form_component("Check out #{@notable.name} at #{@event.name}") %>
+    <% ssb_url = "mailto:?to=&subject=#{title}&body=#{url}" %>
+    location.href = "<%= raw ssb_url %>"
+  });
+</script>
+
+
+
+
+<%# Email:
+Person:
+Email subject: Check out <insert person's name> at Conferina!
+Check out <insert person's name> at <event name> (use hyperlink to event url) powered by Conferina.
+Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet. <insert webapp url eg http://conference-webapp.herokuapp.com/ >
+
+Session:
+Email subject: Check out this session at Conferina!
+Check out <insert session name> at <event name> (use hyperlink to event url) powered by Conferina.
+Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet. <insert webapp url eg http://conference-webapp.herokuapp.com/ >
+%>

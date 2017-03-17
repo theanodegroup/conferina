@@ -1,5 +1,4 @@
 class Exporter < ApplicationMailer
-  default from: "\"Conferina\" <no-reply notifications@conferina.com>"
 
   def export_notes(note)
     @note = note

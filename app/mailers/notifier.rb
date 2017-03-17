@@ -1,5 +1,4 @@
 class Notifier < ApplicationMailer
-  default from: "\"Conferina\" <no-reply notifications@conferina.com>"
 
   def feedback_received(feedback)
     @feedback = feedback

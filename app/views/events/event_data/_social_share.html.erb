@@ -1,2 +1,17 @@
+<% email_subject = "Check out #{@notable.name} at Conferina!" %>
+
+<% email_body = "Check out #{@notable.name} at #{ @notable.event.name } powered by Conferina.
+Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet. #{root_url}" %>
+<% if @notable.class == Person %>
+<% elsif @notable.class == Location %>
+<% else %>
+<% end %>
+
+
 <% share_text = "Conferina is the one location to stay informed on those conferences that interest you. It’s how minds meet." %>
-<%= social_share_button_tag("#{share_text} #{root_url}", 'data-twitter-title': share_text, url: root_url, style: 'display: inline-block;') %>
+<%= social_share_button_tag("#{email_body} #{root_url}",
+                            'data-twitter-title': share_text,
+                            'data-email-title': email_subject,
+                            'data-email-url': email_body,
+                            url: email_body,
+                            style: 'display: inline-block;') %>

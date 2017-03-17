@@ -46,8 +46,9 @@ img {
 // apply styles to HTML elements
 // to make views framework-neutral
 .container {
-  margin-top: 99px;
-  padding-top: 20px;
+  // Remove these to reduce top padding
+  // margin-top: 99px;
+  // padding-top: 20px;
 }
 
 main {

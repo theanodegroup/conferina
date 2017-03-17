@@ -1,0 +1,154 @@
+<%- model_class = Event -%>
+<div class="page-header">
+  <h1><%= @event.name %></h1>
+</div>
+
+
+
+
+
+
+
+
+
+
+<% if @event.avatar.url != nil %>
+  <img src="<%= @event.avatar.url %>" height="100%" width="100%" ><hr/>
+<% end %>
+
+<span>Organized by:</span>
+<p><%= @event.users.first.name %></p><hr/>
+
+<span>Duration:</span>
+<% date_format = '%A, %B %-d, %Y' %>
+<p><%= @event.start_date.strftime(date_format) %> - <%= @event.end_date.strftime(date_format) %></p><hr/>
+
+<% if @event.call_for.present? %>
+  <span>Call For Papers Abstracts Due</span>
+  <p><%= @event.call_for %> </p><hr/>
+<% end %>
+
+<% if @event.submission.present? %>
+  <span>Paper Submission Deadline</span>
+  <p><%= @event.submission %></p><hr/>
+<% end %>
+
+<% if @event.notification.present? %>
+  <span>Notification Of Acceptance</span>
+  <p><%= @event.notification %></p><hr/>
+<% end %>
+
+<span>Map Address:</span>
+<p><%= @event.address %></p><hr/>
+
+<span>About Event</span>
+<p><%= @event.description %></p>
+
+<% email_body = @event.description %>
+
+<% social = @event.social %>
+<% if social.website.present? %>
+  <hr/><span>Website</span><br>
+  <%= link_to social.website, social.website, target: '_blank' %>
+  <% email_body += '%0D%0A' + social.website %>
+<% end %>
+
+<% if social.facebook.present? %>
+  <hr/><span>Facebook</span><br>
+  <%= link_to social.facebook, social.facebook, target: '_blank' %>
+  <% email_body += '%0D%0A' + social.facebook %>
+<% end %>
+
+<% if social.twitter.present? %>
+  <hr/><span>Twitter</span><br>
+  <%= link_to social.twitter, social.twitter, target: '_blank' %>
+  <% email_body += '%0D%0A' + social.twitter %>
+<% end %>
+
+<% if social.youtube.present? %>
+  <hr/><span>Youtube</span><br>
+  <%= link_to social.youtube, social.youtube, target: '_blank' %>
+  <% email_body += '%0D%0A' + social.youtube %>
+<% end %>
+
+<hr/>
+<ul class='list-inline'>
+  <li><i id="facebook" class="fa fa-facebook fa-2x" aria-hidden="true"></i></li>
+  <li><i class="share s_twitter fa fa-twitter fa-2x" aria-hidden="true"></i></li>
+  <li><i class="fa fa-mobile fa-2x" aria-hidden="true"></i></li>
+  <li>
+    <a href="mailto:?subject=<%= @event.name %>&body=<%= email_body %>">
+      <i id="share_email" class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+<hr/>
+<i class="fa fa-angle-double-down session-icon" aria-hidden="true">
+  <span style="font-weight: 500; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; cursor: pointer;">
+    Sessions & Details
+  </span>
+</i>
+
+<div class="container-fluid list-sessions">
+  <div class="row">
+    <table class="table table-striped">
+      <tr>
+      <th class="text-primary col-md-3">Start Time</th>
+      <th class="text-primary col-md-3">End Time</th>
+      <th class="text-primary col-md-6">Session Name</th>
+      </tr>
+
+      <% @event.sessions.each do |session| %>
+          <tr class="session-item" data-session="<%= session.id %>">
+          <td><%= session.start_time %></td>
+          <td><%= session.end_time %></td>
+          <td><%= session.name %></td>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              events_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_event_path(@event), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              event_path(@event),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+
+<%# Bottom padding %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<script>
+
+  $('.session-icon').on('click', function(){
+      $('.list-sessions').toggleClass('active');
+      $(this).toggleClass('fa-angle-double-down');
+      $(this).toggleClass('fa-angle-double-up');
+  });
+
+  $('#facebook').on('click', function(){
+      FB.ui({
+          method: 'feed',
+          name: gon.events[id].name,
+          link: 'https://conference-webapp.herokuapp.com/search',
+          picture: '<%= request.base_url %>' + '<%= asset_path("logo.png") %>',
+          caption: gon.users[id],
+          description: gon.events[id].description,
+          message: ''
+      });
+  });
+</script>

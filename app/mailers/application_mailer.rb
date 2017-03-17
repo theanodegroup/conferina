@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "\"Conferina\" <no-reply notifications@conferina.com>"
+  default from: "\"Conferina\" <notifications@conferina.com>"
   layout 'mailer'
 
   protected

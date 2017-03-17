@@ -28,7 +28,7 @@
 
 			<div class="small-bottom">
 				<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
-				<%= link_to 'Export', notes_bulk_export_path(notable_type: 'Person'), :class => 'btn btn-default' %>
+				<%= link_to 'Export', notes_bulk_export_path(notable_type: 'Person'), remote: true, :class => 'btn btn-default' %>
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#person_modal">Advanced Search</a>
 			</div>
 			<div class="row">
@@ -68,7 +68,7 @@
 
 			<div class="small-bottom">
 				<%= link_to '+ Add New Location', new_location_path(id: @event.id), class: "btn btn-primary" %>
-				<%= link_to 'Export', notes_bulk_export_path(notable_type: 'Location'), :class => 'btn btn-default' %>
+				<%= link_to 'Export', notes_bulk_export_path(notable_type: 'Location'), remote: true, :class => 'btn btn-default' %>
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#location_modal">Advanced Search</a>
 			</div>
 			<div class="row">

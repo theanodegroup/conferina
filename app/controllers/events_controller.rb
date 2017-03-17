@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:search_events]
+  before_action :authenticate_user!, except: [:search_events, :show]
   before_action :get_category_types, only: [:index, :new, :edit, :search_events]
 
   def index
@@ -14,7 +14,7 @@ class EventsController < ApplicationController
           event.tags.each do |t|
             if params[:tags].include? t.id.to_s
               @events.push(event)
-              break  
+              break
             end
           end
         end
@@ -28,10 +28,22 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    if !@event.is_published?
+      if current_user.nil?
+        flash[:error] = "This event is not published yet."
+        redirect_to root_path and return
+      else
+        authenticate_user!
+
+        if current_user != @event.users.first
+          redirect_to root_path and return
+        end
+      end
+    end
   end
 
   def new
-    @event = Event.new 
+    @event = Event.new
   end
 
   def edit
@@ -40,7 +52,7 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
- 
+
     if @event.update(event_params)
       redirect_to events_path
 
@@ -58,7 +70,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    
+
     if @event.save
       current_user.events << @event
       @event.social = Social.new
@@ -75,17 +87,17 @@ class EventsController < ApplicationController
         @loc = @event.locations.create(name: v.name, address: v.address, city: v.city, state: v.state, country: v.country, zip: v.zip, map_address: v.map_address, avatar: v.avatar, detailed_avatar: v.detailed_avatar, phone: v.phone, description: v.description, subtitle: v.subtitle, lat: v.lat, lng: v.lng, location_type_id: v.location_type_id)
         v.locations << @loc
       end
-      
+
       redirect_to events_path
     else
       render :new
     end
-      
+
   end
 
   def publishable
     @event = Event.find(params[:id])
-    if @event.update(is_published: !@event.is_published) 
+    if @event.update(is_published: !@event.is_published)
       redirect_to events_path
     end
   end
@@ -97,12 +109,12 @@ class EventsController < ApplicationController
     @events = current_user.events
 
     if params[:event_id].blank? || (params[:event_id].eql? 'undefined')
-      @event = current_user.events.first 
+      @event = current_user.events.first
     else
-      @event = Event.find(params[:event_id]);  
+      @event = Event.find(params[:event_id]);
     end
 
-    if not @event.nil? 
+    if not @event.nil?
       @social = @event.social
       if (not params[:person_search].blank?) && (params[:person_search].eql? 'true')
         # @persons = Person.where(params[:sql]).order(:name)
@@ -137,8 +149,8 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.tags.clear
     @event.destroy
-     
-    redirect_to events_path 
+
+    redirect_to events_path
   end
 
   def search_events
@@ -173,7 +185,7 @@ class EventsController < ApplicationController
   end
 
   private
-  
+
   def event_params
     params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :call_for, :extra_desc, :submission, :notification, :lat, :lng, :tags)
   end

@@ -21,20 +21,20 @@
                             <%= tag.name %>
                         </option>
                         <% end %>
-                    </select>            
+                    </select>
                 </div>
             <% end %>
         </div>
         <div class="col-sm-6 view-choice">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-primary active">
-                <input type="radio" name="view_choice" id="list_view" autocomplete="off" value="list" checked> 
+                <input type="radio" name="view_choice" id="list_view" autocomplete="off" value="list" checked>
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                 List View
               </label>
               <label class="btn btn-primary">
                 <input type="radio" name="view_choice" id="grid_view" autocomplete="off" value="grid">
-                <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
                 Grid View
               </label>
             </div>
@@ -62,14 +62,14 @@
     </ul>
 
     <table class="table table-striped events-list active">
-      
+
       <tr>
         <th class="text-primary col-md-3">Start Date</th>
         <th class="text-primary col-md-3">End Date</th>
         <th class="text-primary col-md-6">Event Title</th>
       </tr>
-      
-      
+
+
       <% @loop_no = 0 %>
       <% @events.each do |event| %>
         <tr class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
@@ -79,32 +79,12 @@
         </tr>
       <% @loop_no += 1 %>
       <% end %>
-      
+
     </table>
 
 </div>
 
-<!-- Start: Event Description Modal -->
-<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title" id="myModalLabel">Modal title</h3>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-    </div>
-  </div>
-</div>
-<!-- End: Event Description Modal -->
+<%= render partial: 'searchs/modal' %>
 
 
 <script type="text/javascript">
@@ -138,7 +118,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     }
-    
+
     $('#tag_id').select2();
 
     $("#tag_id").on('change', function() {
@@ -148,7 +128,7 @@
     $('ul li a p.title').each(function() {
         if($(this).text().length > 90) {
             $(this).text($(this).text().substring(0, 91) + "...");
-        }        
+        }
     });
 
     $("input[name=view_choice]:radio").on('change', function() {
@@ -161,139 +141,6 @@
             var width = $(this).width();
             $(this).height(width*0.66);
         });
-    });
-
-    console.log(gon.sessions);
-    $('.list-selectable').on('click', function() {
-        var id = parseInt($(this).data('id'));
-        $('#selected_event_id').val($(this).data('eventid'));
-
-        $('#myModalLabel').html(gon.events[id].name);
-
-        var tmp_html = '';
-
-        if(gon.events[id].avatar.url != null) {
-            tmp_html = '<img src="' + gon.events[id].avatar.url + '" height="100%" width="100%" ><hr/>';
-        }
-
-        tmp_html = tmp_html + '<span>Organized by:</span>';
-        tmp_html = tmp_html + '<p>' + gon.users[id] + '</p><hr/>';
-
-        tmp_html = tmp_html + '<span>Duration:</span>';
-        tmp_html = tmp_html + '<p>' + moment(gon.events[id].start_date).format('dddd, MMMM D, YYYY') + ' - ' + moment(gon.events[id].end_date).format('dddd, MMMM D, YYYY') + '</p><hr/>';
-
-        if (gon.events[id].call_for != null && gon.events[id].call_for != "" ) {
-            tmp_html = tmp_html + '<span>Call For Papers Abstracts Due</span>';
-            tmp_html = tmp_html + '<p>' + gon.events[id].call_for + '</p><hr/>';  
-        }
-
-        if (gon.events[id].submission != null && gon.events[id].submission != "" ) {
-            tmp_html = tmp_html + '<span>Paper Submission Deadline</span>';
-            tmp_html = tmp_html + '<p>' + gon.events[id].submission + '</p><hr/>';  
-        }
-
-        if (gon.events[id].notification != null && gon.events[id].notification != "" ) {
-            tmp_html = tmp_html + '<span>Notification Of Acceptance</span>';
-            tmp_html = tmp_html + '<p>' + gon.events[id].notification + '</p><hr/>';  
-        }
-
-        tmp_html = tmp_html + '<span>Map Address:</span>';
-        tmp_html = tmp_html + '<p>' + gon.events[id].address + '</p><hr/>';
-
-        tmp_html = tmp_html + '<span>About Event</span>';
-        tmp_html = tmp_html + '<p>' + gon.events[id].description + '</p>';
-
-        var email_body = gon.events[id].description;
-
-        if (gon.socials[id].website != null && gon.socials[id].website != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Website</span><br>';
-            tmp_html = tmp_html + '<a href="' + (gon.socials[id].website.toLowerCase().indexOf("http") >= 0 ? '' : 'http://') + gon.socials[id].website + '" target="_blank">' + gon.socials[id].website + '</a>';
-            email_body = email_body + '%0D%0A' + gon.socials[id].website;   
-        }
-
-        if (gon.socials[id].facebook != null && gon.socials[id].facebook != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Facebook</span><br>';
-            tmp_html = tmp_html + '<a href="' + (gon.socials[id].facebook.toLowerCase().indexOf("http") >= 0 ? '' : 'https://') + gon.socials[id].facebook + '" target="_blank">' + gon.socials[id].facebook + '</a>';
-            email_body = email_body + '%0D%0A' + gon.socials[id].facebook;    
-        }
-
-        if (gon.socials[id].twitter != null && gon.socials[id].twitter != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Twitter</span><br>';
-            tmp_html = tmp_html + '<a href="' + (gon.socials[id].twitter.toLowerCase().indexOf("http") >= 0 ? '' : 'https://') + gon.socials[id].twitter + '" target="_blank">' + gon.socials[id].twitter + '</a>';
-            email_body = email_body + '%0D%0A' + gon.socials[id].twitter;    
-        }
-
-        if (gon.socials[id].youtube != null && gon.socials[id].youtube != "" ) {
-            tmp_html = tmp_html + '<hr/><span>Youtube</span><br>';
-            tmp_html = tmp_html + '<a href="' + (gon.socials[id].youtube.toLowerCase().indexOf("http") >= 0 ? '' : 'https://') + gon.socials[id].youtube + '" target="_blank">' +  gon.socials[id].youtube + '</a>';
-            email_body = email_body + '%0D%0A' + gon.socials[id].youtube;    
-        }
-
-        tmp_html = tmp_html + '<hr/><ul><li><i id="facebook" class="fa fa-facebook fa-2x" aria-hidden="true"></i></li>';
-        tmp_html = tmp_html + '<li><i class="share s_twitter fa fa-twitter fa-2x" aria-hidden="true"></i></li>';
-        tmp_html = tmp_html + '<li><i class="fa fa-mobile fa-2x" aria-hidden="true"></i></li>';
-        tmp_html = tmp_html + '<li><a href="mailto:?subject=' + gon.events[id].name + '&body=' + email_body + '"><i id="share_email" class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a></li></ul>';
-
-        tmp_html = tmp_html + '<hr/><i class="fa fa-angle-double-down session-icon" aria-hidden="true"><span style="font-weight: 500; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">Sessions&apos; Details</span></i>';
-
-        tmp_html = tmp_html + '<div class="container-fluid list-sessions">';
-
-        tmp_html = tmp_html + '<div class="row">';
-        tmp_html = tmp_html + '<table class="table table-striped">';
-        tmp_html = tmp_html + '<tr>';
-        tmp_html = tmp_html + '<th class="text-primary col-md-3">Start Time</th>';
-        tmp_html = tmp_html + '<th class="text-primary col-md-3">End Time</th>';
-        tmp_html = tmp_html + '<th class="text-primary col-md-6">Session Name</th>';
-        tmp_html = tmp_html + '</tr>';
-
-        for (var i = 0; i < gon.sessions[id].length; i++) {
-            gon.sessions[id][i]
-            tmp_html = tmp_html + '<tr class="session-item" data-session="' + gon.sessions[id][i].id + '">';
-            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['start_time'] + '</td>';
-            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['end_time'] + '</td>';
-            tmp_html = tmp_html + '<td>' + gon.sessions[id][i]['name'] + '</td>';
-            tmp_html = tmp_html + '</tr>';
-        }
-             
-        tmp_html = tmp_html + '</table>';
-        tmp_html = tmp_html + '</div>';
-
-        tmp_html = tmp_html + '</div>';
-
-        $('#eventModal .modal-body').html(tmp_html);
-        
-        $('.session-icon').on('click', function(){
-            $('.list-sessions').toggleClass('active');
-            $(this).toggleClass('fa-angle-double-down');
-            $(this).toggleClass('fa-angle-double-up');
-        });
-
-        $('.list-sessions .session-item').on('click', function(){
-            var id = $(this).data('session');
-            if ((typeof id !== 'undefined') && (parseInt(id) > -1)) {
-                window.location.href = '/sessions/' + id;
-            }
-        });
-
-        $('#facebook').on('click', function(){
-            FB.ui({
-                method: 'feed',
-                name: gon.events[id].name,
-                link: 'https://conference-webapp.herokuapp.com/search',
-                picture: '<%= request.base_url %>' + '<%= asset_path("logo.png") %>',
-                caption: gon.users[id],
-                description: gon.events[id].description,
-                message: ''
-            });
-        });
-
-        $('.share').ShareLink({
-            title: gon.events[id].name,
-            text: gon.events[id].description,
-            image: '<%= request.base_url %>' + '<%= asset_path("logo.png") %>',
-            url: 'https://conference-webapp.herokuapp.com/search'
-        });
-
     });
 
     $(window).resize(function(){
@@ -309,13 +156,6 @@
             $(this).height(width*0.66);
         });
     });
-
-    if(Cookies.get('event') != undefined) {
-        $('.list-selectable[data-eventid="' + Cookies.get('event') + '"]').trigger('click');
-        $('.session-icon').trigger('click');
-        
-        Cookies.remove('event'); 
-    }
 </script>
 
 <!-- http://docs.aws.amazon.com/AmazonS3/latest/dev/AuthUsingTempSessionTokenRuby.html -->

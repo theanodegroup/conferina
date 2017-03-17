@@ -1,22 +1,26 @@
 <%- model_class = Person -%>
 <div class="page-header">
   <h1>People similar to <%= @person.name %></h1>
+  <p>Tags: <%= @person.tags.pluck(:name).join(', ') %></p>
 </div>
-<table class="table table-striped">
+<table class="table table-hover custom-hover">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:subtitle) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
+	    <th>Name/Title</th>
+	    <th>Description</th>
+	    <th>Company</th>
+	    <th>Tags (Matches)</th>
       <th>Event</th>
     </tr>
   </thead>
   <tbody>
-    <% @people.each do |person| %>
-      <tr>
-        <td><%= person.name %></td>
-        <td><%= person.subtitle %></td>
-        <td><%= person.description %></td>
+    <% @people.each.with_index do |person, index| %>
+        <tr class="list-selectable" data-id="<%= index %>" data-eventid="<%= person.event.id %>"
+            data-toggle="modal" data-target="#eventModal">
+	      <td><%= person.name %></td>
+	      <td><%= person.description %></td>
+	      <td><%= person.subtitle %></td>
+	      <td><%= person.tags.pluck(:name).join(', ') %> (<%= (@person.tags & person.tags).size %>)</td>
         <td><%= person.event.name %></td>
       </tr>
     <% end %>
@@ -24,3 +28,5 @@
 </table>
 
 <%= link_to 'Back', event_data_path(event_id: @person.event.id, category: 'people'), :class => 'btn btn-warning' %>
+
+<%= render partial: 'searchs/modal' %>

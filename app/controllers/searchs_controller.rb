@@ -26,10 +26,11 @@ class SearchsController < ApplicationController
 
 		gon.events = @events
 		gon.tag_id = @tag_id
+  end
 	end
 
 	private
 	def fetch_tags
-		@tags = Tag.all.order(:name)	
+		@tags = Tag.all.order(:name)
 	end
 end

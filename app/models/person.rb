@@ -14,9 +14,11 @@ class Person < ActiveRecord::Base
 	has_many :favorites, as: :favorites
 
 	def similar_persons(user)
+		# All user events + published events from other users
 		# @todo: Inefficent in serveral ways (possible duplicated work resolved by uniq)
-		tag_ids = self.tags.pluck(:id).uniq # Get this person's tags
-		events = user.events.includes(:tags).where(tags: { id: tag_ids }).uniq # Find events for those tags
+		tag_ids = self.tags.pluck(:id) # Get this person's tags
+		events = user.events.includes_tag_ids(tag_ids).uniq # Find user events for those tags
+		events = (events + Event.includes_tag_ids(tag_ids).uniq).uniq # Find published events for those tags
 		similar_persons = events.map(&:persons).flatten.uniq # Get the list of person's for those events
 		similar_persons - [self] # Don't include this person
 	end

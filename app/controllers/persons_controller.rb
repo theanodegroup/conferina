@@ -1,8 +1,10 @@
 class PersonsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_requisites
+	before_action :fetch_tags, only: [:similar_persons]
 
   def similar_persons
+    modal_setup
     @person = Person.find(params[:id])
     if @person.present?
       @people = @person.similar_persons(current_user)
@@ -10,6 +12,9 @@ class PersonsController < ApplicationController
         flash[:error] = "No similar persons to #{@person.name} found"
         redirect_to event_data_path
       end
+
+      @events = @people.map(&:event)
+      modal_setup # Requires @events to be set
     else
       flash[:error] = "Person ID not provided"
       redirect_to event_data_path
@@ -174,6 +179,25 @@ class PersonsController < ApplicationController
   def get_requisites
     @person_types = current_user.person_types
     @events = current_user.events
+  end
+
+	def fetch_tags
+		@tags = Tag.all.order(:name)
+	end
+
+  def modal_setup
+		gon.users = []
+		gon.socials = []
+		gon.sessions = []
+		@events.each do |event|
+			# gon_events[index].push(user_name: event.users.first.name)
+			gon.users.push(event.users.first.name)
+			gon.socials.push(event.social)
+			gon.sessions.push(event.sessions.order(:start_time))
+		end
+
+		gon.events = @events
+		gon.tag_id = @tag_id
   end
 end
 

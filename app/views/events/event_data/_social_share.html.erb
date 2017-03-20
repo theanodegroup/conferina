@@ -54,6 +54,7 @@
     <% body = "#{first_part}#{new_line_character}#{second_part}#{last_part}" %>
     <% ssb_url = "mailto:?subject=#{subject}&body=#{body}" %>
     location.href = "<%= raw ssb_url %>"
+    return false;
   });
 </script>
 

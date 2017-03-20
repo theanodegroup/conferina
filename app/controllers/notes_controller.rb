@@ -23,12 +23,12 @@ class NotesController < ApplicationController
     if notable_type.present?
       notes = Note.where(notable_type: notable_type, user_id: current_user.id)
       if notes.empty?
-        flash[:error] = "There are no notes to send"
+        flash[:error] = "There are no notes to send you"
       else
         Exporter.bulk_export_notes(notes).deliver_now
       end
 
-      flash[:error] = "Notes bulk exported via email, #{current_user.email}"
+      flash[:error] = "We've emailed your notes to you at #{current_user.email}"
     else
       flash[:error] = "Could not bulk export notes, notable type not present"
     end

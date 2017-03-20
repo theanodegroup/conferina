@@ -46,12 +46,13 @@
 
   // Email
   $("#<%= ssb_notable_id %> > .social-share-button > a.ssb-email").on('click', function() {
+    <% new_line_character = '%0D%0A' %>
     <% subject = "Check out #{@notable.name} at #{@event.name}" %>
     <% first_part = "Check out #{@notable.name} at #{@event.name} (#{event_url(@event)}) powered by Conferina." %>
     <% second_part = "Conferina is the one location to stay informed on those conferences that interest you. " %>
     <% last_part = "It’s how minds meet. #{root_url}" %>
-    <% body = "#{first_part}#{second_part}#{last_part}" %>
-    <% ssb_url = "mailto:?to=&subject=#{subject}&body=#{body}" %>
+    <% body = "#{first_part}#{new_line_character}#{second_part}#{last_part}" %>
+    <% ssb_url = "mailto:?subject=#{subject}&body=#{body}" %>
     location.href = "<%= raw ssb_url %>"
   });
 </script>

@@ -7,7 +7,7 @@ class NotesController < ApplicationController
   def export
     if @note.present?
       Exporter.export_notes(@note).deliver_now
-      flash[:error] = "Notes exported via email, #{current_user.email}"
+      flash[:error] = "We've emailed your notes to you at #{current_user.email}"
     else
       flash[:error] = "Could not send notes, notable type not present"
     end

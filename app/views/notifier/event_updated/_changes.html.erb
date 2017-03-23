@@ -1,0 +1,39 @@
+<% partial_path = 'notifier/event_updated/item' %>
+<p>
+  <dl>
+    <% [
+      ['Description',                :description,  @event.description],
+      ['Call For Papers Due Date',   :call_for,     @event.call_for],
+      ['Paper Accepted Notify Date', :notification, @event.notification],
+      ['Category',                   :category,     @event.category.category],
+      ['Start Date',                 :start_date,   @event.start_date],
+      ['End Date',                   :end_date,     @event.end_date],
+    ].each do |field_text, field_name, field_value| %>
+      <%= render partial: 'notifier/event_updated/item',
+                 locals: { field_text: field_text,
+                           field_name: field_name,
+                           field_value: field_value,
+                           changes: @changes.fetch(field_name, ''
+      ) } %>
+    <% end %>
+  </dl>
+
+  Event Group Location(s):
+  <dl>
+    <% @event.locations.each do |location| %>
+      <% [
+        ['Street',  :address, location.address],
+        ['City',    :city,    location.city],
+        ['State',   :state,   location.state],
+        ['Country', :country, location.country],
+      ].each do |field_text, field_name, field_value| %>
+        <%= render partial: 'notifier/event_updated/item',
+                   locals: { field_text: field_text,
+                             field_name: field_name,
+                             field_value: field_value,
+                             changes: @changes.fetch(field_name, '')
+        } %>
+      <% end %>
+    <% end %>
+  </dl>
+</p>

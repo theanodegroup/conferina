@@ -1,0 +1,12 @@
+<p>Hello <%= @user.name %>,</p>
+
+<p>
+  Please note that the organiser of (event group/name) has made some changes to this event.
+  See below:
+</p>
+
+<%= render partial: 'notifier/event_updated/changes' %>
+
+<p>Best Regards,</p>
+
+<p><%= link_to 'The Conferina Team', root_url %></p>

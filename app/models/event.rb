@@ -10,6 +10,14 @@ class Event < ActiveRecord::Base
 
 	has_one :social, dependent: :destroy
 
+	belongs_to :category, :class_name => 'CategoryType'
+
+	after_update :send_notification_after_change
+
+	def send_notification_after_change
+		Notifier.event_updated(self).deliver_now
+	end
+
 
 	def self.includes_tag_ids(tag_ids)
 		includes(:tags).where(tags: { id: tag_ids })

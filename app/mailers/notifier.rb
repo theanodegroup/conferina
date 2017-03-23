@@ -10,4 +10,21 @@ class Notifier < ApplicationMailer
       subject: 'New Conferina feedback received'
     )
   end
+
+  def event_updated(event)
+    @event = event
+    @changes = event.changes
+
+    # Don't let users see who this is mailed to
+    @event.users.each do |user|
+      @user = user
+      mail(
+        to: mail_to(user),
+        bcc: mail_bcc,
+        subject: 'Conferina event has been updated'
+      )
+    end
+
+  end
+
 end

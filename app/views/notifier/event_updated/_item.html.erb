@@ -1,0 +1,15 @@
+<dt><%= field_text %></dt>
+<% if changes.present? %>
+  <dd>
+    <div class='col-md-6'>
+      <i>Was</i>
+      <%= simple_format(changes.first) %>
+    </div>
+    <div class='col-md-6'>
+      <i>Now</i><br>
+      <%= simple_format(changes.last) %>
+    </div>
+    <div class='clearfix'></div>
+<% else %>
+  <dd><%= field_value %></dd>
+<% end %>

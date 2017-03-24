@@ -50,6 +50,10 @@ gem 'acts_as_votable', '~> 0.10.0' # Favoritable
 # Social sharing
 gem 'social-share-button'
 
+# Inline CMS
+gem 'x-editable-rails'
+gem "bootstrap-wysihtml5-rails"
+
 gem 'high_voltage'
 group :development do
   gem 'better_errors'

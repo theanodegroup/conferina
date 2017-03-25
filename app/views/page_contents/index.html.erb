@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Page Contents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @page_contents.each do |page_content| %>
+      <tr>
+        <td><%= page_content.content %></td>
+        <td><%= link_to 'Show', page_content %></td>
+        <td><%= link_to 'Edit', edit_page_content_path(page_content) %></td>
+        <td><%= link_to 'Destroy', page_content, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Page content', new_page_content_path %>

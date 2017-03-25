@@ -1,6 +1,22 @@
-<%- model_class = Feedback -%>
 <div class="page-header">
-  <h1>Contact Us</h1>
+	<h1>
+		<%= render partial: 'pages/editor', locals: {
+			name: :contact_title, type: :text, default: 'Click here to add title',
+		} %>
+	</h1>
 </div>
-<%= render :partial => 'form' %>
 
+<div>
+	<%= render partial: 'pages/editor', locals: {
+		name: :contact_before_form, type: :wysihtml5, default: 'Click here to add before form content',
+	} %>
+</div>
+<br>
+<%= render :partial => 'form' %>
+<div>
+	<%= render partial: 'pages/editor', locals: {
+		name: :contact_after_form, type: :wysihtml5, default: 'Click here to add after form content',
+	} %>
+</div>
+
+<%= render partial: 'pages/editor_script' %>

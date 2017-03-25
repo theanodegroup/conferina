@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :page_contents
   get ':notable_type/:notable_id/notes', to: 'notes#view', as: :view_notes
   get 'contact', to: 'feedbacks#new', as: :contact
   post 'favorites/toggle', to: 'favorites#toggle', as: :favorites_toggle

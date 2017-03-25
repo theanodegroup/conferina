@@ -1,4 +1,15 @@
 <div class="container">
 	<% content_for :title do %>About<% end %>
-	<h3>About the Website</h3>
+	<h3>
+		<%= render partial: 'pages/editor', locals: {
+			name: :about_title, type: :text, default: 'Click here to add title',
+		} %>
+	</h3>
+	<div>
+		<%= render partial: 'pages/editor', locals: {
+			name: :about_content, type: :wysihtml5, default: 'Click here to add content',
+		} %>
+	</div>
 </div>
+
+<%= render partial: 'pages/editor_script' %>

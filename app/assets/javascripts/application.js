@@ -26,4 +26,9 @@
 
 //= require social-share-button
 
+//= require bootstrap-wysihtml5
+//= require editable/bootstrap-editable
+//= require editable/rails
+//= require editable/inputs-ext/bootstrap-wysihtml5
+//= require editable/inputs-ext/address
 //= require_tree .

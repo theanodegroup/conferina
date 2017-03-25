@@ -1,0 +1,10 @@
+<div>
+	<% @model = PageContent.find_or_initialize_by(name: name) %>
+	<% @model.content = default unless @model.content.present? %>
+	<% @model.save %>
+
+  <%# Hide admin helper default content if no content %>
+	<% content = !xeditable? && @model.content == default ? '' : @model.content %>
+
+	<%= editable @model, :content, url: page_content_path(@model), value: content, type: type %>
+</div>

@@ -1,5 +1,12 @@
 <%= render partial: 'shared_js/flash_message' %>
 
-<% favorited = current_user.voted_for?(@notable) %>
-<% color = favorited ? 'gold' : 'grey' %>
-$("#<%= @favorite_button_id %>").css('color', '<%= color %>');
+<% if @type == :button %>
+  <% favorited = current_user.voted_for?(@notable) %>
+  <% color = favorited ? 'gold' : 'grey' %>
+  $("#<%= @favorite_button_id %>").css('color', '<%= color %>');
+<% else %>
+  <% id = @notable.id %>
+  <% type = @notable.class %>
+  <% favorite_button_id = "favorite_#{type}_#{@notable.id}" %>
+  $('#<%= favorite_button_id %> ').html('<%= j render partial: 'favorites/button/link' %>');
+<% end %>

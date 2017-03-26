@@ -1,0 +1,13 @@
+
+<% id = @notable.id %>
+<% type = @notable.class %>
+<% favorite_button_id = "favorite_#{type}_#{@notable.id}" %>
+<% favorited = current_user.voted_for?(@notable) %>
+<% link_text = favorited ? 'Unsubscribe' : 'Subscribe' %>
+<% link_options = {
+	favoritable_id: id,
+	favoritable_type: type,
+	favorite_button_id: favorite_button_id
+} %>
+<%= button_to link_text, favorites_toggle_path(link_options),
+    remote: true, class: 'btn btn-primary' %>

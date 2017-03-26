@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
 	mount_uploader :avatar, AvatarUploader
 
+	acts_as_votable
+
 	has_and_belongs_to_many :users, :join_table => "users_events"
 	has_and_belongs_to_many :tags, :join_table => "tags_events"
 

@@ -67,16 +67,36 @@
         <th class="text-primary col-md-3">Start Date</th>
         <th class="text-primary col-md-3">End Date</th>
         <th class="text-primary col-md-6">Event Title</th>
+
+        <% if current_user.present? %>
+          <th class="text-primary col-md-6">Notifications</th>
+        <% end %>
       </tr>
 
 
       <% @loop_no = 0 %>
       <% @events.each do |event| %>
-        <tr class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
-          <td><%= event.start_date %></td>
-          <td><%= event.end_date %></td>
-          <td><p class="truncate"><%= event.name %></p></td>
+        <tr>
+          <td class="list-selectable"
+              data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
+            <%= event.start_date %>
+          </td>
+          <td class="list-selectable"
+              data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
+            <%= event.end_date %>
+          </td>
+          <td class="list-selectable"
+              data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" data-toggle="modal" data-target="#eventModal">
+            <p class="truncate"><%= event.name %></p>
+          </td>
+          <% if current_user.present? %>
+            <td>
+              <% @notable = event %>
+              <%= render partial: 'favorites/link' %>
+            </td>
+          <% end %>
         </tr>
+
       <% @loop_no += 1 %>
       <% end %>
 

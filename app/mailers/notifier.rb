@@ -16,7 +16,8 @@ class Notifier < ApplicationMailer
     @changes = event.changes
 
     # Don't let users see who this is mailed to
-    @event.users.each do |user|
+    subscribers = @event.votes_for.up.by_type(User).voters
+    subscribers.each do |user|
       @user = user
       mail(
         to: mail_to(user),

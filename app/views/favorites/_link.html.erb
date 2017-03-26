@@ -1,0 +1,7 @@
+<% id = @notable.id %>
+<% type = @notable.class %>
+<% favorite_button_id = "favorite_#{type}_#{@notable.id}" %>
+
+<div id='<%= favorite_button_id %>'>
+  <%= render partial: 'favorites/button/link' %>
+</div>

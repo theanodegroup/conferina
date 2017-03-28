@@ -69,6 +69,6 @@ class PageContentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_content_params
-      params.require(:page_content).permit(:content)
+      params.require(:page_content).permit(:content, :bootsy_image_gallery_id)
     end
 end

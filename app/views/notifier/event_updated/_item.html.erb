@@ -4,11 +4,11 @@
   <dd>
     <div class='col-md-6'>
       <i>Was</i>
-      <%= before.respond_to?(:emtpy?) ? simple_format(before) : before %>
+      <%= simple_format(before.to_s) %>
     </div>
     <div class='col-md-6'>
       <i>Now</i><br>
-      <%= before.respond_to?(:emtpy?) ? simple_format(after) : after %>
+      <%= simple_format(after.to_s) %>
     </div>
     <div class='clearfix'></div>
 <% else %>

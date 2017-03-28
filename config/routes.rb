@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
   resources :page_contents
   get ':notable_type/:notable_id/notes', to: 'notes#view', as: :view_notes

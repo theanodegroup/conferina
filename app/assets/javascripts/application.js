@@ -31,4 +31,5 @@
 //= require editable/rails
 //= require editable/inputs-ext/bootstrap-wysihtml5
 //= require editable/inputs-ext/address
+//= require bootsy
 //= require_tree .

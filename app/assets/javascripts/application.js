@@ -21,7 +21,6 @@
 //= require jquery-ui-timepicker-addon
 
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require_tree ./jquery-plugins
 //= require_tree ./select2
 

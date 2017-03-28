@@ -59,6 +59,9 @@ GEM
       sass (>= 3.3.4)
     bootstrap-wysihtml5-rails (0.3.3.8)
       railties (>= 3.0)
+    bootsy (2.3.1)
+      carrierwave (~> 0.11)
+      mini_magick (~> 4.5)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.10.1)
@@ -315,6 +318,7 @@ DEPENDENCIES
   better_errors
   bootstrap-sass
   bootstrap-wysihtml5-rails
+  bootsy
   byebug
   capybara
   carrierwave-aws

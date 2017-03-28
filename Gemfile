@@ -53,6 +53,7 @@ gem 'social-share-button'
 # Inline CMS
 gem 'x-editable-rails'
 gem "bootstrap-wysihtml5-rails"
+gem 'bootsy' # WYSIWYG editor
 
 gem 'high_voltage'
 group :development do

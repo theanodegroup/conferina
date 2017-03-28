@@ -7,14 +7,14 @@
 </div>
 
 <div>
-	<%= render partial: 'pages/editor', locals: {
+	<%= render partial: 'pages/editor_visual', locals: {
 		name: :contact_before_form, type: :wysihtml5, default: 'Click here to add before form content',
 	} %>
 </div>
 <br>
 <%= render :partial => 'form' %>
 <div>
-	<%= render partial: 'pages/editor', locals: {
+	<%= render partial: 'pages/editor_visual', locals: {
 		name: :contact_after_form, type: :wysihtml5, default: 'Click here to add after form content',
 	} %>
 </div>

@@ -42,13 +42,12 @@ class PageContentsController < ApplicationController
   def update
     respond_to do |format|
       if @page_content.update(page_content_params)
-        format.html { redirect_to @page_content, notice: 'Page content was successfully updated.' }
-        format.json { render :show, status: :ok, location: @page_content }
+        format.html { redirect_to :back, notice: 'Page content was successfully updated.' }
       else
-        format.html { render :edit }
-        format.json { render json: @page_content.errors, status: :unprocessable_entity }
+        format.html { redirect_to :back }
       end
     end
+
   end
 
   # DELETE /page_contents/1

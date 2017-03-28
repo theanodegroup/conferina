@@ -1,13 +1,14 @@
 <dt><%= field_text %></dt>
 <% if changes.present? %>
+  <% before, after = changes %>
   <dd>
     <div class='col-md-6'>
       <i>Was</i>
-      <%= simple_format(changes.first) %>
+      <%= before.respond_to?(:emtpy?) ? simple_format(before) : before %>
     </div>
     <div class='col-md-6'>
       <i>Now</i><br>
-      <%= simple_format(changes.last) %>
+      <%= before.respond_to?(:emtpy?) ? simple_format(after) : after %>
     </div>
     <div class='clearfix'></div>
 <% else %>

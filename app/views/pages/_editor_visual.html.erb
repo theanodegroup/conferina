@@ -1,0 +1,16 @@
+<div>
+	<% @page_content = PageContent.find_or_initialize_by(name: name) %>
+	<% @page_content.content = default unless @page_content.content.present? %>
+	<% @page_content.save %>
+
+  <%# Hide admin helper default content if no content %>
+  <% if xeditable? %><%# Render editor %>
+    <div class='clearfix'></div>
+    <%= render partial: 'page_contents/form' %>
+    <div class='clearfix'></div>
+  <% else %>
+    <% if @page_content.content != default %> <%# render content if not default admin content %>
+      <%= @page_content.content.html_safe %>
+    <% end %>
+  <% end %>
+</div>

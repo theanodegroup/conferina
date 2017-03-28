@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery-ui
 //= require ./moment/moment
 //= require ./moment/moment-with-locales
@@ -20,7 +21,6 @@
 //= require jquery-ui-timepicker-addon
 
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require_tree ./jquery-plugins
 //= require_tree ./select2
 
@@ -31,4 +31,5 @@
 //= require editable/rails
 //= require editable/inputs-ext/bootstrap-wysihtml5
 //= require editable/inputs-ext/address
+//= require bootsy
 //= require_tree .

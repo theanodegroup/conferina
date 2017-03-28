@@ -15,6 +15,12 @@ class Notifier < ApplicationMailer
     @event = event
     @changes = event.changes
 
+    if @changes.empty?
+      puts "Event Updated. Subscriptions not sent: No subscribers"
+    end
+
+    return if @changes.empty?
+
     if @event.is_published?
       # Don't let users see who this is mailed to
       subscribers = @event.votes_for.up.by_type(User).voters
@@ -28,8 +34,10 @@ class Notifier < ApplicationMailer
       end
 
       if subscribers.empty?
-        puts "Event Updated, but event has no subscribers"
+        puts "Event Updated. Subscriptions not sent: No subscribers"
       end
+    else
+      puts "Event Updated. Subscriptions not sent: Not published"
     end
 
   end

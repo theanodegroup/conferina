@@ -15,15 +15,21 @@ class Notifier < ApplicationMailer
     @event = event
     @changes = event.changes
 
-    # Don't let users see who this is mailed to
-    subscribers = @event.votes_for.up.by_type(User).voters
-    subscribers.each do |user|
-      @user = user
-      mail(
-        to: mail_to(user),
-        bcc: mail_bcc,
-        subject: 'Conferina event has been updated'
-      )
+    if @event.is_published?
+      # Don't let users see who this is mailed to
+      subscribers = @event.votes_for.up.by_type(User).voters
+      subscribers.each do |user|
+        @user = user
+        mail(
+          to: mail_to(user),
+          bcc: mail_bcc,
+          subject: 'Conferina event has been updated'
+        )
+      end
+
+      if subscribers.empty?
+        puts "Event Updated, but event has no subscribers"
+      end
     end
 
   end

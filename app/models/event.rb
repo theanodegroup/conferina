@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
 	after_update :send_notification_after_change
 
 	def send_notification_after_change
-		Notifier.event_updated(self).deliver_now unless self.changes.empty?
+		Notifier.event_updated(self).deliver_now
 	end
 
 

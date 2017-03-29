@@ -1,4 +1,5 @@
 CarrierWave.configure do |config|
+  # @NOTE: Ensure Storage/AWS settings are copied to Bootsy initializer
   config.storage    = :aws
   config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
   config.aws_acl    = 'public-read'

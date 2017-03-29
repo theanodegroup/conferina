@@ -56,21 +56,7 @@ Bootsy.setup do |config|
   #   'fog' to your Gemfile and create and configure your credentials in an
   #   initializer file, as described in Carrierwave's docs:
   #   https://github.com/carrierwaveuploader/carrierwave#using-amazon-s3
-  # @NOTE: Make sure that settings are copied over to Carrierwave gem
   config.storage    = :aws
-  config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
-  config.aws_acl    = 'public-read'
-
-  config.aws_attributes = {
-    expires: 1.week.from_now.httpdate,
-    cache_control: 'max-age=604800'
-  }
-
-  config.aws_credentials = {
-    access_key_id:     ENV.fetch('AWS_ACCESS_KEY_ID'),
-    secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-    region:            ENV.fetch('AWS_REGION') # Required
-  }
   #
   #
   # Store directory (inside 'public') for storage = :file

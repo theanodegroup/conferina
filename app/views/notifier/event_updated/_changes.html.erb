@@ -1,16 +1,8 @@
 <% partial_path = 'notifier/event_updated/item' %>
 <p>
   <dl>
-    <% [
-      ['Description',                :description,  @event.description],
-      ['Call For Papers Due Date',   :call_for,     @event.call_for],
-      ['Paper Accepted Notify Date', :notification, @event.notification],
-      ['Paper Submission Deadline',  :submission,   @event.submission],
-      ['Category',                   :category,     @event.category.category],
-      ['Start Date',                 :start_date,   @event.start_date],
-      ['End Date',                   :end_date,     @event.end_date],
-      ['Address',                    :address,      @event.address],
-    ].each do |field_text, field_name, field_value| %>
+    <%# If changed, must also reflect changes in tracked fields in mailer %>
+    <% @tracked_changes_definitions.each do |field_text, field_name, field_value| %>
       <%= render partial: 'notifier/event_updated/item',
                  locals: { field_text: field_text,
                            field_name: field_name,

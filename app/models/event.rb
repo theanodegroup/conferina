@@ -20,8 +20,20 @@ class Event < ActiveRecord::Base
 		Notifier.event_updated(self).deliver_now
 	end
 
-
 	def self.includes_tag_ids(tag_ids)
 		includes(:tags).where(tags: { id: tag_ids })
+	end
+
+	def subscribers
+		(self.event_subscribers + self.tag_subscribers).uniq
+	end
+
+	def tag_subscribers
+		# Include both subscribers to each tag as well as any subscribers who subscribed to the "All" Tag
+		(self.tags.map(&:subscribers).flatten + Tag.all_tag.votes_for.up.by_type(User).voters)
+	end
+
+	def event_subscribers
+		votes_for.up.by_type(User).voters
 	end
 end

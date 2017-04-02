@@ -9,7 +9,7 @@ class SearchsController < ApplicationController
 			if params[:tag_id].eql? "all"
 				@events = Event.where(is_published: true).order(:start_date)
 			else
-				@events = Tag.find_by(id: params[:tag_id]).events.where(is_published: true).order(:start_date)
+				@events = Tag.visible.find_by(id: params[:tag_id]).events.where(is_published: true).order(:start_date)
 			end
 			@tag_id = params[:tag_id]
 		end
@@ -30,6 +30,6 @@ class SearchsController < ApplicationController
 
 	private
 	def fetch_tags
-		@tags = Tag.all.order(:name)
+		@tags = Tag.visible.all.order(:name)
 	end
 end

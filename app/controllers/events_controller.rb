@@ -59,7 +59,7 @@ class EventsController < ApplicationController
       @event.tags.clear
       params[:event][:tags].each do |tag_id|
         if not tag_id.eql? ''
-          tag = Tag.find(tag_id)
+          tag = Tag.visible.find(tag_id)
           @event.tags << tag
         end
       end
@@ -77,7 +77,7 @@ class EventsController < ApplicationController
 
       params[:event][:tags].each do |tag_id|
         if not tag_id.eql? ''
-          tag = Tag.find(tag_id)
+          tag = Tag.visible.find(tag_id)
           @event.tags << tag
         end
       end
@@ -192,6 +192,6 @@ class EventsController < ApplicationController
 
   def get_category_types
     @category_types = CategoryType.where(by_admin: true)
-    @tags = Tag.all.order(:name)
+    @tags = Tag.visible.all.order(:name)
   end
 end

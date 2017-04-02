@@ -28,8 +28,10 @@
         <div class='col-sm-2'>
           <%# "All" tag is a special tag filtered out by default scope, hence use of upscoped %>
           <%# find_by! is used to ensure that the tag exists %>
-          <% @notable = @tag_id == 'all' ? Tag.find_by!(name: @tag_id.titleize) : Tag.find(@tag_id) %>
-          <%= render partial: 'favorites/link' %>
+          <% if !current_user.nil? %>
+            <% @notable = @tag_id == 'all' ? Tag.find_by!(name: @tag_id.titleize) : Tag.find(@tag_id) %>
+            <%= render partial: 'favorites/link' %>
+          <% end %>
         </div>
         <div class="col-sm-4 view-choice">
             <div class="btn-group" data-toggle="buttons">

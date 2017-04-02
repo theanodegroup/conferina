@@ -35,7 +35,7 @@ class Notifier < ApplicationMailer
           ['End Date',                   :end_date,     @event.end_date],
           ['Address',                    :address,      @event.address],
         ]
-        tracked_fields = @tracked_changes_definitions.map{ |definition| definition[1] }
+        tracked_fields = @tracked_changes_definitions.map{ |definition| definition[1] } + [:is_published]
 
         if (tracked_fields & @changes.keys.map(&:to_sym)).empty?
           puts "@changes: #{@changes}"
@@ -47,12 +47,17 @@ class Notifier < ApplicationMailer
           if subscribers.empty?
             error_message = "Event Updated. Subscriptions not sent: No subscribers"
           else
+            if @changes.keys.include?('is_published')
+              subject = 'New Conferina event has been published'
+            else
+              subject = 'Conferina event has been updated'
+            end
             subscribers.each do |user|
               @user = user
               mail(
                 to: mail_to(user),
                 bcc: mail_bcc,
-                subject: 'Conferina event has been updated'
+                subject: subject
               )
             end
           end
@@ -65,6 +70,5 @@ class Notifier < ApplicationMailer
     puts error_message unless error_message.nil?
     true # Don't rollback
   end
-
 
 end

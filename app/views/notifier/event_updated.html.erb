@@ -1,7 +1,11 @@
 <p>Hello <%= @user.name %>,</p>
 
 <p>
-  Please note that the organiser of <%= @event.name %> has made some changes to this event.
+  <% if @changes.keys.include?('is_published') %>
+    Please note that a new event <%= @event.name %> has been published.
+  <% else %>
+    Please note that the organiser of <%= @event.name %> has made some changes to this event.
+  <% end %>
   See below:
 </p>
 

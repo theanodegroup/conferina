@@ -30,7 +30,10 @@
           <%# find_by! is used to ensure that the tag exists %>
           <% if !current_user.nil? %>
             <% @notable = @tag_id == 'all' ? Tag.find_by!(name: @tag_id.titleize) : Tag.find(@tag_id) %>
-            <%= render partial: 'favorites/link' %>
+            <div data-toggle="tooltip" data-placement="top"
+                 title="By subscribing, you'll see be notified of all event updates and newly published events for this tag">
+              <%= render partial: 'favorites/link' %>
+            </div>
           <% end %>
         </div>
         <div class="col-sm-4 view-choice">

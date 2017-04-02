@@ -2,25 +2,25 @@ class TagsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		# @tags = Tag.all.order(:name)
+		# @tags = Tag.visible.all.order(:name)
 
 		if (not params[:tag_search].blank?) && (params[:tag_search].eql? 'true')
-	      @tags = Tag.where(params[:sql]).order(:name)
+	      @tags = Tag.visible.where(params[:sql]).order(:name)
 	    else
-	      @tags = Tag.all.order(:name)
+	      @tags = Tag.visible.all.order(:name)
 	    end	
 	end
 
 	def new
-		@tag = Tag.new
+		@tag = Tag.visible.new
 	end
 
 	def edit
-		@tag = Tag.find(params[:id])
+		@tag = Tag.visible.find(params[:id])
 	end
 
 	def update
-		@tag = Tag.find(params[:id])
+		@tag = Tag.visible.find(params[:id])
 
  		if current_user.admin?
 		  	if @tag.update(tag_params)
@@ -32,7 +32,7 @@ class TagsController < ApplicationController
 	end
 
 	def create
-		@tag = Tag.new(tag_params)
+		@tag = Tag.visible.new(tag_params)
 	 	
 	 	if current_user.admin?
  		    if @tag.save
@@ -55,7 +55,7 @@ class TagsController < ApplicationController
 	end
 
 	def destroy
-		@tag = Tag.find(params[:id])
+		@tag = Tag.visible.find(params[:id])
 		@tag.events.clear
 		@tag.sessions.clear
 		@tag.destroy

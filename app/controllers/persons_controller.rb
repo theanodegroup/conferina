@@ -182,7 +182,7 @@ class PersonsController < ApplicationController
   end
 
 	def fetch_tags
-		@tags = Tag.all.order(:name)
+		@tags = Tag.visible.all.order(:name)
 	end
 
   def modal_setup

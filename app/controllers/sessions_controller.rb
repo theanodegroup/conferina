@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
       @session.tags.clear
       params[:session][:tags].each do |tag_id|
         if not tag_id.eql? ''
-          tag = Tag.find(tag_id)
+          tag = Tag.visible.find(tag_id)
           @session.tags << tag
         end
       end
@@ -61,7 +61,7 @@ class SessionsController < ApplicationController
 
       params[:session][:tags].each do |tag_id|
         if not tag_id.eql? ''
-          tag = Tag.find(tag_id)
+          tag = Tag.visible.find(tag_id)
           @session.tags << tag
         end
       end
@@ -134,6 +134,6 @@ class SessionsController < ApplicationController
   def get_requisites
     @session_types = current_user.session_types
     @events = current_user.events
-    @tags = Tag.all.order(:name)
+    @tags = Tag.visible.all.order(:name)
   end
 end

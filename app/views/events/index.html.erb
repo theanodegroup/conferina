@@ -5,7 +5,7 @@
 		<%= link_to '+ Add New Event', new_event_path, class: "btn btn-primary" %>
 		<%= link_to 'Advanced Search', '#', class: "pull-right", 'data-toggle': "modal", 'data-target': "#events_modal" %>
 	</div>
-	<div class="row"> 
+	<div class="row">
 		<table class="table table-striped">
 		  <tr>
 		    <th class="text-primary col-md-3">Event Name</th>
@@ -22,21 +22,29 @@
 		      <td><%= event.start_date %></td>
 		      <td><%= event.end_date %></td>
 		      <td>
+		      	<% msg = "Subscribers to this event or any tag for this event will be notified when it is published" %>
 		      	<% if event.is_published
 		      		publish_btn = "Unpublish"
 		      		classes = "btn btn-default"
+		      		publish_options = {}
 			       else
 			        publish_btn = "Publish"
 		      		classes = "btn btn-primary"
+		      		publish_options = {
+		      			'data-toggle' => "tooltip",
+		      			'data-placement' => "top",
+		      			title: msg
+		      		}
 			       end
-		      	%> 
+		      	%>
+
 		      	<%= link_to 'Edit', edit_event_path(event) %>
-		      	<%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: "Are you sure?" } %>	
-				<%= link_to publish_btn, publishable_path(event) %>	
+		      	<%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: "Are you sure?" } %>
+				    <%= link_to publish_btn, publishable_path(event), publish_options %>
 	      	  </td>
 		    </tr>
 		  <% end %>
-		 
+
 		</table>
 	</div>
 </div>
@@ -94,7 +102,7 @@
 			<div class="col-sm-6 col-xs-8">
 			  <%= f.select :tags, options_for_select(@tags.map{ |c| [c.name, c.id] }), {}, {:class => 'form-control', :multiple => true, :style => 'width: 100%' } %>
 			</div>
-		  </div> 
+		  </div>
 
       </div>
       <div class="modal-footer">

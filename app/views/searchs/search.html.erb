@@ -55,8 +55,9 @@
     <ul class="events-grid">
         <% @loop_no = 0 %>
         <% @events.each do |event| %>
-            <li data-id="<%= @loop_no %>" data-eventid="<%= event.id %>" class="col-md-4 col-sm-6 col-xs-12" data-toggle="modal" data-target="#eventModal">
-                <div class="list-selectable" style="background: white url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;">
+            <li class="col-md-4 col-sm-6 col-xs-12" data-toggle="modal" data-target="#eventModal">
+                <div class="list-selectable" data-id="<%= @loop_no %>" data-eventid="<%= event.id %>"
+                     style="background: white url('<%= event.avatar_url if event.avatar? %>') no-repeat center center; background-size: cover;">
                     <div class="overlay"></div>
                     <a>
                         <p class="title"><%= event.name %></p>

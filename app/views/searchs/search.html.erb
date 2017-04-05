@@ -31,7 +31,7 @@
           <% if !current_user.nil? %>
             <% @notable = @tag_id == 'all' ? Tag.find_by!(name: @tag_id.titleize) : Tag.find(@tag_id) %>
             <div data-toggle="tooltip" data-placement="top"
-                 title="By subscribing, you'll see be notified of all event updates and newly published events for this tag">
+                 title="By subscribing, you'll see be notified of all event updates and published events for this tag">
               <%= render partial: 'favorites/link' %>
             </div>
           <% end %>

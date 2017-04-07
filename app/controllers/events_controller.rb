@@ -103,6 +103,7 @@ class EventsController < ApplicationController
   end
 
   def event_data
+    @favorite_style = Favorite::STYLE_STAR
     @location_types = current_user.location_types
     @person_types = current_user.person_types
     @session_types = current_user.session_types

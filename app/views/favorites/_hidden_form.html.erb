@@ -7,6 +7,7 @@
 <%= form_tag favorites_toggle_path, id: form_id, remote: true do %>
 	<%# Hidden AJAX form %>
 
+	<%= hidden_field_tag(:favorite_style, @favorite_style) %>
 	<%= hidden_field_tag(:favoritable_id, id) %>
 	<%= hidden_field_tag(:favoritable_type, type) %>
 	<%= hidden_field_tag(:favorite_button_id, favorite_button_id) %>

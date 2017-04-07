@@ -2,6 +2,8 @@ class SearchsController < ApplicationController
 	before_action :fetch_tags
 
 	def search
+		@favorite_style = Favorite::STYLE_LINK
+
 		if params[:tag_id].nil?
 			@events = Event.where(is_published: true).order(:start_date)
 			@tag_id = "all"

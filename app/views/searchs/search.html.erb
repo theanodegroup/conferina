@@ -6,24 +6,26 @@
 <div class="container">
     <div id="custom-search-input" class="form-group row" style="margin-top: 20px">
         <div class="col-sm-5">
-            <%= form_tag("/search", method: "post", id: "event_search_form") do %>
-                <div class="input-group">
-                    <select name="tag_id" id="tag_id" class="form-control">
-                        <option value="all" <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
-                        selected
-                        <% end %>>
-                        All
-                        </option>
-                        <% @tags.each do |tag| %>
-                        <option value="<%= tag.id %>" <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
-                        selected
-                        <% end %>>
-                            <%= tag.name %>
-                        </option>
-                        <% end %>
-                    </select>
-                </div>
-            <% end %>
+          <%= form_tag("/search", method: "post", id: "event_search_form") do %>
+            <div class="input-group">
+              <select name="tag_id" id="tag_id" class="form-control">
+                <option value="all"
+                <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
+                  selected
+                <% end %>>
+                All
+                </option>
+                <% @tags.each do |tag| %>
+                <option value="<%= tag.id %>"
+                  <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
+                    selected
+                  <% end %>>
+                  <%= tag.name %>
+                </option>
+                <% end %>
+              </select>
+            </div>
+          <% end %>
         </div>
         <div class='col-sm-2'>
           <%# "All" tag is a special tag filtered out by default scope, hence use of upscoped %>

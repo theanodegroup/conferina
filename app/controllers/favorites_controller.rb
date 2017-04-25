@@ -55,8 +55,9 @@ class FavoritesController < ApplicationController
     puts "TEST: #{@favoritable_type.present?} #{!@favorite_ids.nil?}"
 
     # Only favorite if id and type present
-    if @favoritable_type.present? && !@favorite_ids.nil? # [] is allowed for favorite ids => none
+    if @favoritable_type.present?
       # Remove old favorites
+      @favorite_ids = [] if @favorite_ids.nil?
       @not_favorites = @favoritable_type.where.not(id: @favorite_ids)
       @not_favorites.find_each do |not_favorite|
         not_favorite.unliked_by(current_user) # Unfavorite
@@ -68,9 +69,9 @@ class FavoritesController < ApplicationController
         favorite.liked_by(current_user) # Favorite
       end
 
-      flash[:notice] = "#{favorite_term} Updated"
+      flash.now[:notice] = "#{favorite_term} Updated"
     else
-      flash[:notice] = "No change to #{favorite_term}s"
+      flash.now[:notice] = "No change to #{favorite_term}s"
     end
 
   end

@@ -8,22 +8,7 @@
         <div class="col-sm-5">
           <%= form_tag("/search", method: "post", id: "event_search_form") do %>
             <div class="input-group">
-              <select name="tag_id" id="tag_id" class="form-control">
-                <option value="all"
-                <% if ((defined? @tag_id) && (@tag_id.eql? "all")) %>
-                  selected
-                <% end %>>
-                All
-                </option>
-                <% @tags.each do |tag| %>
-                <option value="<%= tag.id %>"
-                  <% if ((defined? @tag_id) && (tag.id == @tag_id.to_i)) %>
-                    selected
-                  <% end %>>
-                  <%= tag.name %>
-                </option>
-                <% end %>
-              </select>
+              <%= select_tag :tag_ids, options_for_select(Tag.pluck(:name, :id), @selected_tags_ids), multiple: true %>
             </div>
           <% end %>
         </div>
@@ -153,9 +138,9 @@
         }(document, 'script', 'facebook-jssdk'));
     }
 
-    $('#tag_id').select2();
+    $('#tag_ids').select2();
 
-    $("#tag_id").on('change', function() {
+    $("#tag_ids").on('change', function() {
         $("#event_search_form").submit();
     });
 

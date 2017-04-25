@@ -9,6 +9,8 @@ class Tag < ActiveRecord::Base
 	# Use the below scope to exclude the "All" tag
 	scope :visible, -> { where.not(name: ALL_NAME) }
 
+	default_scope { order(name: :asc) }
+
 	def subscribers
 		votes_for.up.by_type(User).voters
 	end

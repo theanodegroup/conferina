@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get ':notable_type/:notable_id/notes', to: 'notes#view', as: :view_notes
   get 'contact', to: 'feedbacks#new', as: :contact
   post 'favorites/toggle', to: 'favorites#toggle', as: :favorites_toggle
+  post 'favorites/update', to: 'favorites#update', as: :favorites_update
+  get 'favorites/tags/manage/show_modal', to: 'tags#show_favorites_modal', as: :show_manage_tag_subs_modal
 
   get 'persons/:id/similar', to: 'persons#similar_persons', as: :similar_persons
 

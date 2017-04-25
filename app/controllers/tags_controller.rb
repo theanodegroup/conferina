@@ -1,14 +1,17 @@
 class TagsController < ApplicationController
 	before_action :authenticate_user!
 
+  def show_favorites_modal
+  end
+
 	def index
 		# @tags = Tag.visible.all.order(:name)
 
-		if (not params[:tag_search].blank?) && (params[:tag_search].eql? 'true')
-	      @tags = Tag.visible.where(params[:sql]).order(:name)
-	    else
-	      @tags = Tag.visible.all.order(:name)
-	    end	
+		if !params[:tag_search].blank? && params[:tag_search].eql?('true')
+			@tags = Tag.visible.where(params[:sql]).order(:name)
+		else
+			@tags = Tag.visible.all.order(:name)
+		end
 	end
 
 	def new
@@ -33,7 +36,7 @@ class TagsController < ApplicationController
 
 	def create
 		@tag = Tag.visible.new(tag_params)
-	 	
+
 	 	if current_user.admin?
  		    if @tag.save
 				redirect_to tags_path
@@ -51,7 +54,7 @@ class TagsController < ApplicationController
 	      sql = 'TRUE'
 	    end
 
-	    redirect_to tags_path(tag_search: true, sql: sql)	
+	    redirect_to tags_path(tag_search: true, sql: sql)
 	end
 
 	def destroy
@@ -59,12 +62,12 @@ class TagsController < ApplicationController
 		@tag.events.clear
 		@tag.sessions.clear
 		@tag.destroy
-		 
-		redirect_to tags_path	
+
+		redirect_to tags_path
 	end
 
 	private
-  
+
 	def tag_params
 		params.require(:tag).permit(:name)
 	end

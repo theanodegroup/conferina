@@ -1,0 +1,15 @@
+<% subscribed_tag_ids = current_user.get_voted(Tag).pluck(:id) %>
+<% puts "subscribed_tag_ids: #{subscribed_tag_ids}" %>
+<p>By subscribing, you'll be notified of all event updates and published events with that tag.</p>
+<div class='form-group'>
+  <% Tag.visible.each do |tag| %>
+    <div class='col-md-6'>
+      <% tag_id = tag.id %>
+      <% id = "favorite_ids[#{tag_id}]" %>
+      <%= check_box_tag id, tag.id, (subscribed_tag_ids.include?(tag_id)) %>
+      <%= label_tag id, tag.name %>
+    </div>
+  <% end %>
+</div>
+
+

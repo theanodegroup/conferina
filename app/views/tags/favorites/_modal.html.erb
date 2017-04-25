@@ -1,0 +1,28 @@
+<div class="modal fade" id="manage_tag_subscriptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <%= form_tag favorites_update_path, remote: true do %>
+      	<%= hidden_field_tag(:favorite_style, @favorite_style) %>
+      	<%= hidden_field_tag(:favoritable_type, Tag) %>
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Your Tag Subscriptions</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <%= render partial: 'tags/favorites/modal/body' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= submit_tag 'Update Tag Subscriptions', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#favorite_ids').select2();
+</script>

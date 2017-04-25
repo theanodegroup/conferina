@@ -1,6 +1,9 @@
 class TagsController < ApplicationController
 	before_action :authenticate_user!
 
+  def show_favorites_modal
+  end
+
 	def index
 		# @tags = Tag.visible.all.order(:name)
 

@@ -3,6 +3,7 @@ class SearchsController < ApplicationController
 
   def search
     @favorite_style = Favorite::STYLE_LINK
+    @favorite_type = Tag
 
     tag_ids = params[:tag_ids].try(:map, &:to_i)
     if tag_ids.present? && tag_ids.size > 1 && tag_ids.first == Tag.all_tag.id

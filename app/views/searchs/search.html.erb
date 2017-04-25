@@ -16,10 +16,9 @@
           <%# "All" tag is a special tag filtered out by default scope, hence use of upscoped %>
           <%# find_by! is used to ensure that the tag exists %>
           <% if !current_user.nil? %>
-            <% @notable = @tag_id == 'all' ? Tag.find_by!(name: @tag_id.titleize) : Tag.find(@tag_id) %>
             <div data-toggle="tooltip" data-placement="top"
-                 title="By subscribing, you'll see be notified of all event updates and published events for this tag">
-              <%= render partial: 'favorites/link' %>
+                 title="Add/Remove tag subscriptions">
+              <%= render partial: 'tags/favorites/button' %>
             </div>
           <% end %>
         </div>
@@ -91,7 +90,10 @@
           <% if current_user.present? %>
             <td>
               <% @notable = event %>
-              <%= render partial: 'favorites/link' %>
+              <div data-toggle="tooltip" data-placement="top"
+                   title="By subscribing, you'll be notified of all updates for this event.">
+                <%= render partial: 'favorites/link' %>
+              </div>
             </td>
           <% end %>
         </tr>
@@ -104,7 +106,7 @@
 </div>
 
 <%= render partial: 'searchs/modal' %>
-
+<%= render partial: 'tags/favorites/modal' %>
 
 <script type="text/javascript">
     onload=function(){

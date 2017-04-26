@@ -106,7 +106,9 @@
 </div>
 
 <%= render partial: 'searchs/modal' %>
-<%= render partial: 'tags/favorites/modal' %>
+<% if current_user.present? %>
+  <%= render partial: 'tags/favorites/modal' %>
+<% end %>
 
 <script type="text/javascript">
     onload=function(){

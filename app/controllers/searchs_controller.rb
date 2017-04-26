@@ -19,7 +19,6 @@ class SearchsController < ApplicationController
     else
       @selected_tags_ids = @selected_tags.pluck(:id)
       @events = Event.where(is_published: true).includes(:tags).where( tags: {id: @selected_tags_ids })
-      filter_events
     end
 
 
@@ -50,6 +49,7 @@ class SearchsController < ApplicationController
   def filter_events
     # Filter events so that only that include all selected tags are listed
     # This basically turns the OR query on the selected tags to an AND query
+    # => This code is no longer used as an OR query was preferred, left if needed.
     @events = @events.to_a.select do |event|
       (event.tags.pluck(:id) & @selected_tags_ids) == @selected_tags_ids
     end

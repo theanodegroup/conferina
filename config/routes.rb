@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   resources :feedbacks, :except => [:edit, :update] # Feedback is immutable
   resources :notes
   root to: 'visitors#index'
-  devise_for :users, controllers: { registrations: 'registrations', invitations: 'invitations' }
 
+  delete 'user/delete_data/:id', to: 'users#delete_data', as: :user_delete_data
+  post 'user/unpublish_events/:id', to: 'users#unpublish_events', as: :user_unpublish_events
+  devise_for :users, controllers: { registrations: 'registrations', invitations: 'invitations' }
   devise_scope :user do
     post "sessions/user" => "devise/sessions#create"
     get "sessions/new.user" => "devise/sessions#new"

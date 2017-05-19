@@ -8,5 +8,17 @@
   <% end %>
 </td>
 <td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
+  <%= link_to("Unpublish Events", user_unpublish_events_path(user),
+              :data => { :confirm => "This will unpublish all events for this user? Are you sure?" },
+              :method => :post, :class => 'button-xs') unless user == current_user %>
+</td>
+<td>
+  <%= link_to("Delete user data", user_delete_data_path(user),
+              :data => { :confirm => "This will delete all data for the user? Are you sure?" },
+              :method => :delete, :class => 'button-xs') unless user == current_user %>
+</td>
+<td>
+  <%= link_to("Delete user", user_path(user),
+              :data => { :confirm => "This will delete the user. Are you sure?" },
+              :method => :delete, :class => 'button-xs') unless user == current_user %>
 </td>

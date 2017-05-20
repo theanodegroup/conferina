@@ -1,0 +1,21 @@
+<tr>
+  <th class="text-primary col-md-3">Name</th>
+  <th class="text-primary col-md-4">Address</th>
+  <th class="text-primary col-md-1">City</th>
+  <th class="text-primary col-md-2">Province / State</th>
+  <th class="text-primary col-md-2">Actions</th>
+</tr>
+
+<% @venues.order(:name).each do |venue| %>
+  <tr>
+    <td><%= venue.name %></td>
+    <td><%= venue.address %></td>
+    <td><%= venue.city %></td>
+    <td><%= venue.state %></td>
+    <td>
+    	<%= link_to 'Edit', edit_venue_path(venue) %>
+    	<%= link_to 'Delete', venue_path(venue), method: :delete, :class => 'delete' %>
+
+    </td>
+  </tr>
+<% end %>

@@ -1,0 +1,16 @@
+<tr>
+  <th class="text-primary col-md-1">No</th>
+  <th class="text-primary col-md-9">Tag Name</th>
+  <th class="text-primary col-md-2">Actions</th>
+</tr>
+
+<% @tags.each_with_index do |tag, no| %>
+  <tr>
+    <td><%= no + 1 %></td>
+    <td><%= tag.name %></td>
+    <td>
+    	<%= link_to 'Edit', edit_tag_path(tag) %>
+    	<%= link_to 'Delete', tag_path(tag), method: :delete, data: { confirm: "Are you sure?" } %>
+  	  </td>
+  </tr>
+<% end %>

@@ -1,0 +1,17 @@
+<tr>
+  <th class="text-primary col-md-5">Person Type</th>
+  <th class="text-primary col-md-5">Description</th>
+  <th class="text-primary col-md-2">&nbsp;</th>
+</tr>
+
+<% @person_types.each do |person_type| %>
+  <tr>
+    <td><%= person_type.category %></td>
+    <td><%= person_type.description %></td>
+    <td>
+    	<%= link_to 'Edit', edit_person_type_path(person_type) %>
+    	<%= link_to 'Delete', person_type_path(person_type), method: :delete,
+    	            data: {erasable: !(Person.where(person_type_id: person_type.id).present?) } %>
+	  </td>
+  </tr>
+<% end %>

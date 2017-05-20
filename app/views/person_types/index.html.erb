@@ -6,54 +6,12 @@
 		<a href="#" class="pull-right" data-toggle="modal" data-target="#person_type_modal">Advanced Search</a>
 	</div>
 	<div class="row">
-		<table class="table table-striped">
-		  <tr>
-		    <th class="text-primary col-md-5">Person Type</th>
-		    <th class="text-primary col-md-5">Description</th>
-		    <th class="text-primary col-md-2">&nbsp;</th>
-		  </tr>
-
-		  <% @person_types.each do |person_type| %>
-		    <tr>
-		      <td><%= person_type.category %></td>
-		      <td><%= person_type.description %></td>
-		      <td>
-		      	<%= link_to 'Edit', edit_person_type_path(person_type) %>
-		      	<%= link_to 'Delete', person_type_path(person_type), method: :delete,
-		      	            data: {erasable: !(Person.where(person_type_id: person_type.id).present?) } %>
-      	  </td>
-		    </tr>
-	    <% end %>
+		<table id='person-type-table' class="table table-striped">
+			<%= render partial: 'person_types/index/table' %>
 		</table>
 	</div>
 
-	<!-- Start: Person Type Search Modal -->
-	<div id="person_type_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	    <%= form_for :person_type, url: search_person_type_path, :html => { :id => "search_person_type_form" } do |f| %>
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
-	      </div>
-	      <div class="modal-body">
-			  <div class="form-group row">
-				<label for="category" class="col-xs-3 col-form-label">Person Type</label>
-				<div class="col-xs-6">
-				  <%= f.text_field :category, :class => 'form-control' %>
-				</div>
-			  </div>
-
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <%= f.submit "Search", :class => 'btn btn-primary' %>
-	      </div>
-	    <% end %>
-	    </div>
-	  </div>
-	</div>
-	<!-- End: Person Type Search Modal -->
+	<%= render partial: 'person_types/index/modal' %>
 </div>
 
 <!-- Start: Confirm Modal -->

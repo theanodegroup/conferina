@@ -21,9 +21,7 @@ class SearchsController < ApplicationController
       @events = Event.where(is_published: true).includes(:tags).where( tags: {id: @selected_tags_ids })
     end
 
-
     @selected_tags_ids = @selected_tags.pluck(:id) if @selected_tags_ids.nil?
-
 
     @tag_id = params[:tag_id].nil? ? "all" : params[:tag_id]
 

@@ -1,0 +1,5 @@
+<%# Autoclose modal %>
+$('#events_modal').modal('hide')
+
+<%# Rerender table %>
+$('#events-table').html('<%= j render partial: 'events/index/table' %>')

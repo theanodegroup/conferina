@@ -2,11 +2,7 @@ class PersonTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		if (not params[:person_type_search].blank?) && (params[:person_type_search].eql? 'true')
-	      @person_types = current_user.person_types.where(params[:sql]).order(:category)
-	    else
-	      @person_types = current_user.person_types.order(:category)
-	    end	
+    @person_types = current_user.person_types.order(:category)
 	end
 
 	def show
@@ -26,7 +22,7 @@ class PersonTypesController < ApplicationController
 
 	def update
 		@person_type = PersonType.find(params[:id])
- 
+
 	  	if @person_type.update(person_type_params)
 	  		redirect_to person_types_path
 	  	else
@@ -67,18 +63,12 @@ class PersonTypesController < ApplicationController
 		else
 			render :new
 		end
-	    
+
 	end
 
 	def search
-		sql = ''
-		if not params[:person_type][:category].eql? ''
-	      sql = "category ILIKE " + "'%" + params[:person_type][:category] + "%'"
-	    else
-	      sql = 'TRUE'
-	    end
-
-	    redirect_to person_types_path(person_type_search: true, sql: sql)
+		query = "%#{person_type_params[:category]}%"
+		@person_types = current_user.person_types.where('category ILIKE ?', query).order(:category)
 	end
 
 	def destroy
@@ -90,14 +80,14 @@ class PersonTypesController < ApplicationController
 		# current_user.person_types.delete(params[:id])
 		@person_type = PersonType.find(params[:id])
 		@person_type.destroy
-		 
-		redirect_to person_types_path	
+
+		redirect_to person_types_path
 	end
 
 	private
-  
+
 	def person_type_params
 		params.require(:person_type).permit(:category, :description, :avatar)
 	end
-	
+
 end

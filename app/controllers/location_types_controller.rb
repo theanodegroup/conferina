@@ -2,12 +2,7 @@ class LocationTypesController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-
-		if (not params[:location_type_search].blank?) && (params[:location_type_search].eql? 'true')
-	      @location_types = current_user.location_types.where(params[:sql]).order(:category)
-	    else
-	      @location_types = current_user.location_types.order(:category)
-	    end
+    @location_types = current_user.location_types.order(:category)
 	end
 
 	def show
@@ -16,7 +11,7 @@ class LocationTypesController < ApplicationController
 
 	def new
 		@location_type = LocationType.new
-		gon.all = current_user.location_types	
+		gon.all = current_user.location_types
 	end
 
 	def edit
@@ -27,7 +22,7 @@ class LocationTypesController < ApplicationController
 
 	def update
 		@location_type = LocationType.find(params[:id])
- 
+
 	  	if @location_type.update(location_type_params)
 	  		redirect_to location_types_path
 	  	else
@@ -41,7 +36,7 @@ class LocationTypesController < ApplicationController
 	 		@location_type.by_admin = true
 	 	end
 
-	    if @location_type.save
+    if @location_type.save
 	 		current_user.location_types << @location_type
 
 	 		if current_user.admin?
@@ -64,35 +59,29 @@ class LocationTypesController < ApplicationController
 		 		end
 		 	end
 
-			redirect_to location_types_path	
+			redirect_to location_types_path
 		else
 			render :new
 		end
-	    
+
 	end
 
 	def search
-		sql = ''
-		if not params[:location_type][:category].eql? ''
-	      sql = "category ILIKE " + "'%" + params[:location_type][:category] + "%'"
-	    else
-	      sql = 'TRUE'
-	    end
-
-	    redirect_to location_types_path(location_type_search: true, sql: sql)
+		query = "%#{location_type_params[:category]}%"
+		@location_types = current_user.category_types.where('category ILIKE ?', query).order(:category)
 	end
 
 	def destroy
 		@location_type = LocationType.find(params[:id])
 		@location_type.destroy
-		 
-		redirect_to location_types_path	
+
+		redirect_to location_types_path
 	end
 
 	private
-  
+
 	def location_type_params
 		params.require(:location_type).permit(:category, :avatar)
 	end
-	
+
 end

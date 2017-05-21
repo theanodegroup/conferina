@@ -5,13 +5,7 @@ class TagsController < ApplicationController
   end
 
 	def index
-		# @tags = Tag.visible.all.order(:name)
-
-		if !params[:tag_search].blank? && params[:tag_search].eql?('true')
-			@tags = Tag.visible.where(params[:sql]).order(:name)
-		else
-			@tags = Tag.visible.all.order(:name)
-		end
+		@tags = Tag.visible.all.order(:name)
 	end
 
 	def new
@@ -47,14 +41,8 @@ class TagsController < ApplicationController
 	end
 
 	def search
-		sql = ''
-		if not params[:tag][:name].eql? ''
-	      sql = "name ILIKE " + "'%" + params[:tag][:name] + "%'"
-	    else
-	      sql = 'TRUE'
-	    end
-
-	    redirect_to tags_path(tag_search: true, sql: sql)
+		query = "%#{tag_params[:name]}%"
+		@tags = Tag.visible.where('name ILIKE ?', query).order(:name)
 	end
 
 	def destroy

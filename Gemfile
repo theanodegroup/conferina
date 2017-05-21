@@ -62,6 +62,9 @@ group :development do
   gem 'rails_layout'
   gem 'spring-commands-rspec'
   gem 'mailcatcher'
+
+  # Security
+  gem 'brakeman', :require => false
 end
 group :development, :test do
   gem 'factory_girl_rails'

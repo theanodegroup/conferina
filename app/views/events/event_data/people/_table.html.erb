@@ -1,0 +1,23 @@
+<tr>
+  <th class="text-primary col-md-3">Name/Title</th>
+  <th class="text-primary col-md-2">Description</th>
+  <th class="text-primary col-md-2">Company</th>
+  <th class="text-primary col-md-5">Actions</th>
+</tr>
+
+<% @persons.each do |person| %>
+  <tr>
+    <td><%= person.name %></td>
+    <td><%= person.description %></td>
+    <td><%= person.subtitle %></td>
+    <td>
+    	<% @notable = person %>
+    	<%= render partial: 'events/event_data/actions' %>
+    	<%= link_to 'Edit', edit_person_path(person) %>
+    	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>
+    	<%# @note: If page load slowly, try removing the unless below if many persons %>
+    	<%= link_to 'Similiar', similar_persons_path(person) unless person.similar_persons(current_user).empty? %>
+  	  </td>
+  </tr>
+	<%= render partial: 'favorites/hidden_form' %>
+<% end %>

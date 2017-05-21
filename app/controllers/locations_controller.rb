@@ -2,6 +2,8 @@ class LocationsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_requisites
 
+  include SearchHelper
+
   def index
   end
 
@@ -17,7 +19,7 @@ class LocationsController < ApplicationController
 
   def update
     @location = Location.find(params[:id])
- 
+
     if @location.update(location_params)
       redirect_to event_data_path(event_id: @location[:event_id], category: 'locations')
     else
@@ -27,7 +29,7 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
- 
+
     if @location.save
       redirect_to event_data_path(event_id: @location[:event_id], category: 'locations')
       # render "events/event_data"
@@ -37,49 +39,20 @@ class LocationsController < ApplicationController
   end
 
   def search
-    sql = ''
-    if not params[:location][:name].eql? ''
-      sql = sql + "name ILIKE '%" + params[:location][:name] + "%' OR "
-    end
-
-    if not params[:location][:address].eql? ''
-      sql = sql + "address ILIKE '%" + params[:location][:address] + "%' OR "
-    end   
-
-    if not params[:location][:city].eql? ''
-      sql = sql + "city ILIKE '%" + params[:location][:city] + "%' OR "
-    end
-
-    if not params[:location][:state].eql? ''
-      sql = sql + "state ILIKE '%" + params[:location][:state] + "%' OR "
-    end
-
-    if not params[:location][:country].eql? ''
-      sql = sql + "country ILIKE '%" + params[:location][:country] + "%' OR "
-    end
-
-    if not params[:location][:zip].eql? ''
-      sql = sql + "zip ILIKE '%" + params[:location][:zip] + "%' OR "
-    end
-
-    if not params[:location][:phone].eql? ''
-      sql = sql + "phone ILIKE '%" + params[:location][:phone] + "%' OR "
-    end
-
-    if not params[:location][:description].eql? ''
-      sql = sql + "description ILIKE '%" + params[:location][:description] + "%' OR "
-    end
-
-    if not params[:location][:subtitle].eql? ''
-      sql = sql + "subtitle ILIKE '%" + params[:location][:subtitle] + "%' OR "
-    end
-
-    if sql.eql? ''
-      sql = 'TRUE'
-    else
-      sql = sql + 'FALSE'
-    end  
-    redirect_to event_data_path(event_id: params[:location][:event_id], category: 'locations', location_search: 'true', sql: sql) 
+    @favorite_style = Favorite::STYLE_STAR
+    @event = Event.find(params[:location][:event_id])
+		@locations = @event.locations
+		@locations = multi_search_query(@locations, location_params,
+		  name: 'ILIKE',
+		  address: 'ILIKE',
+		  city: 'ILIKE',
+		  state: 'ILIKE',
+		  country: 'ILIKE',
+		  zip: 'ILIKE',
+		  phone: 'ILIKE',
+		  description: 'ILIKE',
+		  subtitle: 'ILIKE').order(:name)
+		render 'events/event_data/locations/search'
   end
 
   def destroy
@@ -90,13 +63,13 @@ class LocationsController < ApplicationController
       session.save
     end
     @location.destroy
-    
+
     redirect_to event_data_path(event_id: @event[:id], category: 'locations')
-    # render "events/event_data" 
+    # render "events/event_data"
   end
 
   private
-  
+
   def location_params
     params.require(:location).permit(:name, :address, :city, :state, :country, :zip, :map_address, :avatar, :avatar_cache, :detailed_avatar, :detailed_avatar_cache, :phone, :description, :subtitle, :lat, :lng, :event_id, :location_type_id)
   end

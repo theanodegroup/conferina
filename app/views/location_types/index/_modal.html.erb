@@ -1,0 +1,27 @@
+<!-- Start: Location Type Search Modal -->
+<div id="location_type_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <%= form_for :location_type, url: search_location_type_path, remote: true, :html => { :id => "search_location_type_form" } do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="form-group row">
+			<label for="category" class="col-xs-3 col-form-label">Location Type</label>
+			<div class="col-xs-6">
+			  <%= f.text_field :category, :class => 'form-control' %>
+			</div>
+		  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit "Search", :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+<!-- End: Location Type Search Modal -->

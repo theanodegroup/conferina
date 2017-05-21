@@ -2,28 +2,10 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:search_events, :show]
   before_action :get_category_types, only: [:index, :new, :edit, :search_events]
 
+  include SearchHelper
+
   def index
-    if params[:sql].present?
-      @events_without_tags = current_user.events.where(params[:sql]).order(:name)
-
-      params[:tags].delete("")
-
-      if params[:tags].present? && (params[:tags].count > 0)
-        @events = []
-        @events_without_tags.each do |event|
-          event.tags.each do |t|
-            if params[:tags].include? t.id.to_s
-              @events.push(event)
-              break
-            end
-          end
-        end
-      else
-        @events = @events_without_tags
-      end
-    else
-      @events = current_user.events.order(:name)
-    end
+    @events = current_user.events.order(:name)
   end
 
   def show
@@ -117,26 +99,9 @@ class EventsController < ApplicationController
 
     if not @event.nil?
       @social = @event.social
-      if (not params[:person_search].blank?) && (params[:person_search].eql? 'true')
-        # @persons = Person.where(params[:sql]).order(:name)
-        @persons = @event.persons.where(params[:sql]).order(:name)
-      else
-        @persons = @event.persons.order(:name)
-      end
-
-      if (not params[:location_search].blank?) && (params[:location_search].eql? 'true')
-        # @locations = Location.where(params[:sql]).order(:name)
-        @locations = @event.locations.where(params[:sql]).order(:name)
-      else
-        @locations = @event.locations.order(:name)
-      end
-
-      if (not params[:session_search].blank?) && (params[:session_search].eql? 'true')
-        # @sessions = Session.where(params[:sql]).order(:name)
-        @sessions = @event.sessions.where(params[:sql]).order(:start_time)
-      else
-        @sessions = @event.sessions.order(:start_time)
-      end
+      @persons = @event.persons.order(:name)
+      @locations = @event.locations.order(:name)
+      @sessions = @event.sessions.order(:start_time)
     end
 
     if params[:category].blank?
@@ -155,40 +120,22 @@ class EventsController < ApplicationController
   end
 
   def search_events
-    sql = ''
-    if not params[:event][:name].eql? ''
-      sql = sql + "name ILIKE '%" + params[:event][:name] + "%' AND "
-    end
-
-    if (not params[:event][:category_id].nil?) && (params[:event][:category_id].present?)
-      sql = sql + "category_id = " + params[:event][:category_id] + " AND "
-    end
-
-    if not params[:event][:start_date].eql? ''
-      sql = sql + "start_date = '" + params[:event][:start_date] + "' AND "
-    end
-
-    if not params[:event][:end_date].eql? ''
-      sql = sql + "end_date = '" + params[:event][:end_date] + "' AND "
-    end
-
-    if not params[:event][:address].eql? ''
-      sql = sql + "address ILIKE '%" + params[:event][:address] + "%' AND "
-    end
-
-    if sql.eql? ''
-      sql = 'TRUE'
-    else
-      sql = sql + 'TRUE'
-    end
-
-    redirect_to events_path(sql: sql, tags: params[:event][:tags])
+		@events = current_user.events
+		@events = multi_search_query(@events, event_params,
+		  name: 'ILIKE',
+		  category_id: '=',
+		  start_date: '=',
+		  end_date: '=',
+		  address: 'ILIKE').order(:name)
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache, :timezone, :start_date, :end_date, :coming_soon, :address, :call_for, :extra_desc, :submission, :notification, :lat, :lng, :tags)
+    params.require(:event).permit(:name, :description, :category_id, :avatar, :avatar_cache,
+                                  :timezone, :start_date, :end_date, :coming_soon, :address,
+                                  :call_for, :extra_desc, :submission, :notification, :lat, :lng,
+                                  :tags => [])
   end
 
   def get_category_types

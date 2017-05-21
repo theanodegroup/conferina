@@ -1,0 +1,5 @@
+<%# Autoclose modal %>
+$('#person_type_modal').modal('hide')
+
+<%# Rerender table %>
+$('#person-type-table').html('<%= j render partial: 'person_types/index/table' %>')

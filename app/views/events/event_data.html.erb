@@ -10,7 +10,6 @@
 	</div>
 
 	<div>
-
 	  <!-- Nav tabs -->
 	  <ul class="nav nav-tabs responsive" role="tablist">
 	    <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab">People</a></li>
@@ -26,43 +25,20 @@
 
 	    	<h2>Persons</h2>
 
-			<div class="small-bottom">
-				<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
+				<div class="small-bottom">
+					<%= link_to '+ Add New Person', new_person_path(id: @event.id), class: "btn btn-primary" %>
 
-        <div data-toggle="tooltip" data-placement="top"
-             title="We'll send you an email with all your Notes about People.">
-					<%= link_to 'Bulk Export', notes_bulk_export_path(notable_type: 'Person'), remote: true, :class => 'btn btn-default' %>
-        </div>
-				<a href="#" class="pull-right" data-toggle="modal" data-target="#person_modal">Advanced Search</a>
-			</div>
-			<div class="row">
-				<table class="table table-striped">
-				  <tr>
-				    <th class="text-primary col-md-3">Name/Title</th>
-				    <th class="text-primary col-md-2">Description</th>
-				    <th class="text-primary col-md-2">Company</th>
-				    <th class="text-primary col-md-5">Actions</th>
-				  </tr>
-
-				  <% @persons.each do |person| %>
-				    <tr>
-				      <td><%= person.name %></td>
-				      <td><%= person.description %></td>
-				      <td><%= person.subtitle %></td>
-				      <td>
-				      	<% @notable = person %>
-				      	<%= render partial: 'events/event_data/actions' %>
-				      	<%= link_to 'Edit', edit_person_path(person) %>
-				      	<%= link_to 'Delete', person_path(person), method: :delete, :class => 'delete' %>
-				      	<%# @note: If page load slowly, try removing the unless below if many persons %>
-				      	<%= link_to 'Similiar', similar_persons_path(person) unless person.similar_persons(current_user).empty? %>
-			      	  </td>
-				    </tr>
-		      	<%= render partial: 'favorites/hidden_form' %>
-				  <% end %>
-
-				</table>
-			</div>
+	        <div data-toggle="tooltip" data-placement="top"
+	             title="We'll send you an email with all your Notes about People.">
+						<%= link_to 'Bulk Export', notes_bulk_export_path(notable_type: 'Person'), remote: true, :class => 'btn btn-default' %>
+	        </div>
+					<a href="#" class="pull-right" data-toggle="modal" data-target="#person_modal">Advanced Search</a>
+				</div>
+				<div class="row">
+					<table id='people-table' class="table table-striped">
+						<%= render partial: 'events/event_data/people/table' %>
+					</table>
+				</div>
 			<% end %>
 	    </div>
 
@@ -79,32 +55,8 @@
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#location_modal">Advanced Search</a>
 			</div>
 			<div class="row">
-				<table class="table table-striped">
-				  <tr>
-				    <th class="text-primary col-md-3">Name</th>
-				    <th class="text-primary col-md-2">Address</th>
-				    <th class="text-primary col-md-1">City</th>
-				    <th class="text-primary col-md-2">Province / State</th>
-				    <th class="text-primary col-md-4">Actions</th>
-				  </tr>
-
-				  <% @locations.order(:name).each do |location| %>
-				    <tr>
-				      <td><%= location.name %></td>
-				      <td><%= location.address %></td>
-				      <td><%= location.city %></td>
-				      <td><%= location.state %></td>
-				      <td>
-				      	<% @notable = location %>
-				      	<%= render partial: 'events/event_data/actions' %>
-				      	<%= link_to 'Edit', edit_location_path(location) %>
-				      	<%= link_to 'Delete', location_path(location), method: :delete, :class => 'delete' %>
-
-				      </td>
-				    </tr>
-		      	<%= render partial: 'favorites/hidden_form' %>
-				  <% end %>
-
+				<table id='locations-table' class="table table-striped">
+					<%= render partial: 'events/event_data/locations/table' %>
 				</table>
 			</div>
 			<% end %>
@@ -123,40 +75,8 @@
 				<a href="#" class="pull-right" data-toggle="modal" data-target="#session_modal">Advanced Search</a>
 			</div>
 			<div class="row">
-				<table class="table table-striped">
-				  <tr>
-				    <th class="text-primary col-md-2">Start Time</th>
-				    <th class="text-primary col-md-2">End Time</th>
-				    <th class="text-primary col-md-2">Session Name</th>
-				    <th class="text-primary col-md-2">Venue/Place</th>
-				    <th class="text-primary col-md-4">Actions</th>
-				  </tr>
-
-				  <% @sessions.order(:start_time).each do |session| %>
-				    <tr>
-				      <td><%= session.start_time %></td>
-				      <td><%= session.end_time %></td>
-				      <td><%= session.name %></td>
-				      <td><%= session.location.nil? ? '' : session.location.name %></td>
-				      <td>
-				      	<% if session.is_published
-				      		publish_btn = "Unpublish"
-				      		classes = "btn btn-default"
-					       else
-					        publish_btn = "Publish"
-				      		classes = "btn btn-primary"
-					       end
-				      	%>
-				      	<% @notable = session %>
-				      	<%= render partial: 'events/event_data/actions' %>
-				      	<%= link_to 'Edit', edit_session_path(session) %>
-				      	<%= link_to 'Delete', session_path(session), method: :delete, :class => 'delete' %>
-				      	<%= link_to publish_btn, session_publish_path(session) %>
-				      </td>
-				    </tr>
-		      	<%= render partial: 'favorites/hidden_form' %>
-				  <% end %>
-
+				<table id='sessions-table' class="table table-striped">
+					<%= render partial: 'events/event_data/sessions/table' %>
 				</table>
 			</div>
 			<% end %>
@@ -221,252 +141,9 @@
 	</div>
 
 	<% if not @event.nil? %>
-	<!-- Start: Persons Modal Dialog -->
-	<div id="person_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	    <%= form_for :person, url: search_person_path, :html => { :id => "search_person_form" } do |f| %>
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
-	      </div>
-	      <div class="modal-body">
-
-
-
-			  <div class="form-group row">
-				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name/Title</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :name, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="subtitle" class="col-sm-3 col-xs-5 col-form-label">Company</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :subtitle, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :description, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="website" class="col-sm-3 col-xs-5 col-form-label">Website URL</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :website, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="youtube" class="col-sm-3 col-xs-5 col-form-label">Youtube URL</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :youtube, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="facebook" class="col-sm-3 col-xs-5 col-form-label">Facebook Link</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :facebook, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="twitter" class="col-sm-3 col-xs-5 col-form-label">Twitter Link</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :twitter, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="phone" class="col-sm-3 col-xs-5 col-form-label">Phone Number</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :phone, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="email" class="col-sm-3 col-xs-5 col-form-label">Email Address</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.email_field :email, :class => 'form-control' %>
-				</div>
-			  </div>
-
-
-			  <%= f.hidden_field :event_id, :value => @event.id %>
-
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <%= f.submit "Search", :class => 'btn btn-primary' %>
-	      </div>
-	    <% end %>
-	    </div>
-	  </div>
-	</div>
-
-	<!-- End: Persons Modal Dialog -->
-
-	<!-- Start: Locations Modal Dialog -->
-	<div id="location_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	    <%= form_for :location, url: search_location_path, :html => { :id => "search_location_form" } do |f| %>
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
-	      </div>
-	      <div class="modal-body">
-
-
-
-			  <div class="form-group row">
-				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :name, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="address" class="col-sm-3 col-xs-5 col-form-label">Address</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :address, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="city" class="col-sm-3 col-xs-5 col-form-label">City</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :city, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="state" class="col-sm-3 col-xs-5 col-form-label">Province / State</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :state, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="country" class="col-sm-3 col-xs-5 col-form-label">Country</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :country, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="zip" class="col-sm-3 col-xs-5 col-form-label">Postal Code /Zip</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :zip, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="phone" class="col-sm-3 col-xs-5 col-form-label">Phone Number</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :phone, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :description, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="subtitle" class="col-sm-3 col-xs-5 col-form-label">Subtitle</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.email_field :subtitle, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <%= f.hidden_field :event_id, :value => @event.id %>
-
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <%= f.submit "Search", :class => 'btn btn-primary' %>
-	      </div>
-	    <% end %>
-	    </div>
-	  </div>
-	</div>
-
-	<!-- End: Locations Modal Dialog -->
-
-	<!-- Start: Sessions Modal Dialog -->
-	<div id="session_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	    <%= form_for :session, url: search_session_path, :html => { :id => "search_session_form" } do |f| %>
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="gridModalLabel">Advanced Search</h4>
-	      </div>
-	      <div class="modal-body">
-			  <div class="form-group row">
-				<label for="name" class="col-sm-3 col-xs-5 col-form-label">Name</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :name, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="start_time" class="col-sm-3 col-xs-5 col-form-label">Start Time</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :start_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="end_time" class="col-sm-3 col-xs-5 col-form-label">End Time</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :end_time, :class => 'form-control', :placeholder => 'yyyy-mm-dd hh:mm' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="description" class="col-sm-3 col-xs-5 col-form-label">Description</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :description, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="other_time" class="col-sm-3 col-xs-5 col-form-label">Alternative Time Display</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :other_time, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <div class="form-group row">
-				<label for="tags" class="col-sm-3 col-xs-5 col-form-label">Tags</label>
-				<div class="col-sm-6 col-xs-7">
-				  <%= f.text_field :tags, :class => 'form-control' %>
-				</div>
-			  </div>
-
-			  <%= f.hidden_field :event_id, :value => @event.id %>
-
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <%= f.submit "Search", :class => 'btn btn-primary' %>
-	      </div>
-	    <% end %>
-	    </div>
-	  </div>
-	</div>
-
-	<!-- End: Sessions Modal Dialog -->
+	<%= render partial: 'events/event_data/people/modal' %>
+	<%= render partial: 'events/event_data/locations/modal' %>
+	<%= render partial: 'events/event_data/sessions/modal' %>
 	<% end %>
 </div>
 
@@ -491,6 +168,7 @@
 <!-- End: Confirm Modal -->
 
 <script type="text/javascript">
+  $('#session_tags').select2();
 
   $(document).ready(function(){
   	fakewaffle.responsiveTabs(['xs', 'sm']);
@@ -498,21 +176,20 @@
 	$('#edit_social_form').data("toggle", "validator");
 	$('#edit_social_form').validator();
 
-  	$('#event_id').on('change', function() {
-		window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
-  	});
+	$('#event_id').on('change', function() {
+	window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
+	});
 
-  	$(".nav-tabs a").on('click', function() {
-  		if($(this).closest('li').hasClass('active')) return;
-  		window.location.href = "/event_data?event_id=" + $('#event_id').val() + "&category=" + $(this).attr('aria-controls');
-  	});
+	$(".nav-tabs a").on('click', function() {
+		if($(this).closest('li').hasClass('active')) return;
+		window.location.href = "/event_data?event_id=" + $('#event_id').val() + "&category=" + $(this).attr('aria-controls');
+	});
 
-  	var category = "<%= @category %>";
+	var category = "<%= @category %>";
 
-  	$(".nav-tabs a[href='#" + category + "']").tab('show');
+	$(".nav-tabs a[href='#" + category + "']").tab('show');
 
-
-  	var selected;
+	var selected;
 
 	$("a.delete").on('click', function(e){
 		e.preventDefault();
@@ -529,6 +206,3 @@
 	});
   });
 </script>
-
-
-

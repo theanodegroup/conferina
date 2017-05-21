@@ -1,0 +1,5 @@
+<%# Autoclose modal %>
+$('#location_modal').modal('hide')
+
+<%# Rerender table %>
+$('#locations-table').html('<%= j render partial: 'events/event_data/locations/table' %>')

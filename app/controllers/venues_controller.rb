@@ -47,8 +47,7 @@ class VenuesController < ApplicationController
 		  zip: 'ILIKE',
 		  phone: 'ILIKE',
 		  description: 'ILIKE',
-		  subtitle: 'ILIKE')
-		@venues.order(:name)
+		  subtitle: 'ILIKE').order(:name)
   end
 
   def destroy

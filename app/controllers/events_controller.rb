@@ -99,26 +99,9 @@ class EventsController < ApplicationController
 
     if not @event.nil?
       @social = @event.social
-      if (not params[:person_search].blank?) && (params[:person_search].eql? 'true')
-        # @persons = Person.where(params[:sql]).order(:name)
-        @persons = @event.persons.where(params[:sql]).order(:name)
-      else
-        @persons = @event.persons.order(:name)
-      end
-
-      if (not params[:location_search].blank?) && (params[:location_search].eql? 'true')
-        # @locations = Location.where(params[:sql]).order(:name)
-        @locations = @event.locations.where(params[:sql]).order(:name)
-      else
-        @locations = @event.locations.order(:name)
-      end
-
-      if (not params[:session_search].blank?) && (params[:session_search].eql? 'true')
-        # @sessions = Session.where(params[:sql]).order(:name)
-        @sessions = @event.sessions.where(params[:sql]).order(:start_time)
-      else
-        @sessions = @event.sessions.order(:start_time)
-      end
+      @persons = @event.persons.order(:name)
+      @locations = @event.locations.order(:name)
+      @sessions = @event.sessions.order(:start_time)
     end
 
     if params[:category].blank?
@@ -143,8 +126,7 @@ class EventsController < ApplicationController
 		  category_id: '=',
 		  start_date: '=',
 		  end_date: '=',
-		  address: 'ILIKE')
-		@events.order(:name)
+		  address: 'ILIKE').order(:name)
   end
 
   private

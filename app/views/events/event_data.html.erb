@@ -176,15 +176,6 @@
 	$('#edit_social_form').data("toggle", "validator");
 	$('#edit_social_form').validator();
 
-	$('#event_id').on('change', function() {
-	window.location.href = "/event_data?event_id=" + $(this).val() + "&category=" + $(".nav-tabs .active a").attr('aria-controls');
-	});
-
-	$(".nav-tabs a").on('click', function() {
-		if($(this).closest('li').hasClass('active')) return;
-		window.location.href = "/event_data?event_id=" + $('#event_id').val() + "&category=" + $(this).attr('aria-controls');
-	});
-
 	var category = "<%= @category %>";
 
 	$(".nav-tabs a[href='#" + category + "']").tab('show');

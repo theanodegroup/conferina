@@ -54,12 +54,12 @@
 			<div class="row col-sm-6 col-xs-8">
 			  <div class="col-xs-10">
 			    <%= f.text_field :map_address, :placeholder => "Type in an address", :class => 'form-control' %>
-			  		
+
 			  </div>
-			  
+
 			  <div class="col-xs-2">
 			  	<input id="find" type="button" value="Find" class="btn btn-primary" />
-			  </div>     
+			  </div>
 			</div>
 		  </div>
 
@@ -84,7 +84,7 @@
 		  <div class="form-group row">
 			<label class="col-sm-3 col-xs-4 col-form-label">Formatted Address</label>
 			<div class="col-sm-3 col-xs-8">
-			  <input name="formatted_address" type="text" value="" class="form-control" disabled="disabled">	  
+			  <input name="formatted_address" type="text" value="" class="form-control" disabled="disabled">
 			</div>
 			<div class="col-sm-3 col-xs-2" style="display: none;">
 				<a id="reset" href="#" style="display:none;">Reset Marker</a>
@@ -127,24 +127,17 @@
 	  <div class="form-group row">
 		<label for="location_type_id" class="col-sm-3 col-xs-4 col-form-label">Location Type</label>
 		<div class="col-sm-4 col-xs-8">
-		  
+
 		  <select class="form-control" name="location[location_type_id]" id="location_location_type_id">
 		  	<option value="">Select</option>
 		  	<% @location_types.each do |c| %>
 		  	<option value="<%= c.id %>" <% if @location.location_type_id == c.id %>selected<% end %>><%= c.category %></option>
-		  	<% end %>	
+		  	<% end %>
 		  </select>
 		</div>
 	  </div>
 
-	  <div class="form-group row">
-		<label for="subtitle" class="col-sm-3 col-xs-4 col-form-label">Subtitle</label>
-		<div class="col-sm-4 col-xs-8">
-		  <%= f.text_field :subtitle, :class => 'form-control' %>
-		</div>
-	  </div>
-
-	  <%= f.hidden_field :event_id, :value => @event.id %> 
+	  <%= f.hidden_field :event_id, :value => @event.id %>
 
 	  <%= f.submit "Update Location", :class => 'btn btn-primary' %>
 	  <%= link_to 'Back', event_data_path(event_id: @location[:event_id], category: 'locations'), :class => 'btn btn-warning' %>
@@ -161,7 +154,7 @@
 	        draggable: true
 	      }
 	    });
-	    
+
 	    $("#location_map_address").on("geocode:dragged", function(event, latLng){
 	      $("input[name=lat]").val(latLng.lat());
 	      $("input[name=lng]").val(latLng.lng());
@@ -169,27 +162,27 @@
 	    });
 
 	    $("#location_map_address").on("change", function(){
-	    	$("#find").trigger("click");	
+	    	$("#find").trigger("click");
 	    });
-	    
+
 
 	    $("#reset").click(function(){
 	      $("#location_map_address").geocomplete("resetMarker");
 	      $("#reset").hide();
 	      return false;
 	    });
-	    
+
 	    $("#find").click(function(){
 	      $("#location_map_address").trigger("geocode");
-	    }).click();	
+	    }).click();
 
 	    $('#new_location_form').submit(function(event) {
 	    	$('#location_lat').val($('#lat').val());
-			$('#location_lng').val($('#lng').val());	
+			$('#location_lng').val($('#lng').val());
 	    });
 
-	    
-	});	
+
+	});
 </script>
 
 

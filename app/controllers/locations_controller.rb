@@ -50,8 +50,7 @@ class LocationsController < ApplicationController
 		  country: 'ILIKE',
 		  zip: 'ILIKE',
 		  phone: 'ILIKE',
-		  description: 'ILIKE',
-		  subtitle: 'ILIKE').order(:name)
+		  description: 'ILIKE').order(:name)
 		render 'events/event_data/locations/search'
   end
 

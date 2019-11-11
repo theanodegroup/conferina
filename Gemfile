@@ -38,7 +38,7 @@ gem 'bootstrap-sass'
 gem 'twitter-bootstrap-rails'# Adds useful bootstrap generators
 
 # Devise
-gem 'devise',           '~> 4.2'
+gem 'devise',           '~> 4.7'
 gem 'devise_invitable', '~> 1.7.0'
 
 gem 'twilio-ruby', '~> 4.11.1'
